@@ -141,7 +141,7 @@ export default function Home() {
                       background: "transparent",
                       backdropFilter: "blur(5px)",
                       borderRadius: "15px",
-                      borderColor: "white",
+                      border: "1px solid hsla(225, 0%, 100%, 0.15)",
                       boxShadow:
                         "0 10px 30px rgba(0, 0, 0, 0.45), 0 2px 8px rgba(0, 0, 0, 0.25)",
                     }}
