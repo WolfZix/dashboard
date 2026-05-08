@@ -1,12 +1,24 @@
+import { motion } from "framer-motion";
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 10 },
+  show: { opacity: 1, y: 0 },
+};
+
 type StatCardProps = {
   title: string;
   value: string;
   change: string;
 };
 
-export default function StatCardProps({ title, value, change }: StatCardProps) {
+export default function StatCard({ title, value, change }: StatCardProps) {
   return (
-    <div className="bg-slate-900 border border-slate-700 rounded-2xl p-5">
+    <motion.div
+      variants={cardVariants}
+      transition={{ duration: 0.3 }}
+      whileHover={{ scale: 1.02 }}
+      className="bg-slate-900 border border-slate-700 rounded-2xl p-5"
+    >
       <p className="text-slate-400 text-sm">{title}</p>
 
       <div className="flex items-end justify-between mt-2">
@@ -14,6 +26,6 @@ export default function StatCardProps({ title, value, change }: StatCardProps) {
 
         <span className="text-sm text-emerald-400">{change}</span>
       </div>
-    </div>
+    </motion.div>
   );
 }
