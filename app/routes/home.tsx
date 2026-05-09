@@ -22,11 +22,14 @@ export default function Home() {
   const data = useLoaderData<typeof loader>();
   const navigation = useNavigation();
   const loading = navigation.state === "loading";
+
   const PAGE_SIZE = 6;
   const activities = data.activity;
   const pages = Math.ceil(activities.length / PAGE_SIZE);
+
   const [page, setPage] = useState(0);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
+
   const visibleActivities = activities.slice(
     page * PAGE_SIZE,
     page * PAGE_SIZE + PAGE_SIZE,
@@ -46,6 +49,7 @@ export default function Home() {
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
     }
+
     intervalRef.current = setInterval(() => {
       setPage((p) => (p + 1) % pages);
     }, 5000);
@@ -88,6 +92,7 @@ export default function Home() {
             </p>
           </div>
 
+          {/* STATS (REVENUE,USERS,ORDERS,CONVERSION) */}
           <motion.div
             initial="hidden"
             animate="show"
@@ -104,8 +109,11 @@ export default function Home() {
               value={data.stats.revenue}
               change="+12.4%"
             />
+
             <StatCard title="Users" value={data.stats.users} change="+5.2%" />
+
             <StatCard title="Orders" value={data.stats.orders} change="+8.1%" />
+
             <StatCard
               title="Conversion"
               value={data.stats.conversion}
@@ -113,7 +121,9 @@ export default function Home() {
             />
           </motion.div>
 
+          {/* GRID CHART+RECENT */}
           <div className="grid grid-cols-1 xl:grid-cols-3 gap-4">
+            {/* CHART */}
             <div className="xl:col-span-2 bg-[#0b1220] border border-slate-800 rounded-2xl p-5 h-80">
               <h2 className="font-semibold mb-4 text-slate-200">Revenue</h2>
 
@@ -164,9 +174,10 @@ export default function Home() {
               </ResponsiveContainer>
             </div>
 
-            <div className="bg-slate-900 border border-slate-700 rounded-2xl px-15 py-5 w-fit">
+            {/* ACTIVITIES */}
+            <div className="bg-slate-900 border border-slate-700 rounded-2xl px-6 py-5">
               <h2 className="font-semibold mb-2 text-2xl select-none">
-                Recent activity
+                Recent activities (last 5 days)
               </h2>
 
               <AnimatePresence mode="wait">
@@ -180,7 +191,6 @@ export default function Home() {
                   transition={{
                     duration: 0.4,
                     ease: "easeInOut",
-                    staggerChildren: 0.15,
                   }}
                   className="text-lg text-slate-400 space-y-2 select-none"
                 >
@@ -200,12 +210,12 @@ export default function Home() {
               <div className="mt-3 flex gap-1">
                 {Array.from({ length: pages }).map((_, i) => (
                   <div
+                    key={i}
                     onClick={() => {
                       setPage(i);
                       resetInterval();
                     }}
-                    key={i}
-                    className={`h-2.5 w-9.5 cursor-pointer rounded-full ${
+                    className={`h-2.5 w-9.5 cursor-pointer rounded-full transition-all duration-300 ${
                       i === page ? "bg-green-500" : "bg-slate-700"
                     }`}
                   />
