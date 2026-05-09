@@ -1,7 +1,8 @@
 import { getDasboardData } from "~/services/dashboard.server";
 import StatCard from "../components/stat-card";
 import { useLoaderData, useNavigation } from "react-router";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useState, useRef } from "react";
 import {
   AreaChart,
   Area,
@@ -21,28 +22,34 @@ export default function Home() {
   const data = useLoaderData<typeof loader>();
   const navigation = useNavigation();
   const loading = navigation.state === "loading";
+  const PAGE_SIZE = 6;
+  const activities = data.activity;
+  const pages = Math.ceil(activities.length / PAGE_SIZE);
+  const [page, setPage] = useState(0);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const visibleActivities = activities.slice(
+    page * PAGE_SIZE,
+    page * PAGE_SIZE + PAGE_SIZE,
+  );
 
-  // 🔥 ADD: split revenue into up/down segments
-  const chartWithTrend = data.chart.map((item, index, arr) => {
-    const prev = arr[index - 1]?.revenue;
+  useEffect(() => {
+    intervalRef.current = setInterval(() => {
+      setPage((p) => (p + 1) % pages);
+    }, 5000);
 
-    return {
-      ...item,
-      isDown: prev !== undefined ? item.revenue < prev : false,
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
     };
-  });
+  }, [pages]);
 
-  const upData = chartWithTrend.map((d, i) => ({
-    ...d,
-    revenue:
-      i > 0 && d.revenue < chartWithTrend[i - 1].revenue ? null : d.revenue,
-  }));
-
-  const downData = chartWithTrend.map((d, i) => ({
-    ...d,
-    revenue:
-      i > 0 && d.revenue >= chartWithTrend[i - 1].revenue ? null : d.revenue,
-  }));
+  const resetInterval = () => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
+    intervalRef.current = setInterval(() => {
+      setPage((p) => (p + 1) % pages);
+    }, 5000);
+  };
 
   return (
     <div className="space-y-6">
@@ -81,7 +88,6 @@ export default function Home() {
             </p>
           </div>
 
-          {/* STATS */}
           <motion.div
             initial="hidden"
             animate="show"
@@ -158,14 +164,53 @@ export default function Home() {
               </ResponsiveContainer>
             </div>
 
-            <div className="bg-slate-900 border border-slate-700 rounded-2xl p-5">
-              <h2 className="font-semibold mb-2">Recent activity</h2>
-              <ul className="text-sm text-slate-400 space-y-2">
-                <li>New user registered</li>
-                <li>Order completed</li>
-                <li>Payment received</li>
-                <li>System backup done</li>
-              </ul>
+            <div className="bg-slate-900 border border-slate-700 rounded-2xl px-15 py-5 w-fit">
+              <h2 className="font-semibold mb-2 text-2xl select-none">
+                Recent activity
+              </h2>
+
+              <AnimatePresence mode="wait">
+                <motion.ul
+                  onMouseEnter={() => clearInterval(intervalRef.current!)}
+                  onMouseLeave={resetInterval}
+                  key={page}
+                  initial={{ opacity: 0, x: 10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -10 }}
+                  transition={{
+                    duration: 0.4,
+                    ease: "easeInOut",
+                    staggerChildren: 0.15,
+                  }}
+                  className="text-lg text-slate-400 space-y-2 select-none"
+                >
+                  {visibleActivities.map((item, i) => (
+                    <motion.li
+                      key={item + i}
+                      initial={{ opacity: 0, x: 10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: i * 0.15 }}
+                    >
+                      {item}
+                    </motion.li>
+                  ))}
+                </motion.ul>
+              </AnimatePresence>
+
+              <div className="mt-3 flex gap-1">
+                {Array.from({ length: pages }).map((_, i) => (
+                  <div
+                    onClick={() => {
+                      setPage(i);
+                      resetInterval();
+                    }}
+                    key={i}
+                    className={`h-2.5 w-9.5 cursor-pointer rounded-full ${
+                      i === page ? "bg-green-500" : "bg-slate-700"
+                    }`}
+                  />
+                ))}
+              </div>
             </div>
           </div>
         </motion.div>
