@@ -42,36 +42,65 @@ export async function getDasboardData() {
             "Order #1047 completed",
         ],
         news: [
-            "AI insights module deployed successfully",
-            "Weekly sales report is ready",
-            "3 new support tickets assigned",
-            "Marketing campaign reached 12k users",
-            "Inventory sync completed",
-            "Server response time improved by 18%",
-            "New partner integration available",
-            "Finance dashboard updated",
-            "2FA enabled for all admin accounts",
-            "Customer satisfaction score increased",
-            "Cloud storage usage reached 72%",
-            "Monthly revenue target achieved",
-            "New analytics widgets added",
-            "Background jobs processed successfully",
-            "SEO performance improved this week",
-            "New team member joined the workspace",
-            "Application uptime stable at 99.98%",
-            "Security audit completed successfully",
-            "New comments awaiting moderation",
-            "Subscription renewals processed",
-            "Mobile app version 2.4 released",
-            "API latency reduced across regions",
-            "New invoices generated automatically",
-            "Traffic spike detected from social media",
-            "User activity increased by 24%",
-            "Scheduled maintenance completed",
-            "Customer onboarding flow updated",
-            "Data export finished successfully",
-            "Real-time monitoring enabled",
-            "Workspace settings synchronized",
+            "AI insights module was deployed successfully earlier this morning. Internal testing shows a noticeable improvement in dashboard prediction accuracy and response speed across all regions.",
+
+            "The weekly sales report is now available for all managers. Revenue increased by 14% compared to the previous week, with the highest activity coming from mobile users.",
+
+            "Three new support tickets have been assigned to the customer success team. Most of the reported issues are related to account synchronization and delayed notifications.",
+
+            "The latest marketing campaign has already reached more than 12,000 users within the first 24 hours. Engagement rates are currently performing above expectations.",
+
+            "Inventory synchronization completed successfully across all connected warehouses. No missing product entries or stock conflicts were detected during validation.",
+
+            "Server response times improved by approximately 18% after the latest infrastructure optimization update. API requests are now completing significantly faster during peak traffic.",
+
+            "A new partner integration is now available inside the integrations dashboard. Users can connect external analytics platforms without additional configuration steps.",
+
+            "The finance dashboard has been updated with expanded reporting features and improved transaction filtering. Export performance was also optimized for large datasets.",
+
+            "Two-factor authentication has now been enabled for all administrator accounts by default. Security logs indicate no suspicious login attempts in the past 48 hours.",
+
+            "Customer satisfaction scores increased again this week following recent onboarding improvements. Positive feedback mainly highlighted the redesigned user interface.",
+
+            "Cloud storage usage has reached 72% of the allocated capacity. Automated cleanup recommendations have been generated for inactive resources and unused backups.",
+
+            "The monthly revenue target has officially been achieved ahead of schedule. Subscription renewals and enterprise upgrades contributed to the strongest growth segment.",
+
+            "Several new analytics widgets were added to the overview dashboard today. Users can now track engagement metrics and conversion rates in real time.",
+
+            "Background jobs processed successfully overnight without any critical failures. Queue execution time remained stable even during heavy system load.",
+
+            "SEO performance improved significantly this week after metadata optimization and page speed enhancements. Organic traffic from search engines continues to rise steadily.",
+
+            "A new team member joined the workspace and completed onboarding successfully. Access permissions and development environments were configured automatically.",
+
+            "Application uptime remained stable at 99.98% over the last 30 days. Monitoring systems reported no major outages or infrastructure interruptions.",
+
+            "The latest security audit has been completed successfully with no critical vulnerabilities detected. Minor recommendations were added to the internal compliance checklist.",
+
+            "New comments are currently awaiting moderation in the community section. Automated filters already flagged several messages for manual review.",
+
+            "Subscription renewals were processed successfully overnight for all active premium accounts. Payment retry systems also recovered several previously failed transactions.",
+
+            "Mobile app version 2.4 has officially been released to production environments. The update introduces faster navigation and improved offline synchronization.",
+
+            "API latency has been reduced across multiple regions after network routing optimizations. International users should now experience noticeably faster loading times.",
+
+            "New invoices were generated automatically for all enterprise clients this morning. Accounting exports are already available in the billing section.",
+
+            "A traffic spike was detected after several social media posts began trending earlier today. Real-time monitoring systems scaled resources automatically to prevent downtime.",
+
+            "User activity increased by 24% compared to the previous reporting period. Most of the growth came from returning users interacting with newly released features.",
+
+            "Scheduled maintenance completed successfully during the night maintenance window. No data inconsistencies or service interruptions were reported afterward.",
+
+            "The customer onboarding flow was updated with additional tooltips and simplified navigation steps. Early analytics suggest improved completion rates among new users.",
+
+            "Data exports finished successfully for all requested reports and archived datasets. Processing times remained within expected performance thresholds.",
+
+            "Real-time monitoring has now been enabled for all critical backend services. Alerts will automatically notify administrators about unusual traffic or server activity.",
+
+            "Workspace settings were synchronized successfully across all connected devices and user sessions. Preference updates should now appear instantly without requiring a refresh.",
         ],
         chart: [
             { name: "D1", revenue: 0 },

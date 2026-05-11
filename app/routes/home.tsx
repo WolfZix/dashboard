@@ -1,7 +1,7 @@
 import { getDasboardData } from "~/services/dashboard.server";
 import StatCard from "../components/stat-card";
 import { useLoaderData, useNavigation } from "react-router";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, number } from "framer-motion";
 import { useEffect, useState, useRef } from "react";
 import DigitalClock from "../components/DigitalClock";
 import {
@@ -85,9 +85,14 @@ export default function Home() {
             ))}
           </div>
 
-          <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 translate-y-2.5">
+          <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 translate-y-2.5 mb-13">
             <div className="xl:col-span-2 h-80 bg-slate-800 animate-pulse rounded-2xl translate-y-2.5" />
             <div className="h-80 bg-slate-800 animate-pulse rounded-2xl translate-y-2.5" />
+          </div>
+          <div className="bg-slate-800 animate-pulse border border-slate-700 rounded-2xl col-span-full min-h-35 mt-2 py-3 overflow-hidden">
+            <h2 className="font-semibold text-2xl select-none mx-5 mb-2"></h2>
+
+            <div className="border-slate-700 mb-2"></div>
           </div>
         </>
       ) : (
@@ -98,9 +103,8 @@ export default function Home() {
           className="space-y-6"
         >
           <div>
-            <h1 className="text-3xl font-bold">
-              👋Welcome back, here’s what’s happening.
-            </h1>
+            <h1 className="text-3xl font-bold">Overview 📈</h1>
+            <p>Welcome back, here’s what’s happening.</p>
           </div>
 
           {/* STATS (REVENUE,USERS,ORDERS,CONVERSION) */}
@@ -239,16 +243,16 @@ export default function Home() {
                   <DigitalClock />
                 </h2>
 
-                <div className="overflow-hidden border-y-2 border-slate-700 mb-2">
+                <div className="border-y-2 border-slate-700 mb-2">
                   <motion.div
                     ref={marqueeRef}
                     className="flex w-max gap-3"
                     animate={{
-                      x: [0, -marqueeWidth],
+                      x: [-10, -marqueeWidth],
                     }}
                     transition={{
                       ease: "linear",
-                      duration: 125,
+                      duration: 400,
                       repeat: Infinity,
                       repeatType: "loop",
                     }}
