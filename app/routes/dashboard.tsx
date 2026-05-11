@@ -12,9 +12,9 @@ export default function DashboardLayout() {
 
         <nav className="space-y-2 text-sm">
           <Link
-            to="/dashboard"
+            to="/"
             className={`block px-3 py-2 rounded-lg ${
-              isActive("/dashboard")
+              isActive("/")
                 ? "bg-slate-800 text-white"
                 : "text-slate-400 hover:text-white"
             }`}
@@ -23,9 +23,9 @@ export default function DashboardLayout() {
           </Link>
 
           <Link
-            to="/dashboard/users"
+            to="/users"
             className={`block px-3 py-2 rounded-lg ${
-              isActive("/dashboard/users")
+              isActive("/users")
                 ? "bg-slate-800 text-white"
                 : "text-slate-400 hover:text-white"
             }`}
@@ -34,9 +34,9 @@ export default function DashboardLayout() {
           </Link>
 
           <Link
-            to="/dashboard/analytics"
+            to="/analytics"
             className={`block px-3 py-2 rounded-lg ${
-              isActive("/dashboard/analytics")
+              isActive("/analytics")
                 ? "bg-slate-800 text-white"
                 : "text-slate-400 hover:text-white"
             }`}

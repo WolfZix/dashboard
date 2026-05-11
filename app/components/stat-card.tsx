@@ -15,7 +15,7 @@ export default function StatCard({ title, value, change }: StatCardProps) {
   return (
     <motion.div
       variants={cardVariants}
-      transition={{ duration: 0.3 }}
+      transition={{ duration: 0.2 }}
       whileHover={{ scale: 1.02 }}
       className="bg-slate-900 border border-slate-700 rounded-2xl p-5"
     >

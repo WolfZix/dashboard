@@ -3,6 +3,7 @@ import StatCard from "../components/stat-card";
 import { useLoaderData, useNavigation } from "react-router";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState, useRef } from "react";
+import { Fullscreen } from "lucide-react";
 import {
   AreaChart,
   Area,
@@ -34,6 +35,17 @@ export default function Home() {
     page * PAGE_SIZE,
     page * PAGE_SIZE + PAGE_SIZE,
   );
+
+  const news = data.news;
+
+  const marqueeRef = useRef<HTMLDivElement>(null);
+  const [marqueeWidth, setMarqueeWidth] = useState(0);
+
+  useEffect(() => {
+    if (marqueeRef.current) {
+      setMarqueeWidth(marqueeRef.current.scrollWidth / 2);
+    }
+  }, [news]);
 
   useEffect(() => {
     intervalRef.current = setInterval(() => {
@@ -86,10 +98,9 @@ export default function Home() {
           className="space-y-6"
         >
           <div>
-            <h1 className="text-3xl font-bold">Dashboard overview 🚀</h1>
-            <p className="text-slate-400 mt-1">
-              Welcome back, here’s what’s happening.
-            </p>
+            <h1 className="text-3xl font-bold">
+              👋Welcome back, here’s what’s happening.
+            </h1>
           </div>
 
           {/* STATS (REVENUE,USERS,ORDERS,CONVERSION) */}
@@ -189,7 +200,7 @@ export default function Home() {
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -10 }}
                   transition={{
-                    duration: 0.4,
+                    duration: 0.2,
                     ease: "easeInOut",
                   }}
                   className="text-lg text-slate-400 space-y-2 select-none"
@@ -199,7 +210,7 @@ export default function Home() {
                       key={item + i}
                       initial={{ opacity: 0, x: 10 }}
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: i * 0.15 }}
+                      transition={{ delay: i * 0.1 }}
                     >
                       {item}
                     </motion.li>
@@ -222,6 +233,38 @@ export default function Home() {
                 ))}
               </div>
             </div>
+            <AnimatePresence>
+              <div className="bg-slate-900 border border-slate-700 rounded-2xl col-span-full min-h-35 mt-2 py-3 overflow-hidden">
+                <h2 className="font-semibold text-2xl select-none ml-5 mb-2">
+                  Daily News
+                </h2>
+
+                <div className="overflow-hidden border-y-2 border-slate-700 mb-2">
+                  <motion.div
+                    ref={marqueeRef}
+                    className="flex w-max gap-3"
+                    animate={{
+                      x: [0, -marqueeWidth],
+                    }}
+                    transition={{
+                      ease: "linear",
+                      duration: 125,
+                      repeat: Infinity,
+                      repeatType: "loop",
+                    }}
+                  >
+                    {[...news, ...news].map((message, index) => (
+                      <p
+                        key={index}
+                        className="text-lg whitespace-nowrap min-w-fit border-slate-700 pl-2 pr-3 py-5"
+                      >
+                        {message}
+                      </p>
+                    ))}
+                  </motion.div>
+                </div>
+              </div>
+            </AnimatePresence>
           </div>
         </motion.div>
       )}

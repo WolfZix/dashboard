@@ -9,8 +9,8 @@ export default [
     route("login", "routes/login.tsx"),
 
     layout("routes/dashboard.tsx", [
-        route("dashboard", "routes/home.tsx"),
-        route("dashboard/users", "routes/users.tsx"),
-        route("dashboard/analytics", "routes/analytics.tsx"),
+        route("/", "routes/home.tsx"),
+        route("/users", "routes/users.tsx"),
+        route("/analytics", "routes/analytics.tsx"),
     ]),
 ] satisfies RouteConfig;
