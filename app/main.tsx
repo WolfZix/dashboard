@@ -10,9 +10,12 @@ import Users from "./routes/users";
 import Analytics from "./routes/analytics";
 import Login from "./routes/login";
 
+const isGitHubPages = window.location.hostname.includes("github.io");
+const basename = isGitHubPages ? "/dashboard" : "/";
+
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename={basename}>
       <Routes>
         <Route path="/login" element={<Login />} />
 
