@@ -2,29 +2,28 @@
   "name": "",
   "private": true,
   "type": "module",
+  "homepage": "https://WolfZix.github.io/dashboard/",
   "scripts": {
-    "build": "react-router build",
-    "dev": "react-router dev",
-    "start": "react-router-serve ./build/server/index.js",
-    "typecheck": "react-router typegen && tsc"
-  },
+  "dev": "vite",
+  "build": "vite build",
+  "preview": "vite preview",
+  "deploy": "gh-pages -d dist"
+},
   "dependencies": {
-    "@react-router/node": "7.15.0",
-    "@react-router/serve": "7.15.0",
     "framer-motion": "^12.38.0",
     "isbot": "^5.1.36",
     "lucide-react": "^1.14.0",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
-    "react-router": "7.15.0",
+    "react-router-dom": "^7.15.0",
     "recharts": "^3.8.1"
   },
   "devDependencies": {
-    "@react-router/dev": "7.15.0",
     "@tailwindcss/vite": "^4.3.0",
     "@types/node": "^22",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.1",
     "autoprefixer": "^10.5.0",
     "gh-pages": "^6.3.0",
     "postcss": "^8.5.14",

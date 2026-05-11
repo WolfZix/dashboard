@@ -1,7 +1,4 @@
 export async function getDasboardData() {
-    //według AI tak moge zasymulować prawdziwe API więc sie nie kłóciłem ¯\_(ツ)_/¯
-    await new Promise((res) => setTimeout(res, 600));
-
     return {
         stats: {
             revenue: "78,500",
