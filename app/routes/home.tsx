@@ -3,7 +3,7 @@ import StatCard from "../components/stat-card";
 import { useLoaderData, useNavigation } from "react-router";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState, useRef } from "react";
-import { Fullscreen } from "lucide-react";
+import DigitalClock from "../components/DigitalClock";
 import {
   AreaChart,
   Area,
@@ -235,8 +235,8 @@ export default function Home() {
             </div>
             <AnimatePresence>
               <div className="bg-slate-900 border border-slate-700 rounded-2xl col-span-full min-h-35 mt-2 py-3 overflow-hidden">
-                <h2 className="font-semibold text-2xl select-none ml-5 mb-2">
-                  Daily News
+                <h2 className="font-semibold text-2xl select-none mx-5 mb-2">
+                  <DigitalClock />
                 </h2>
 
                 <div className="overflow-hidden border-y-2 border-slate-700 mb-2">
@@ -256,7 +256,7 @@ export default function Home() {
                     {[...news, ...news].map((message, index) => (
                       <p
                         key={index}
-                        className="text-lg whitespace-nowrap min-w-fit border-slate-700 pl-2 pr-3 py-5"
+                        className="text-sm min-w-fit border-slate-700 pl-2 pr-3 py-5"
                       >
                         {message}
                       </p>
