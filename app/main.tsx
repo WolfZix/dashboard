@@ -12,7 +12,7 @@ import Login from "./routes/login";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <BrowserRouter basename="/">
+    <BrowserRouter>
       <Routes>
         <Route path="/login" element={<Login />} />
 
