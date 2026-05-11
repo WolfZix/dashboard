@@ -2,13 +2,14 @@
   "name": "",
   "private": true,
   "type": "module",
-  "homepage": "https://WolfZix.github.io/dashboard/",
+  "homepage": "https://wolfzix.github.io/dashboard/",
   "scripts": {
     "build": "react-router build",
     "dev": "react-router dev",
     "start": "react-router-serve ./build/server/index.js",
     "typecheck": "react-router typegen && tsc",
-    "deploy": "gh-pages -d dist"
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build/client"
   },
   "dependencies": {
     "@react-router/node": "7.15.0",
