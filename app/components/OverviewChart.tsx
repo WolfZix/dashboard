@@ -36,7 +36,7 @@ export default function OverviewChart({ chart }: OverviewChartProps) {
 
   const chartGrid = isLightMode ? "#cbd5e1" : "#1f2937";
 
-  const chartText = isLightMode ? "#334155" : "#64748b";
+  const chartText = "#64748b";
 
   const tooltipBorder = isLightMode
     ? "1px solid rgba(0,0,0,0.1)"
@@ -49,17 +49,18 @@ export default function OverviewChart({ chart }: OverviewChartProps) {
         bg-[#0b1220]
         border border-slate-800
         light:bg-white
-        light:border-slate-300
+        light:border-[#e2e8f0]
         rounded-2xl
         p-5
         h-80
+        light:shadow-[0_1px_3px_rgba(0,0,0,0.1)]
       "
     >
       <h2
         className="
           font-semibold
           mb-4
-          text-slate-200
+          text-[#0f172a]
           light:text-slate-950
         "
       >
@@ -101,10 +102,10 @@ export default function OverviewChart({ chart }: OverviewChartProps) {
               borderRadius: "15px",
               border: tooltipBorder,
               boxShadow:
-                "0 10px 30px rgba(0, 0, 0, 0.45), 0 2px 8px rgba(0, 0, 0, 0.25)",
+                "0 10px 30px rgba(0, 0, 0, 0.25), 0 2px 8px rgba(0, 0, 0, 0.1)",
             }}
             labelStyle={{
-              color: isLightMode ? "black" : "white",
+              color: isLightMode ? "#0f172a" : "white",
             }}
             itemStyle={{
               color: isLightMode ? "#008800" : "#22c55e",
