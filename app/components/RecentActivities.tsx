@@ -44,7 +44,7 @@ export default function RecentActivities({
   };
 
   return (
-    <div className="bg-slate-900 border border-slate-700 light:bg-[white] light:border-[#e2e8f0] light:shadow-[0_1px_3px_rgba(0,0,0,0.1)] rounded-2xl px-6 py-5">
+    <div className="bg-slate-900 border border-slate-700 light:bg-[white] light:border-[#e2e8f0] light:shadow-[0_1px_3px_rgba(0,0,0,0.1)] light:hover:bg-[#f8fafc] rounded-2xl px-6 py-5">
       <h2 className="font-semibold mb-2 text-2xl select-none light:text-[#0f172a]">
         Recent activities (last 5 days)
       </h2>

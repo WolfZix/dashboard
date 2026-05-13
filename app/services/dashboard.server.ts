@@ -150,6 +150,98 @@ export async function getDasboardData() {
             { name: "D48", revenue: 3000 },
             { name: "D49", revenue: 1500 },
             { name: "D50", revenue: 4000 },
-        ]
+        ],
+        notifications: [
+            {
+                from: "System",
+                title: "Scheduled maintenance completed",
+                date: "2 min ago",
+                description: "The scheduled infrastructure maintenance has been completed successfully without any downtime.",
+            },
+            {
+                from: "Finance Team",
+                title: "Monthly revenue target achieved",
+                date: "12 min ago",
+                description: "Revenue for this month exceeded projections by 8.4% compared to the previous period.",
+            },
+            {
+                from: "Security Center",
+                title: "New login detected",
+                date: "18 min ago",
+                description: "A new login was detected from a previously unknown device located in Berlin, Germany.",
+            },
+            {
+                from: "Analytics",
+                title: "Traffic spike detected",
+                date: "24 min ago",
+                description: "Website traffic increased significantly after the latest marketing campaign launch.",
+            },
+            {
+                from: "Support",
+                title: "New support ticket assigned",
+                date: "31 min ago",
+                description: "A high-priority customer issue has been assigned to your support queue.",
+            },
+            {
+                from: "Database",
+                title: "Optimization completed",
+                date: "45 min ago",
+                description: "Database indexing and cleanup tasks finished successfully with improved query performance.",
+            },
+            {
+                from: "Marketing",
+                title: "Campaign performance updated",
+                date: "1 hour ago",
+                description: "The latest social campaign reached over 14,000 users across multiple platforms.",
+            },
+            {
+                from: "Workspace",
+                title: "New member joined",
+                date: "1 hour ago",
+                description: "Emily Johnson joined the workspace and received administrator permissions.",
+            },
+            {
+                from: "Billing",
+                title: "Subscription renewed",
+                date: "2 hours ago",
+                description: "Your Professional plan subscription has been renewed successfully for another month.",
+            },
+            {
+                from: "Cloud Storage",
+                title: "Storage usage warning",
+                date: "2 hours ago",
+                description: "Cloud storage usage has reached 82% of the available workspace capacity.",
+            },
+            {
+                from: "AI Assistant",
+                title: "Weekly insights generated",
+                date: "3 hours ago",
+                description: "AI-generated business insights are now available in the analytics dashboard.",
+            },
+            {
+                from: "API Gateway",
+                title: "Latency improved",
+                date: "4 hours ago",
+                description: "Average API response time decreased by 16% after the latest deployment.",
+            },
+            {
+                from: "Moderation",
+                title: "New comments awaiting review",
+                date: "5 hours ago",
+                description: "There are currently 12 comments pending moderation approval in the community section.",
+            },
+            {
+                from: "Mobile App",
+                title: "Version 2.4 released",
+                date: "6 hours ago",
+                description: "The newest mobile application update is now available for iOS and Android devices.",
+            },
+            {
+                from: "Monitoring",
+                title: "All systems operational",
+                date: "8 hours ago",
+                description: "Infrastructure monitoring confirms that all services are running normally with no incidents detected.",
+            },
+        ],
     };
 }

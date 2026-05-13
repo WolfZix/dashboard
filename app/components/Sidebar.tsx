@@ -31,8 +31,8 @@ export default function Sidebar({ links }: SidebarProps) {
                 flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group
                   ${
                     isActive
-                      ? "bg-slate-800 text-white light:bg-[#f1f5f9] light:text-slate-950"
-                      : "text-slate-400 hover:bg-[#f8fafc] hover:text-white light:text-slate-500 light:hover:bg-slate-200 light:hover:text-[#0f172a]"
+                      ? "bg-slate-700 text-white light:bg-[#f1f5f9] light:text-slate-950"
+                      : "text-slate-400 hover:bg-slate-800 hover:text-white light:text-slate-500 light:hover:bg-slate-200 light:hover:text-[#0f172a]"
                   }
                 `
                 }
@@ -45,7 +45,7 @@ export default function Sidebar({ links }: SidebarProps) {
         </nav>
       </div>
       <div className="p-4 border-t border-slate-800 light:border-slate-300">
-        <button className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800/50 hover:text-white light:text-slate-500 light:hover:bg-slate-200 light:hover:text-slate-600 transition-all">
+        <button className="cursor-pointer w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white light:text-slate-500 light:hover:bg-slate-200 light:hover:text-slate-600 transition-all">
           <Settings size={20} />
           Settings
         </button>

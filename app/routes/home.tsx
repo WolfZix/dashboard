@@ -24,6 +24,7 @@ type DashboardData = {
   activity: string[];
 
   news: string[];
+  notifications: object[];
 };
 
 export default function Home() {

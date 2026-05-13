@@ -54,6 +54,7 @@ export default function OverviewChart({ chart }: OverviewChartProps) {
         p-5
         h-80
         light:shadow-[0_1px_3px_rgba(0,0,0,0.1)]
+        light:hover:bg-[#f8fafc]
       "
     >
       <h2

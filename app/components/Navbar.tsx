@@ -1,4 +1,4 @@
-import NotificationsButton from "./navbar/NotificationsButton";
+import NotificationsButton from "./navbar/NotificationsButton/NotificationsButton";
 import OnlineStatus from "./navbar/OnlineStatus";
 import ThemeToggle from "./navbar/ThemeToggle";
 import UserProfile from "./navbar/UserProfile";
