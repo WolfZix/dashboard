@@ -82,11 +82,6 @@ export default function Home() {
         transition={{ duration: 0.15 }}
         className="space-y-6"
       >
-        <div>
-          <h1 className="text-3xl font-bold">Overview 📈</h1>
-          <p>Welcome back, here’s what’s happening.</p>
-        </div>
-
         <motion.div
           initial="hidden"
           animate="show"
@@ -130,7 +125,7 @@ export default function Home() {
 
                 <CartesianGrid
                   stroke="#1f2937"
-                  strokeDasharray="2 2"
+                  strokeDasharray="10"
                   vertical={false}
                 />
 
