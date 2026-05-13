@@ -1,35 +1,43 @@
-import { NavLink } from "react-router-dom";
-
-type NavbarProps = {
-  links: {
-    name: string;
-    path: string;
-    icon: any;
-  }[];
-};
+import SearchBar from "./navbar/SearchBar";
+import NotificationsButton from "./navbar/NotificationsButton";
+import OnlineStatus from "./navbar/OnlineStatus";
+import ThemeToggle from "./navbar/ThemeToggle";
+import UserProfile from "./navbar/UserProfile";
+import OverviewMessage from "./OverviewMessage";
+import UsersMessage from "./UsersMessage";
+import AnalyticsMessage from "./AnalyticsMessage";
+import { motion } from "framer-motion";
+import { useLocation } from "react-router-dom";
 
 export default function Navbar() {
+  const location = useLocation();
   return (
-    <div className="flex w-full p-6 justify-end items-center gap-x-20 bg-slate-900 border-b border-slate-700">
-      <div className="w-full">
-        <h1 className="text-3xl font-bold">Overview 📈</h1>
-        <p>Welcome back, here’s what’s happening.</p>
-        {/* {links.map((link) => {
-          const Icon = link.icon;
+    <header
+      className="
+        px-6
+        py-4
+        border-b border-slate-800
+        bg-slate-900
+        flex items-center justify-between
+      "
+    >
+      <motion.div className="w-full">
+        {location.pathname === "/" && <OverviewMessage />}
+        {location.pathname === "/users" && <UsersMessage />}
+        {location.pathname === "/analytics" && <AnalyticsMessage />}
+      </motion.div>
 
-          return (
-            <NavLink key={link.path} to={link.path}>
-              <Icon size={20} />
-              {link.name}
-            </NavLink>
-          );
-        })} */}
+      <div className="flex items-center gap-4">
+        <SearchBar />
+
+        <OnlineStatus />
+
+        <ThemeToggle />
+
+        <NotificationsButton />
+
+        <UserProfile />
       </div>
-      <nav>Nav1</nav>
-      <nav>Nav2</nav>
-      <nav>Nav3</nav>
-      <nav>Nav4</nav>
-      <nav>Nav5</nav>
-    </div>
+    </header>
   );
 }

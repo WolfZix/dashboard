@@ -141,7 +141,7 @@ export async function getDasboardData() {
             { name: "D39", revenue: 1500 },
             { name: "D40", revenue: 2500 },
             { name: "D41", revenue: 1500 },
-            { name: "D42", revenue: 4000 },
+            { name: "D42", revenue: 3500 },
             { name: "D43", revenue: 2000 },
             { name: "D44", revenue: 3500 },
             { name: "D45", revenue: 2000 },
