@@ -30,13 +30,15 @@ export default function DailyNews({ news }: DailyNewsProps) {
           mt-2
           py-3
           overflow-hidden
+          light:bg-[white]
+          light:border-slate-300
         "
       >
         <h2 className="font-semibold text-2xl select-none mx-5 mb-2">
           <DigitalClock />
         </h2>
 
-        <div className="overflow-hidden border-y-2 border-slate-700 mb-2">
+        <div className="overflow-hidden border-y-2 border-slate-700 light:border-slate-300 mb-2">
           <motion.div
             ref={marqueeRef}
             className="flex w-max gap-3 will-change-transform"
@@ -61,6 +63,7 @@ export default function DailyNews({ news }: DailyNewsProps) {
                     pr-3
                     py-5
                     text-slate-300
+                    light:text-[#64748b]
                   "
               >
                 {message}

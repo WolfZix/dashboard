@@ -6,11 +6,19 @@ export default function NotificationsButton() {
       className="
         relative
         p-2.5
+        border
         rounded-xl
-        bg-slate-800
-        border border-slate-700
-        hover:border-slate-600
         transition-all
+        cursor-pointer
+        bg-slate-800
+        border-slate-700
+        hover:border-slate-600
+
+        light:bg-[white]
+        light:border-[#e2e8f0]
+        light:text-[#0f172a]
+        light:hover:bg-[#f8fafc]
+        light:hover:text-slate-950
       "
     >
       <Bell size={20} />

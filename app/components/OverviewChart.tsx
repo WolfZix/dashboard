@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import {
   Area,
   AreaChart,
@@ -16,9 +17,54 @@ type OverviewChartProps = {
 };
 
 export default function OverviewChart({ chart }: OverviewChartProps) {
+  const [isLightMode, setIsLightMode] = useState(
+    document.documentElement.classList.contains("light"),
+  );
+
+  useEffect(() => {
+    const observer = new MutationObserver(() => {
+      setIsLightMode(document.documentElement.classList.contains("light"));
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  const chartGrid = isLightMode ? "#cbd5e1" : "#1f2937";
+
+  const chartText = isLightMode ? "#334155" : "#64748b";
+
+  const tooltipBorder = isLightMode
+    ? "1px solid rgba(0,0,0,0.1)"
+    : "1px solid hsla(225, 0%, 100%, 0.15)";
+
   return (
-    <div className="xl:col-span-2 bg-[#0b1220] border border-slate-800 rounded-2xl p-5 h-80">
-      <h2 className="font-semibold mb-4 text-slate-200">Revenue</h2>
+    <div
+      className="
+        xl:col-span-2
+        bg-[#0b1220]
+        border border-slate-800
+        light:bg-white
+        light:border-slate-300
+        rounded-2xl
+        p-5
+        h-80
+      "
+    >
+      <h2
+        className="
+          font-semibold
+          mb-4
+          text-slate-200
+          light:text-slate-950
+        "
+      >
+        Revenue
+      </h2>
 
       <ResponsiveContainer width="100%" height="90%">
         <AreaChart data={chart}>
@@ -28,35 +74,50 @@ export default function OverviewChart({ chart }: OverviewChartProps) {
 
               <stop offset="100%" stopColor="#22c55e" stopOpacity={0} />
             </linearGradient>
+
+            <linearGradient id="colorRevenueLight" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#22c55e" stopOpacity={0.5} />
+
+              <stop offset="100%" stopColor="#22c55e" stopOpacity={0} />
+            </linearGradient>
           </defs>
 
           <CartesianGrid
-            stroke="#1f2937"
+            stroke={chartGrid}
             strokeDasharray="10"
             vertical={false}
           />
 
-          <XAxis dataKey="name" stroke="#64748b" />
+          <XAxis dataKey="name" stroke={chartText} />
 
-          <YAxis stroke="#64748b" />
+          <YAxis stroke={chartText} />
 
           <Tooltip
             contentStyle={{
-              color: "white",
-              background: "transparent",
+              background: isLightMode
+                ? "rgba(200, 200, 200, 0.1)"
+                : "rgba(15, 23, 42, 0.85)",
               backdropFilter: "blur(5px)",
               borderRadius: "15px",
-              border: "1px solid hsla(225, 0%, 100%, 0.15)",
+              border: tooltipBorder,
               boxShadow:
                 "0 10px 30px rgba(0, 0, 0, 0.45), 0 2px 8px rgba(0, 0, 0, 0.25)",
+            }}
+            labelStyle={{
+              color: isLightMode ? "black" : "white",
+            }}
+            itemStyle={{
+              color: isLightMode ? "#008800" : "#22c55e",
             }}
           />
 
           <Area
             type="linear"
             dataKey="revenue"
-            stroke="#22c55e"
-            fill="url(#colorRevenue)"
+            stroke="#22a05e"
+            fill={
+              isLightMode ? "url(#colorRevenueLight)" : "url(#colorRevenue)"
+            }
             strokeWidth={2.5}
           />
         </AreaChart>

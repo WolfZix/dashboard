@@ -38,7 +38,7 @@ export default function DashboardLayout() {
   }
 
   return (
-    <div className="min-h-screen flex bg-slate-950 text-white">
+    <div className="min-h-screen flex bg-slate-950 text-white light:bg-[#f1f5f9] light:text-[#0f172a]">
       <Sidebar links={links} />
 
       <main className="flex-1">

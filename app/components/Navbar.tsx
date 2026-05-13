@@ -1,4 +1,3 @@
-import SearchBar from "./navbar/SearchBar";
 import NotificationsButton from "./navbar/NotificationsButton";
 import OnlineStatus from "./navbar/OnlineStatus";
 import ThemeToggle from "./navbar/ThemeToggle";
@@ -6,7 +5,6 @@ import UserProfile from "./navbar/UserProfile";
 import OverviewMessage from "./OverviewMessage";
 import UsersMessage from "./UsersMessage";
 import AnalyticsMessage from "./AnalyticsMessage";
-import { motion } from "framer-motion";
 import { useLocation } from "react-router-dom";
 
 export default function Navbar() {
@@ -19,23 +17,21 @@ export default function Navbar() {
         border-b border-slate-800
         bg-slate-900
         flex items-center justify-between
+        light:bg-[rgba(255,255,255,0.7)]
+        light:border-[#e2e8f0]
+        light:text-[#0f172a]
       "
     >
-      <motion.div className="w-full">
+      <div>
         {location.pathname === "/" && <OverviewMessage />}
         {location.pathname === "/users" && <UsersMessage />}
         {location.pathname === "/analytics" && <AnalyticsMessage />}
-      </motion.div>
+      </div>
 
       <div className="flex items-center gap-4">
-        <SearchBar />
-
         <OnlineStatus />
-
         <ThemeToggle />
-
         <NotificationsButton />
-
         <UserProfile />
       </div>
     </header>

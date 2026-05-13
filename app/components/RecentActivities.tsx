@@ -44,7 +44,7 @@ export default function RecentActivities({
   };
 
   return (
-    <div className="bg-slate-900 border border-slate-700 rounded-2xl px-6 py-5">
+    <div className="bg-slate-900 border border-slate-700 light:bg-[white] light:border-slate-300 rounded-2xl px-6 py-5">
       <h2 className="font-semibold mb-2 text-2xl select-none">
         Recent activities (last 5 days)
       </h2>
@@ -61,7 +61,7 @@ export default function RecentActivities({
             duration: 0.2,
             ease: "easeInOut",
           }}
-          className="text-lg text-slate-400 space-y-2 select-none"
+          className="text-lg text-slate-400 light:text-slate-700 space-y-2 select-none"
         >
           {visibleActivities.map((item, i) => (
             <motion.li
@@ -85,7 +85,7 @@ export default function RecentActivities({
               resetInterval();
             }}
             className={`h-2.5 w-9.5 cursor-pointer rounded-full transition-all duration-300 ${
-              i === page ? "bg-green-500" : "bg-slate-700"
+              i === page ? "bg-green-500" : "bg-slate-700 light:bg-slate-300"
             }`}
           />
         ))}
