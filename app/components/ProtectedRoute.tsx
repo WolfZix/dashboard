@@ -6,9 +6,7 @@ type ProtectedRouteProps = {
 
 export default function ProtectedRoute({ children }: ProtectedRouteProps) {
   const username = localStorage.getItem("username");
-  const isGitHubPages = window.location.hostname.includes("github.io");
-  const basename = isGitHubPages ? "/dashboard/login" : "/";
 
-  if (!username) return <Navigate to={basename} replace />;
+  if (!username) return <Navigate to="login" replace />;
   return children;
 }

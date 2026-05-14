@@ -29,7 +29,6 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           }
         >
           <Route index element={<Home />} />
-          <Route path="/" element={<Home />} />
           <Route path="users" element={<Users />} />
           <Route path="analytics" element={<Analytics />} />
         </Route>
