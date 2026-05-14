@@ -49,6 +49,11 @@ export default function ProfileDropdown({
     loadData();
   }, []);
 
+  function clearLocalStorage(optionName: string) {
+    if (optionName) localStorage.removeItem("username");
+    if (localStorage.getItem("password")) localStorage.removeItem("password");
+  }
+
   return (
     <motion.div
       initial={{
@@ -105,6 +110,7 @@ export default function ProfileDropdown({
           <NavLink
             to={option.path}
             key={option.name}
+            onClick={() => clearLocalStorage(option.name)}
             className={`
         text-base
         rounded-md

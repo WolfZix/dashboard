@@ -31,7 +31,7 @@ export default function DashboardLayout() {
   ];
 
   function LoadComponent() {
-    if (location.pathname === "/") return <HomeLoading />;
+    if (location.pathname === "") return <HomeLoading />;
     if (location.pathname === "/users") return <UsersLoading />;
     if (location.pathname === "/analytics") return <AnalyticsLoading />;
     return <HomeLoading />;
