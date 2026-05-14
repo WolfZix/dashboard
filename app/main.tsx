@@ -12,7 +12,7 @@ import Login from "./routes/login";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 const isGitHubPages = window.location.hostname.includes("github.io");
-const basename = isGitHubPages ? "/dashboard/login" : "/";
+const basename = isGitHubPages ? "/dashboard" : "/";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -24,8 +24,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           path="/"
           element={
             <ProtectedRoute>
-              {" "}
-              <Dashboard />{" "}
+              <Dashboard />
             </ProtectedRoute>
           }
         >
