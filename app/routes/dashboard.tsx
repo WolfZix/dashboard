@@ -1,6 +1,6 @@
 import { BarChart3, LayoutDashboard, Users } from "lucide-react";
 import { Outlet, useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import HomeLoading from "../components/OverviewPage/OverviewLoading";
 import UsersLoading from "../components/UsersPage/UsersLoading";

@@ -244,9 +244,9 @@ export async function getDasboardData() {
             },
         ],
         profileOptions: [
-            { name: "Profile", icon: "user" },
-            { name: "Settings", icon: "settings" },
-            { name: "Log Out", icon: "logout" },
+            { name: "Profile", icon: "user", path: "/profile" },
+            { name: "Settings", icon: "settings", path: "/settings" },
+            { name: "Log Out", icon: "logout", path: "/login" },
         ],
     };
 }

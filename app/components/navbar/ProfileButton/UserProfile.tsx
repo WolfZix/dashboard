@@ -1,13 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ProfileDropdown from "../ProfileButton/ProfileDropdown";
 import { AnimatePresence } from "framer-motion";
 
 export default function UserProfile() {
+  useEffect(() => {
+    const storedUser = localStorage.getItem("username");
+
+    if (storedUser) {
+      setCurrentUser(storedUser);
+    }
+  }, []);
+
+  const [currentUser, setCurrentUser] = useState("");
   const [open, setOpen] = useState(false);
 
-  const currentUser = "WolfeZix";
-  const currentUserLetter = "W";
-  const currentUsersRole = "Admin";
+  const currentUserLetter = currentUser[0]?.toUpperCase();
+  const currentUsersRole =
+    currentUser.toLowerCase() === "wolfezix" ? "Admin" : "User";
   const currentUsersBackgroundColor = "bg-green-500";
   const currentUsersTextColor = "text-black";
 

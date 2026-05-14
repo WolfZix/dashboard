@@ -2,11 +2,13 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { getDasboardData } from "../../../services/dashboard.server";
 import { Settings, LucideUser, LucideLogOut } from "lucide-react";
+import { NavLink } from "react-router-dom";
 
 type DashboardData = {
   profileOptions: {
     name: string;
     icon: string;
+    path: string;
   }[];
 };
 
@@ -18,6 +20,10 @@ type profileDropdownProps = {
   userTextColor: string;
 };
 
+function shortenUserName(userName: string) {
+  return userName.slice(0, 10) + "...";
+}
+
 export default function ProfileDropdown({
   userName,
   userRole,
@@ -26,6 +32,8 @@ export default function ProfileDropdown({
   userTextColor,
 }: profileDropdownProps) {
   const [data, setData] = useState<DashboardData | null>(null);
+  const displayName =
+    userName.length > 10 ? shortenUserName(userName) : userName;
 
   const iconMap = {
     user: LucideUser,
@@ -62,7 +70,7 @@ export default function ProfileDropdown({
     flex flex-col gap-2 
     absolute 
     top-full
-    w-50
+    w-52
     right-0 
     min-h-10 
     bg-slate-900
@@ -83,7 +91,7 @@ export default function ProfileDropdown({
           {userLetter}
         </div>
         <div className="flex flex-col">
-          <h1 className=" text-base">{userName}</h1>
+          <h1 className=" text-base">{displayName}</h1>
           <p className="text-slate-400 text-xs">{userRole}</p>
         </div>
       </div>
@@ -94,7 +102,8 @@ export default function ProfileDropdown({
         const Icon = iconMap[option.icon as keyof typeof iconMap];
 
         return (
-          <div
+          <NavLink
+            to={option.path}
             key={option.name}
             className={`
         text-base
@@ -117,9 +126,9 @@ export default function ProfileDropdown({
             <div className="flex items-center gap-3">
               <Icon size={18} />
 
-              <span>{option.name}</span>
+              <div>{option.name}</div>
             </div>
-          </div>
+          </NavLink>
         );
       })}
     </motion.div>
