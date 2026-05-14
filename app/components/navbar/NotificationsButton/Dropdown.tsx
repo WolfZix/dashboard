@@ -3,21 +3,6 @@ import { getDasboardData } from "../../../services/dashboard.server";
 import NotificationCard from "./NotificationCard";
 
 type DashboardData = {
-  stats: {
-    revenue: string;
-    users: string;
-    orders: string;
-    conversion: string;
-  };
-
-  chart: {
-    name: string;
-    revenue: number;
-  }[];
-
-  activity: string[];
-
-  news: string[];
   notifications: {
     from: string;
     title: string;

@@ -243,5 +243,10 @@ export async function getDasboardData() {
                 description: "Infrastructure monitoring confirms that all services are running normally with no incidents detected.",
             },
         ],
+        profileOptions: [
+            { name: "Profile" },
+            { name: "Settings" },
+            { name: "Log Out" },
+        ],
     };
 }
