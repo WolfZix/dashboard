@@ -9,9 +9,10 @@ import Home from "./routes/home";
 import Users from "./routes/users";
 import Analytics from "./routes/analytics";
 import Login from "./routes/login";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const isGitHubPages = window.location.hostname.includes("github.io");
-const basename = isGitHubPages ? "/dashboard" : "/";
+const basename = isGitHubPages ? "/dashboard/login" : "/";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -19,8 +20,17 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <Routes>
         <Route path="/login" element={<Login />} />
 
-        <Route path="/" element={<Dashboard />}>
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              {" "}
+              <Dashboard />{" "}
+            </ProtectedRoute>
+          }
+        >
           <Route index element={<Home />} />
+          <Route path="/" element={<Home />} />
           <Route path="users" element={<Users />} />
           <Route path="analytics" element={<Analytics />} />
         </Route>

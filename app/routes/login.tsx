@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ThemeToggle from "../components/navbar/ThemeToggle";
 
@@ -6,6 +6,14 @@ export default function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const username = localStorage.getItem("username");
+
+    if (username) {
+      navigate("/");
+    }
+  }, []);
 
   function handleLogin(e: React.FormEvent) {
     e.preventDefault();
