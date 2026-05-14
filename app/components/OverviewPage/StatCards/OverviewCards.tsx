@@ -1,4 +1,4 @@
-import StatCard from "../components/stat-card";
+import StatCard from "../StatCards/stat-card";
 
 type OverviewCards = {
   stats: {

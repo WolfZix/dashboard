@@ -2,9 +2,9 @@ import NotificationsButton from "./navbar/NotificationsButton/NotificationsButto
 import OnlineStatus from "./navbar/OnlineStatus";
 import ThemeToggle from "./navbar/ThemeToggle";
 import UserProfile from "./navbar/ProfileButton/UserProfile";
-import OverviewMessage from "./OverviewMessage";
-import UsersMessage from "./UsersMessage";
-import AnalyticsMessage from "./AnalyticsMessage";
+import OverviewMessage from "./OverviewPage/OverviewMessage";
+import UsersMessage from "./UsersPage/UsersMessage";
+import AnalyticsMessage from "./AnalyticsPage/AnalyticsMessage";
 import { useLocation } from "react-router-dom";
 
 export default function Navbar() {

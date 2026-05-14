@@ -2,9 +2,9 @@ import { BarChart3, LayoutDashboard, Users } from "lucide-react";
 import { Outlet, useLocation } from "react-router-dom";
 import { useState } from "react";
 
-import HomeLoading from "../components/HomeLoading";
-import UsersLoading from "../components/UsersLoading";
-import AnalyticsLoading from "../components/AnalyticsLoading";
+import HomeLoading from "../components/OverviewPage/OverviewLoading";
+import UsersLoading from "../components/UsersPage/UsersLoading";
+import AnalyticsLoading from "../components/AnalyticsPage/AnalyticsLoading";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 

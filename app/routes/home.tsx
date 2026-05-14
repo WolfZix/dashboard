@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 
-import HomeLoading from "../components/HomeLoading";
-import RecentActivities from "../components/RecentActivities";
-import OverviewChart from "../components/OverviewChart";
-import OverviewCards from "../components/OverviewCards";
-import DailyNews from "../components/DailyNews";
+import HomeLoading from "../components/OverviewPage/OverviewLoading";
+import RecentActivities from "../components/OverviewPage/RecentActivities";
+import OverviewChart from "../components/OverviewPage/OverviewChart";
+import OverviewCards from "../components/OverviewPage/StatCards/OverviewCards";
+import DailyNews from "../components/OverviewPage/DailyNews/DailyNews";
 
 import { getDasboardData } from "../services/dashboard.server";
 
