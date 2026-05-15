@@ -27,11 +27,17 @@ input:-webkit-autofill:focus,
 input:-webkit-autofill:hover {
   -webkit-text-fill-color: white !important;
 
+  -webkit-text-fill-color: #cbd5e1 !important;
+
+  -webkit-box-shadow:
+    0 0 0px 1000px #0f172a inset !important;
+
+  box-shadow:
+    0 0 0px 1000px #0f172a inset !important;
+
   caret-color: #cbd5e1 !important;
   color: white !important;
   text-decoration: none;
-
-  transition: background-color 9999s ease-in-out 0s;
 }
 
 .light input:-webkit-autofill,
@@ -40,9 +46,13 @@ input:-webkit-autofill:hover {
 .light input:-webkit-autofill:hover {
   -webkit-text-fill-color: black !important;
 
+  -webkit-box-shadow:
+    0 0 0px 1000px white inset !important;
+
+  box-shadow:
+    0 0 0px 1000px white inset !important;
+
   caret-color: #000000 !important;
   color: rgb(0, 0, 0) !important;
   text-decoration: none;
-
-  transition: background-color 9999s ease-in-out 0s;
 }

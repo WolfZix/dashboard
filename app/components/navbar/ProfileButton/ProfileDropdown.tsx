@@ -50,8 +50,10 @@ export default function ProfileDropdown({
   }, []);
 
   function clearLocalStorage(optionName: string) {
-    if (optionName) localStorage.removeItem("username");
-    if (localStorage.getItem("password")) localStorage.removeItem("password");
+    if (optionName === "Log Out") {
+      localStorage.removeItem("username");
+      localStorage.removeItem("password");
+    }
   }
 
   return (
