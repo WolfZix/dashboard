@@ -24,7 +24,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-950 light:bg-[#f1f5f9]">
+    <div className="min-h-screen flex items-center justify-center bg-slate-950 light:bg-[#f1f5f9] transition-none">
       <div className="w-full relative max-w-md bg-slate-900 light:bg-white p-8 rounded-2xl shadow-lg border border-slate-600 light:border-[#e2e8f0]">
         <h1 className="text-3xl font-bold mb-2 text-white light:text-[#0f172a]">
           Welcome back
@@ -43,6 +43,7 @@ export default function LoginPage() {
             placeholder="Username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
+            spellCheck={false}
             className="
             w-full
             px-4
