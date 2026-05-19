@@ -35,13 +35,31 @@ export default function UsersTable() {
   );
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
   const sortedUsers = [...(filteredUsers || [])].sort((a, b) => {
+    if (sortBy === "status") {
+      const statusOrder = {
+        Online: 4,
+        Busy: 3,
+        Away: 2,
+        Offline: 1,
+      };
+
+      const aStatus = statusOrder[a.status as keyof typeof statusOrder];
+      const bStatus = statusOrder[b.status as keyof typeof statusOrder];
+
+      return sortOrder === "asc" ? bStatus - aStatus : aStatus - bStatus;
+    }
+
     const aValue = a[sortBy].toLowerCase();
+
     const bValue = b[sortBy].toLowerCase();
+
     if (sortOrder === "asc") {
       return aValue.localeCompare(bValue);
     }
+
     return bValue.localeCompare(aValue);
   });
+  const statusOrder = { Online: 4, Busy: 3, Away: 2, Offline: 1 };
   const visibleUsers = sortedUsers.slice(
     page * PAGE_SIZE,
     page * PAGE_SIZE + PAGE_SIZE,

@@ -1,26 +1,63 @@
-export default function AnalyticsLoading() {
+export default function UsersLoading() {
   return (
     <>
-      {/* <div className="space-y-6">
-        <div className="space-y-2">
-          <div className="h-8 w-64 bg-slate-800 animate-pulse rounded" />
-          <div className="h-4 w-96 bg-slate-800 animate-pulse rounded" />
-        </div>
+      <div className="usersSearchWrapper">
+        <div className=" h-12 w-[350px] rounded-xl bg-slate-800 light:bg-slate-200 animate-pulse " />
+      </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
-          {[1, 2, 3, 4].map((i) => (
-            <div
-              key={i}
-              className="h-24 bg-slate-800 animate-pulse rounded-2xl"
-            />
-          ))}
-        </div>
+      <div className="usersTableWrapper">
+        <table className="usersTable">
+          <thead>
+            <tr>
+              {[...Array(6)].map((_, index) => (
+                <th key={index}>
+                  <div className=" h-4 w-20 mx-auto rounded bg-slate-700 light:bg-slate-300 animate-pulse " />
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {[...Array(6)].map((_, rowIndex) => (
+              <tr key={rowIndex}>
+                <td>
+                  <div className=" h-4 w-6 mx-auto rounded bg-slate-700 light:bg-slate-300 animate-pulse " />
+                </td>
 
-        <div className="grid grid-cols-1 xl:grid-cols-3 gap-4">
-          <div className="xl:col-span-2 h-80 bg-slate-800 animate-pulse rounded-2xl" />
-          <div className="h-80 bg-slate-800 animate-pulse rounded-2xl" />
-        </div>
-      </div> */}
+                <td>
+                  <div className=" h-4 w-28 mx-auto rounded bg-slate-700 light:bg-slate-300 animate-pulse " />
+                </td>
+                <td>
+                  <div className=" h-4 w-20 mx-auto rounded bg-slate-700 light:bg-slate-300 animate-pulse" />
+                </td>
+                <td>
+                  <div className=" h-4 w-16 mx-auto rounded-full bg-slate-700 light:bg-slate-300 animate-pulse " />
+                </td>
+                <td>
+                  <div className=" h-4 w-24 mx-auto rounded bg-slate-700 light:bg-slate-300 animate-pulse " />
+                </td>
+                <td>
+                  <div className="userActions">
+                    {[...Array(3)].map((_, actionIndex) => (
+                      <div
+                        key={actionIndex}
+                        className=" h-9 w-9 rounded-lg bg-slate-700 light:bg-slate-300 animate-pulse "
+                      />
+                    ))}
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div className="usersPagination">
+        {[...Array(3)].map((_, index) => (
+          <div
+            key={index}
+            className=" h-10 w-10 rounded-lg bg-slate-800 light:bg-slate-200 animate-pulse "
+          />
+        ))}
+      </div>
     </>
   );
 }
