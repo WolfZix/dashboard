@@ -14,6 +14,7 @@ import UsersPagination from "./UsersPagination";
 
 type DashboardData = {
   UsersData: {
+    id: number;
     name: string;
     role: string;
     status: string;
@@ -30,11 +31,14 @@ export default function UsersTable() {
 
   const [page, setPage] = useState(0);
   const PAGE_SIZE = 6;
-  const [sortBy, setSortBy] = useState<"name" | "role" | "status" | "joined">(
-    "role",
-  );
-  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
+  const [sortBy, setSortBy] = useState<
+    "id" | "name" | "role" | "status" | "joined"
+  >("id");
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc" | null>("asc");
   const sortedUsers = [...(filteredUsers || [])].sort((a, b) => {
+    if (!sortOrder) {
+      return 0;
+    }
     if (sortBy === "status") {
       const statusOrder = {
         Online: 4,
@@ -44,20 +48,23 @@ export default function UsersTable() {
       };
 
       const aStatus = statusOrder[a.status as keyof typeof statusOrder];
+
       const bStatus = statusOrder[b.status as keyof typeof statusOrder];
 
       return sortOrder === "asc" ? bStatus - aStatus : aStatus - bStatus;
+    }
+
+    if (sortBy === "id") {
+      return sortOrder === "asc" ? a.id - b.id : b.id - a.id;
     }
 
     const aValue = a[sortBy].toLowerCase();
 
     const bValue = b[sortBy].toLowerCase();
 
-    if (sortOrder === "asc") {
-      return aValue.localeCompare(bValue);
-    }
-
-    return bValue.localeCompare(aValue);
+    return sortOrder === "asc"
+      ? aValue.localeCompare(bValue)
+      : bValue.localeCompare(aValue);
   });
   const statusOrder = { Online: 4, Busy: 3, Away: 2, Offline: 1 };
   const visibleUsers = sortedUsers.slice(
@@ -66,11 +73,20 @@ export default function UsersTable() {
   );
   const pages = Math.ceil((filteredUsers?.length || 0) / PAGE_SIZE) || 1;
 
-  function handleSort(column: "name" | "role" | "status" | "joined") {
-    if (sortBy === column) {
-      setSortOrder((prev) => (prev === "asc" ? "desc" : "asc"));
-    } else {
+  function handleSort(column: "id" | "name" | "role" | "status" | "joined") {
+    if (sortBy !== column) {
       setSortBy(column);
+
+      setSortOrder("asc");
+
+      return;
+    }
+
+    if (sortOrder === "asc") {
+      setSortOrder("desc");
+    } else if (sortOrder === "desc") {
+      setSortOrder(null);
+    } else {
       setSortOrder("asc");
     }
   }
@@ -110,8 +126,10 @@ export default function UsersTable() {
                   {sortBy === "name" ? (
                     sortOrder === "asc" ? (
                       <ArrowDown size={18} />
-                    ) : (
+                    ) : sortOrder === "desc" ? (
                       <ArrowUp size={18} />
+                    ) : (
+                      <ArrowUpDown size={18} />
                     )
                   ) : (
                     <ArrowUpDown size={18} className="opacity-30" />
@@ -124,8 +142,10 @@ export default function UsersTable() {
                   {sortBy === "role" ? (
                     sortOrder === "asc" ? (
                       <ArrowDown size={18} />
-                    ) : (
+                    ) : sortOrder === "desc" ? (
                       <ArrowUp size={18} />
+                    ) : (
+                      <ArrowUpDown size={18} />
                     )
                   ) : (
                     <ArrowUpDown size={18} className="opacity-30" />
@@ -138,8 +158,10 @@ export default function UsersTable() {
                   {sortBy === "status" ? (
                     sortOrder === "asc" ? (
                       <ArrowDown size={18} />
-                    ) : (
+                    ) : sortOrder === "desc" ? (
                       <ArrowUp size={18} />
+                    ) : (
+                      <ArrowUpDown size={18} />
                     )
                   ) : (
                     <ArrowUpDown size={18} className="opacity-30" />
@@ -152,8 +174,10 @@ export default function UsersTable() {
                   {sortBy === "joined" ? (
                     sortOrder === "asc" ? (
                       <ArrowDown size={18} />
-                    ) : (
+                    ) : sortOrder === "desc" ? (
                       <ArrowUp size={18} />
+                    ) : (
+                      <ArrowUpDown size={18} />
                     )
                   ) : (
                     <ArrowUpDown size={18} className="opacity-30" />
