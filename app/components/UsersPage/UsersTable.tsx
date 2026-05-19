@@ -9,7 +9,9 @@ import {
   ArrowUp,
   ArrowUpDown,
 } from "lucide-react";
+
 import "./UsersPage.css";
+
 import UsersPagination from "./UsersPagination";
 
 type DashboardData = {
@@ -25,20 +27,24 @@ type DashboardData = {
 export default function UsersTable() {
   const [data, setData] = useState<DashboardData | null>(null);
   const [search, setSearch] = useState("");
+  const [page, setPage] = useState(0);
+  const PAGE_SIZE = 6;
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc" | null>(null);
+  const [hasUserSorted, setHasUserSorted] = useState(false);
+
+  const [sortBy, setSortBy] = useState<
+    "id" | "name" | "role" | "status" | "joined"
+  >("id");
+
   const filteredUsers = data?.UsersData.filter((user) =>
     user.name.toLowerCase().includes(search.toLowerCase()),
   );
 
-  const [page, setPage] = useState(0);
-  const PAGE_SIZE = 6;
-  const [sortBy, setSortBy] = useState<
-    "id" | "name" | "role" | "status" | "joined"
-  >("id");
-  const [sortOrder, setSortOrder] = useState<"asc" | "desc" | null>("asc");
   const sortedUsers = [...(filteredUsers || [])].sort((a, b) => {
     if (!sortOrder) {
       return 0;
     }
+
     if (sortBy === "status") {
       const statusOrder = {
         Online: 4,
@@ -48,7 +54,6 @@ export default function UsersTable() {
       };
 
       const aStatus = statusOrder[a.status as keyof typeof statusOrder];
-
       const bStatus = statusOrder[b.status as keyof typeof statusOrder];
 
       return sortOrder === "asc" ? bStatus - aStatus : aStatus - bStatus;
@@ -59,26 +64,26 @@ export default function UsersTable() {
     }
 
     const aValue = a[sortBy].toLowerCase();
-
     const bValue = b[sortBy].toLowerCase();
 
     return sortOrder === "asc"
       ? aValue.localeCompare(bValue)
       : bValue.localeCompare(aValue);
   });
-  const statusOrder = { Online: 4, Busy: 3, Away: 2, Offline: 1 };
+
   const visibleUsers = sortedUsers.slice(
     page * PAGE_SIZE,
     page * PAGE_SIZE + PAGE_SIZE,
   );
+
   const pages = Math.ceil((filteredUsers?.length || 0) / PAGE_SIZE) || 1;
 
   function handleSort(column: "id" | "name" | "role" | "status" | "joined") {
+    setHasUserSorted(true);
+
     if (sortBy !== column) {
       setSortBy(column);
-
       setSortOrder("asc");
-
       return;
     }
 
@@ -89,6 +94,24 @@ export default function UsersTable() {
     } else {
       setSortOrder("asc");
     }
+  }
+
+  function renderSortIcon(
+    column: "id" | "name" | "role" | "status" | "joined",
+  ) {
+    if (!hasUserSorted) {
+      return <ArrowUpDown size={18} className="opacity-30" />;
+    }
+    if (sortBy !== column) {
+      return <ArrowUpDown size={18} className="opacity-30" />;
+    }
+    if (sortOrder === "asc") {
+      return <ArrowDown size={18} />;
+    }
+    if (sortOrder === "desc") {
+      return <ArrowUp size={18} />;
+    }
+    return <ArrowUpDown size={18} className="opacity-30" />;
   }
 
   useEffect(() => {
@@ -119,78 +142,45 @@ export default function UsersTable() {
         <table className="usersTable">
           <thead>
             <tr>
-              <th>Lp.</th>
+              <th onClick={() => handleSort("id")}>
+                <span className="flex justify-center gap-2 items-center">
+                  ID
+                  {renderSortIcon("id")}
+                </span>
+              </th>
               <th onClick={() => handleSort("name")}>
                 <span className="flex justify-center gap-2 items-center">
                   Username
-                  {sortBy === "name" ? (
-                    sortOrder === "asc" ? (
-                      <ArrowDown size={18} />
-                    ) : sortOrder === "desc" ? (
-                      <ArrowUp size={18} />
-                    ) : (
-                      <ArrowUpDown size={18} />
-                    )
-                  ) : (
-                    <ArrowUpDown size={18} className="opacity-30" />
-                  )}
+                  {renderSortIcon("name")}
                 </span>
               </th>
               <th onClick={() => handleSort("role")}>
                 <span className="flex justify-center gap-2 items-center">
                   Role
-                  {sortBy === "role" ? (
-                    sortOrder === "asc" ? (
-                      <ArrowDown size={18} />
-                    ) : sortOrder === "desc" ? (
-                      <ArrowUp size={18} />
-                    ) : (
-                      <ArrowUpDown size={18} />
-                    )
-                  ) : (
-                    <ArrowUpDown size={18} className="opacity-30" />
-                  )}
+                  {renderSortIcon("role")}
                 </span>
               </th>
               <th onClick={() => handleSort("status")}>
                 <span className="flex justify-center gap-2 items-center">
                   Status
-                  {sortBy === "status" ? (
-                    sortOrder === "asc" ? (
-                      <ArrowDown size={18} />
-                    ) : sortOrder === "desc" ? (
-                      <ArrowUp size={18} />
-                    ) : (
-                      <ArrowUpDown size={18} />
-                    )
-                  ) : (
-                    <ArrowUpDown size={18} className="opacity-30" />
-                  )}
+                  {renderSortIcon("status")}
                 </span>
               </th>
               <th onClick={() => handleSort("joined")}>
                 <span className="flex justify-center gap-2 items-center">
-                  Join date (DD/MM/RRRR)
-                  {sortBy === "joined" ? (
-                    sortOrder === "asc" ? (
-                      <ArrowDown size={18} />
-                    ) : sortOrder === "desc" ? (
-                      <ArrowUp size={18} />
-                    ) : (
-                      <ArrowUpDown size={18} />
-                    )
-                  ) : (
-                    <ArrowUpDown size={18} className="opacity-30" />
-                  )}
+                  Join date
+                  {renderSortIcon("joined")}
                 </span>
               </th>
+
               <th>Actions</th>
             </tr>
           </thead>
+
           <tbody>
-            {visibleUsers?.map((user, index) => (
-              <tr>
-                <td>{page * PAGE_SIZE + index + 1}</td>
+            {visibleUsers?.map((user) => (
+              <tr key={user.id}>
+                <td>{user.id}</td>
                 <td>{user.name}</td>
                 <td>{user.role}</td>
                 <td>
@@ -217,6 +207,7 @@ export default function UsersTable() {
           </tbody>
         </table>
       </div>
+
       <UsersPagination page={page} setPage={setPage} pages={pages} />
     </>
   );
