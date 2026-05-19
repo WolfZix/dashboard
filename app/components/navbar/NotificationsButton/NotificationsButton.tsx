@@ -1,6 +1,5 @@
 import { Bell } from "lucide-react";
 import { useState } from "react";
-
 import Dropdown from "./Dropdown";
 
 export default function NotificationsButton() {
