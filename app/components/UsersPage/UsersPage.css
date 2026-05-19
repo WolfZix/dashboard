@@ -13,6 +13,12 @@
 .usersTable {
     width: 100%;
     border-collapse: collapse;
+    table-layout: fixed;
+    user-select: none;
+}
+
+.usersTable * {
+    transition: none !important;
 }
 
 .usersTable th {
@@ -23,6 +29,40 @@
     color: #94a3b8;
     background: #111827;
     border-bottom: 1px solid #1e293b;
+    cursor: pointer;
+}
+
+.usersTable th:hover {
+    color: white;
+}
+
+.usersTable th:nth-child(1):hover {
+    color: #94a3b8;
+}
+
+.usersTable th:nth-child(1) {
+    width: 40px;
+    cursor: default;
+}
+
+.usersTable th:nth-child(2) {
+    width: 400px;
+}
+
+.usersTable th:nth-child(3) {
+    width: 100px;
+}
+
+.usersTable th:nth-child(4) {
+    width: 100px;
+}
+
+.usersTable th:nth-child(5) {
+    width: 175px;
+}
+
+.usersTable th:nth-child(6) {
+    width: 150px;
 }
 
 .usersTable td {

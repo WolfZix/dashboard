@@ -1,6 +1,14 @@
 import { useEffect, useState } from "react";
 import { getDasboardData } from "../../services/dashboard.server";
-import { Eye, Pencil, Trash, Search } from "lucide-react";
+import {
+  Eye,
+  Pencil,
+  Trash,
+  Search,
+  ArrowDown,
+  ArrowUp,
+  ArrowUpDown,
+} from "lucide-react";
 import "./UsersPage.css";
 import UsersPagination from "./UsersPagination";
 
@@ -22,11 +30,32 @@ export default function UsersTable() {
 
   const [page, setPage] = useState(0);
   const PAGE_SIZE = 6;
-  const visibleUsers = filteredUsers?.slice(
+  const [sortBy, setSortBy] = useState<"name" | "role" | "status" | "joined">(
+    "role",
+  );
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
+  const sortedUsers = [...(filteredUsers || [])].sort((a, b) => {
+    const aValue = a[sortBy].toLowerCase();
+    const bValue = b[sortBy].toLowerCase();
+    if (sortOrder === "asc") {
+      return aValue.localeCompare(bValue);
+    }
+    return bValue.localeCompare(aValue);
+  });
+  const visibleUsers = sortedUsers.slice(
     page * PAGE_SIZE,
     page * PAGE_SIZE + PAGE_SIZE,
   );
   const pages = Math.ceil((filteredUsers?.length || 0) / PAGE_SIZE) || 1;
+
+  function handleSort(column: "name" | "role" | "status" | "joined") {
+    if (sortBy === column) {
+      setSortOrder((prev) => (prev === "asc" ? "desc" : "asc"));
+    } else {
+      setSortBy(column);
+      setSortOrder("asc");
+    }
+  }
 
   useEffect(() => {
     async function loadData() {
@@ -57,17 +86,69 @@ export default function UsersTable() {
           <thead>
             <tr>
               <th>Lp.</th>
-              <th>Username</th>
-              <th>Role</th>
-              <th>Status</th>
-              <th>Join date (DD/MM/RRRR)</th>
+              <th onClick={() => handleSort("name")}>
+                <span className="flex justify-center gap-2 items-center">
+                  Username
+                  {sortBy === "name" ? (
+                    sortOrder === "asc" ? (
+                      <ArrowDown size={18} />
+                    ) : (
+                      <ArrowUp size={18} />
+                    )
+                  ) : (
+                    <ArrowUpDown size={18} className="opacity-30" />
+                  )}
+                </span>
+              </th>
+              <th onClick={() => handleSort("role")}>
+                <span className="flex justify-center gap-2 items-center">
+                  Role
+                  {sortBy === "role" ? (
+                    sortOrder === "asc" ? (
+                      <ArrowDown size={18} />
+                    ) : (
+                      <ArrowUp size={18} />
+                    )
+                  ) : (
+                    <ArrowUpDown size={18} className="opacity-30" />
+                  )}
+                </span>
+              </th>
+              <th onClick={() => handleSort("status")}>
+                <span className="flex justify-center gap-2 items-center">
+                  Status
+                  {sortBy === "status" ? (
+                    sortOrder === "asc" ? (
+                      <ArrowDown size={18} />
+                    ) : (
+                      <ArrowUp size={18} />
+                    )
+                  ) : (
+                    <ArrowUpDown size={18} className="opacity-30" />
+                  )}
+                </span>
+              </th>
+              <th onClick={() => handleSort("joined")}>
+                <span className="flex justify-center gap-2 items-center">
+                  Join date (DD/MM/RRRR)
+                  {sortBy === "joined" ? (
+                    sortOrder === "asc" ? (
+                      <ArrowDown size={18} />
+                    ) : (
+                      <ArrowUp size={18} />
+                    )
+                  ) : (
+                    <ArrowUpDown size={18} className="opacity-30" />
+                  )}
+                </span>
+              </th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
             {visibleUsers?.map((user, index) => (
-              <tr key={index}>
-                <td>{index + 1}</td>
+              <tr>
+                <td>{page * PAGE_SIZE + index + 1}</td>
                 <td>{user.name}</td>
                 <td>{user.role}</td>
                 <td>
