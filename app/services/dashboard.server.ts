@@ -271,8 +271,6 @@ export async function getDasboardData() {
             { name: "CrypticFox", role: "Moderator", status: "Busy", joined: "29/12/2025" },
             { name: "ByteHunter", role: "User", status: "Online", joined: "18/02/2026" },
             { name: "SolarFlare", role: "Premium", status: "Away", joined: "07/01/2026" },
-            { name: "NightPixel", role: "Moderator", status: "Busy", joined: "11/11/2025" },
-            { name: "CoreMatrix", role: "User", status: "Offline", joined: "22/08/2025" },
         ],
     };
 }
