@@ -1,9 +1,14 @@
 export type User = {
     id: number;
     name: string;
-    role: string;
-    status: string;
+    role: | "Admin" | "Moderator" | "Premium" | "User";
+    status: | "Online" | "Busy" | "Away" | "Offline";
     joined: string;
+    bio: string;
+    projects: number;
+    reports: number;
+    tasks: number;
+    commits: number;
 };
 
 export type SortBy =

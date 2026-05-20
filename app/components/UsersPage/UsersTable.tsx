@@ -7,7 +7,8 @@ import UsersTableHeader from "./UsersTableHeader";
 import UsersTableRow from "./UsersTableRow";
 import type { SortBy, SortOrder, User } from "./users.types";
 import { sortUsers, getPermissions } from "./users.helpers";
-import UserModal from "./UserModal";
+import ViewUserModal from "./ViewUserModal";
+import EditUserModal from "./EditUserModal";
 
 type DashboardData = {
   UsersData: User[];
@@ -44,6 +45,7 @@ export default function UsersTable() {
   );
   const pages = Math.ceil(filteredUsers.length / PAGE_SIZE) || 1;
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
+  const [editUser, setEditUser] = useState<User | null>(null);
 
   function handleSort(column: SortBy) {
     setHasUserSorted(true);
@@ -95,6 +97,7 @@ export default function UsersTable() {
                 canEdit={canEdit}
                 canDelete={canDelete}
                 setSelectedUser={setSelectedUser}
+                setEditingUser={setEditUser}
               />
             ))}
           </tbody>
@@ -102,7 +105,13 @@ export default function UsersTable() {
       </div>
       <UsersPagination page={page} setPage={setPage} pages={pages} />
       {selectedUser && (
-        <UserModal user={selectedUser} onClose={() => setSelectedUser(null)} />
+        <ViewUserModal
+          user={selectedUser}
+          onClose={() => setSelectedUser(null)}
+        />
+      )}
+      {editUser && (
+        <EditUserModal user={editUser} onClose={() => setEditUser(null)} />
       )}
     </>
   );

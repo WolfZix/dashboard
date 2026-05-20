@@ -1,18 +1,13 @@
 import { Eye, Pencil, Trash } from "lucide-react";
-import ViewUser from "./ViewUser";
-import EditUser from "./EditUser";
-import { useState } from "react";
 
 type UsersActionsProps = {
   canView: boolean;
   canEdit: boolean;
   canDelete: boolean;
   onView: () => void;
+  onEdit: () => void;
 };
 
-function editUser() {
-  return <EditUser />;
-}
 function deleteUser() {
   console.log("Delete user");
 }
@@ -22,6 +17,7 @@ export default function UsersActions({
   canEdit,
   canDelete,
   onView,
+  onEdit,
 }: UsersActionsProps) {
   return (
     <div className="userActions">
@@ -31,7 +27,7 @@ export default function UsersActions({
         </button>
       )}
       {canEdit && (
-        <button onClick={() => editUser()} className="userActionBtn">
+        <button onClick={onEdit} className="userActionBtn">
           <Pencil />
         </button>
       )}
