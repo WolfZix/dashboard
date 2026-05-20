@@ -1,17 +1,13 @@
 import { useEffect, useState } from "react";
-
 import { getDasboardData } from "../../services/dashboard.server";
-
 import "./UsersPage.css";
-
 import UsersPagination from "./UsersPagination";
 import UsersSearch from "./UsersSearch";
 import UsersTableHeader from "./UsersTableHeader";
 import UsersTableRow from "./UsersTableRow";
-
 import type { SortBy, SortOrder, User } from "./users.types";
-
 import { sortUsers, getPermissions } from "./users.helpers";
+import UserModal from "./UserModal";
 
 type DashboardData = {
   UsersData: User[];
@@ -47,6 +43,7 @@ export default function UsersTable() {
     page * PAGE_SIZE + PAGE_SIZE,
   );
   const pages = Math.ceil(filteredUsers.length / PAGE_SIZE) || 1;
+  const [selectedUser, setSelectedUser] = useState<User | null>(null);
 
   function handleSort(column: SortBy) {
     setHasUserSorted(true);
@@ -97,12 +94,16 @@ export default function UsersTable() {
                 canView={canView}
                 canEdit={canEdit}
                 canDelete={canDelete}
+                setSelectedUser={setSelectedUser}
               />
             ))}
           </tbody>
         </table>
       </div>
       <UsersPagination page={page} setPage={setPage} pages={pages} />
+      {selectedUser && (
+        <UserModal user={selectedUser} onClose={() => setSelectedUser(null)} />
+      )}
     </>
   );
 }
