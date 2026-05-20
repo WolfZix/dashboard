@@ -1,0 +1,92 @@
+import { useState } from "react";
+import type { User } from "./users.types";
+
+type CreateUserModalProps = {
+  onClose: () => void;
+  onCreate: (newUser: User) => void;
+};
+
+export default function CreateUserModal({
+  onClose,
+  onCreate,
+}: CreateUserModalProps) {
+  const [name, setName] = useState("User");
+  const [role, setRole] = useState<User["role"]>("User");
+
+  function createUser() {
+    if (!name.trim()) return;
+  }
+
+  const newUser: User = {
+    id:
+      Math.max(
+        ...JSON.parse(localStorage.getItem("users") || "[]").map(
+          (u: User) => u.id,
+        ),
+        0,
+      ) + 1,
+    name,
+    role,
+    status: "Online",
+    joined: new Date().toISOString().split("T")[0],
+    bio: "",
+    projects: 0,
+    reports: 0,
+    tasks: 0,
+    commits: 0,
+    color: "#22c55e",
+    textColor: "#000000",
+  };
+  onCreate(newUser);
+  onClose();
+  return (
+    <div
+      className="fixed inset-0 bg-black/50 flex items-center justify-center z-999"
+      onClick={onClose}
+    >
+      <div
+        className="bg-slate-900 light:bg-white border border-slate-700 light:border-[#e2e8f0] rounded-2xl p-6 w-112.5"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <h1 className="text-2xl font-bold mb-6">Create User</h1>
+
+        <div className="space-y-4">
+          <input
+            type="text"
+            placeholder="Username"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="w-full px-4 py-3 rounded-xl bg-slate-800 light:bg-slate-100 outline-none"
+          />
+
+          <select
+            value={role}
+            onChange={(e) => setRole(e.target.value as User["role"])}
+            className="w-full px-4 py-3 rounded-xl bg-slate-800 light:bg-slate-100 outline-none"
+          >
+            <option value="User">User</option>
+            <option value="Premium">Premium</option>
+            <option value="Moderator">Moderator</option>
+            <option value="Admin">Admin</option>
+          </select>
+        </div>
+
+        <div className="flex gap-3 mt-6">
+          <button
+            onClick={onClose}
+            className="flex-1 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 light:bg-slate-100 light:hover:bg-slate-200 transition"
+          >
+            Cancel
+          </button>
+
+          <button
+            onClick={createUser}
+            className="flex-1 py-3 rounded-xl bg-green-700 hover:bg-green-600 transition"
+          >
+            Create
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}

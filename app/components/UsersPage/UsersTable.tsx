@@ -10,6 +10,7 @@ import { sortUsers, getPermissions } from "./users.helpers";
 import ViewUserModal from "./ViewUserModal";
 import EditUserModal from "./EditUserModal";
 import DeleteuserModal from "./DeleteUserModal";
+import CreateUserModal from "./CreateUserModal";
 import Toast from "./Toast";
 
 export default function UsersTable() {
@@ -39,6 +40,7 @@ export default function UsersTable() {
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [editUser, setEditUser] = useState<User | null>(null);
   const [deleteUser, setDeleteUser] = useState<User | null>(null);
+  const [createUserOpen, setCreateUserOpen] = useState(false);
   const [toast, setToast] = useState<{
     type: "success" | "error";
     message: string;
@@ -82,7 +84,15 @@ export default function UsersTable() {
 
   return (
     <>
-      <UsersSearch search={search} setSearch={setSearch} />
+      <div className="flex justify-between items-center">
+        <UsersSearch search={search} setSearch={setSearch} />
+        <button
+          onClick={() => setCreateUserOpen(true)}
+          className="px-5 py-3 rounded-xl bg-green-700 hover:bg-green-600 transition cursor-pointer"
+        >
+          Add User
+        </button>
+      </div>
       <div className="usersTableWrapper">
         <table className="usersTable">
           <UsersTableHeader
@@ -145,6 +155,20 @@ export default function UsersTable() {
             localStorage.setItem("users", JSON.stringify(updatedUsers));
             setDeleteUser(null);
             setToast({ type: "success", message: "User deleted successfully" });
+            setTimeout(() => {
+              setToast(null);
+            }, 2000);
+          }}
+        />
+      )}
+      {createUserOpen && (
+        <CreateUserModal
+          onClose={() => setCreateUserOpen(false)}
+          onCreate={(newUser) => {
+            const updatedUsers = [...users, newUser];
+            setUsers(updatedUsers);
+            localStorage.setItem("users", JSON.stringify(updatedUsers));
+            setToast({ type: "success", message: "User created successfully" });
             setTimeout(() => {
               setToast(null);
             }, 2000);

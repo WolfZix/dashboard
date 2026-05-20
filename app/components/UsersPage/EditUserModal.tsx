@@ -18,6 +18,7 @@ export default function EditUserModal({
 }: EditUserModalProps) {
   const [role, setRole] = useState(user.role);
   const [color, setColor] = useState(user.color);
+  const [name, setName] = useState(user.name);
   const [selectFocused, setSelectFocused] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -28,13 +29,6 @@ export default function EditUserModal({
     Offline: "bg-slate-400",
   };
 
-  const roleStyles = {
-    Admin: "bg-red-800",
-    Moderator: "bg-blue-800",
-    Premium: "bg-purple-800",
-    User: "bg-slate-800",
-  };
-
   const roleOptions = {
     Admin: ["Admin", "Moderator", "Premium", "User"],
     Moderator: ["Premium", "User"],
@@ -42,9 +36,14 @@ export default function EditUserModal({
     User: [],
   };
 
+  const canEditUser =
+    currentUserRole === "Admin" ||
+    (currentUserRole === "Moderator" && user.role !== "Admin");
+
   function saveChanges() {
     const updateUser = {
       ...user,
+      name,
       role,
       color,
     };
@@ -94,14 +93,18 @@ export default function EditUserModal({
             <div>
               {/* Profile info */}
               <div className="flex gap-2 items-center mb-1">
-                <div>{user.name}</div>
+                <input
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  disabled={!canEditUser}
+                  className="w-[50%] bg-transparent outline-none border border-slate-400 focus:border-slate-600 light:focus:border-slate-300 rounded-lg px-2 py-1 disabled:opacity-60"
+                />
                 {/* Role badges */}
                 <select
                   value={role}
                   onChange={(e) => setRole(e.target.value as User["role"])}
-                  disabled={
-                    currentUserRole === "User" || currentUserRole === "Premium"
-                  }
+                  disabled={!canEditUser}
                   onClick={() => setSelectFocused((prev) => !prev)}
                   onBlur={() => setSelectFocused(false)}
                   className={`bg-slate-800 hover:bg-slate-700 light:bg-slate-100 light:hover:bg-slate-200 cursor-pointer rounded-xl p-1 outline-none text-sm ${
@@ -116,10 +119,6 @@ export default function EditUserModal({
                     </option>
                   ))}
                 </select>
-              </div>
-              {/* Join date info */}
-              <div className="text-xs text-slate-400">
-                Joined: {user.joined}
               </div>
             </div>
           </div>
