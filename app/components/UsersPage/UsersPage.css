@@ -234,3 +234,16 @@
     background: #f8fafc;
     color: #0f172a;
 }
+
+@keyframes toast {
+    from {
+        width: 100%;
+    }
+    to {
+        width: 0%;
+    }
+}
+
+.animate-toast {
+    animation: toast 2s linear forwards;
+}

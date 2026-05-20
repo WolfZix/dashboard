@@ -6,6 +6,7 @@ type UsersActionsProps = {
   canDelete: boolean;
   onView: () => void;
   onEdit: () => void;
+  onDelete: () => void;
 };
 
 function deleteUser() {
@@ -18,6 +19,7 @@ export default function UsersActions({
   canDelete,
   onView,
   onEdit,
+  onDelete,
 }: UsersActionsProps) {
   return (
     <div className="userActions">
@@ -32,10 +34,7 @@ export default function UsersActions({
         </button>
       )}
       {canDelete && (
-        <button
-          onClick={() => deleteUser()}
-          className="userActionBtn userDeleteBtn"
-        >
+        <button onClick={onDelete} className="userActionBtn userDeleteBtn">
           <Trash />
         </button>
       )}

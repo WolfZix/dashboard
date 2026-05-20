@@ -9,6 +9,8 @@ import type { SortBy, SortOrder, User } from "./users.types";
 import { sortUsers, getPermissions } from "./users.helpers";
 import ViewUserModal from "./ViewUserModal";
 import EditUserModal from "./EditUserModal";
+import DeleteuserModal from "./DeleteUserModal";
+import Toast from "./Toast";
 
 export default function UsersTable() {
   const [users, setUsers] = useState<User[]>([]);
@@ -36,6 +38,11 @@ export default function UsersTable() {
   const pages = Math.ceil(filteredUsers.length / PAGE_SIZE) || 1;
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [editUser, setEditUser] = useState<User | null>(null);
+  const [deleteUser, setDeleteUser] = useState<User | null>(null);
+  const [toast, setToast] = useState<{
+    type: "success" | "error";
+    message: string;
+  } | null>(null);
 
   function handleSort(column: SortBy) {
     setHasUserSorted(true);
@@ -94,6 +101,7 @@ export default function UsersTable() {
                 canDelete={canDelete}
                 setSelectedUser={setSelectedUser}
                 setEditingUser={setEditUser}
+                setDeleteUser={setDeleteUser}
               />
             ))}
           </tbody>
@@ -120,9 +128,30 @@ export default function UsersTable() {
             });
             setUsers(updatedUsers);
             localStorage.setItem("users", JSON.stringify(updatedUsers));
+            setToast({ type: "success", message: "User updated successfully" });
+            setTimeout(() => {
+              setToast(null);
+            }, 2000);
           }}
         />
       )}
+      {deleteUser && (
+        <DeleteuserModal
+          user={deleteUser}
+          onClose={() => setDeleteUser(null)}
+          onDelete={() => {
+            const updatedUsers = users.filter((u) => u.id !== deleteUser.id);
+            setUsers(updatedUsers);
+            localStorage.setItem("users", JSON.stringify(updatedUsers));
+            setDeleteUser(null);
+            setToast({ type: "success", message: "User deleted successfully" });
+            setTimeout(() => {
+              setToast(null);
+            }, 2000);
+          }}
+        />
+      )}
+      {toast && <Toast type={toast.type} message={toast.message} />}
     </>
   );
 }

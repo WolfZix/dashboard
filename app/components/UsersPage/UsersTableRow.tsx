@@ -8,6 +8,7 @@ type UsersTableRowProps = {
   canDelete: boolean;
   setSelectedUser: React.Dispatch<React.SetStateAction<User | null>>;
   setEditingUser: React.Dispatch<React.SetStateAction<User | null>>;
+  setDeleteUser: React.Dispatch<React.SetStateAction<User | null>>;
 };
 
 export default function UsersTableRow({
@@ -17,6 +18,7 @@ export default function UsersTableRow({
   canDelete,
   setSelectedUser,
   setEditingUser,
+  setDeleteUser,
 }: UsersTableRowProps) {
   return (
     <tr>
@@ -36,6 +38,7 @@ export default function UsersTableRow({
           canDelete={canDelete}
           onView={() => setSelectedUser(user)}
           onEdit={() => setEditingUser(user)}
+          onDelete={() => setDeleteUser(user)}
         />
       </td>
     </tr>
