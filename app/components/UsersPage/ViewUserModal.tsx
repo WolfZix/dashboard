@@ -27,13 +27,13 @@ export default function UserModal({ user, onClose }: UserModalProps) {
       onClick={onClose}
     >
       <div
-        className="bg-slate-900 light:bg-white border border-slate-700 light:border-[#e2e8f0] rounded-2xl p-6 w-112.5"
+        className="bg-slate-900 light:bg-slate-200 border border-slate-700 light:border-[#e2e8f0] rounded-2xl p-6 w-112.5"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex justify-between">
           <h1 className="text-2xl font-bold mb-6">User Details</h1>
           <button
-            className="text-slate-400 hover:text-white cursor-pointer h-fit"
+            className="text-slate-400 hover:text-white light:hover:text-black cursor-pointer h-fit"
             onClick={onClose}
           >
             <X />
@@ -42,7 +42,10 @@ export default function UserModal({ user, onClose }: UserModalProps) {
         <div>
           <div className="flex items-center gap-2 text-xl mb-2">
             {/* Icon */}
-            <button className="w-16 h-16 bg-green-500 rounded-full p-5 flex justify-center items-center border-2 border-black text-black text-2xl font-bold select-none relative">
+            <button
+              style={{ backgroundColor: user.color, color: user.textColor }}
+              className="w-16 h-16 rounded-full p-5 flex justify-center items-center border-2 border-black text-2xl font-bold select-none relative"
+            >
               {user.name[0]}
               <div
                 className={`${statusColor[user.status]} absolute bottom-0 right-0 w-5 h-5 rounded-full border-2 border-black`}
@@ -50,11 +53,11 @@ export default function UserModal({ user, onClose }: UserModalProps) {
             </button>
             <div>
               {/* Profile info */}
-              <div className="flex gap-2 items-center mb-1">
+              <div className="flex gap-2 items-center mb-1 font-bold">
                 <div>{user.name}</div>
                 {/* Role badges */}
                 <div
-                  className={`text-xs px-2 py-1 rounded-2xl select-none ${roleStyles[user.role]}`}
+                  className={`text-white font-normal text-xs px-2 py-1 rounded-2xl select-none ${roleStyles[user.role]}`}
                 >
                   {user.role}
                 </div>
@@ -67,11 +70,11 @@ export default function UserModal({ user, onClose }: UserModalProps) {
           </div>
           {/* Bio */}
           {user.bio ? (
-            <div className="text-sm bg-slate-800 w-fit px-3 py-2 rounded-2xl">
+            <div className="text-sm bg-slate-800 w-fit px-3 py-2 rounded-2xl light:bg-white">
               {user.bio}
             </div>
           ) : (
-            <div className="text-sm bg-slate-800 w-fit px-3 py-2 rounded-2xl">
+            <div className="text-sm bg-slate-800 w-fit px-3 py-2 rounded-2xl light:bg-white">
               No status set
             </div>
           )}

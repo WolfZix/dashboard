@@ -6,7 +6,7 @@ import OverviewChart from "../components/OverviewPage/OverviewChart";
 import OverviewCards from "../components/OverviewPage/StatCards/OverviewCards";
 import DailyNews from "../components/OverviewPage/DailyNews/DailyNews";
 
-import { getDasboardData } from "../services/dashboard.server";
+import { getDashboardData } from "../services/dashboard.server";
 
 type DashboardData = {
   stats: {
@@ -32,7 +32,7 @@ export default function Home() {
 
   useEffect(() => {
     async function loadData() {
-      const result = await getDasboardData();
+      const result = await getDashboardData();
       setData(result);
     }
     loadData();

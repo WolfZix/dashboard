@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import UsersTable from "../components/UsersPage/UsersTable";
 import UsersLoading from "../components/UsersPage/UsersLoading";
-import { getDasboardData } from "../services/dashboard.server";
+import { getDashboardData } from "../services/dashboard.server";
 
 type DashboardData = {
   UsersData: {
@@ -17,7 +17,7 @@ export default function Users() {
 
   useEffect(() => {
     async function loadData() {
-      const result = await getDasboardData();
+      const result = await getDashboardData();
       setData(result);
     }
     loadData();

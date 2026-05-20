@@ -9,6 +9,8 @@ export type User = {
     reports: number;
     tasks: number;
     commits: number;
+    color: string;
+    textColor: string;
 };
 
 export type SortBy =

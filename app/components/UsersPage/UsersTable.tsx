@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getDasboardData } from "../../services/dashboard.server";
+import { getDashboardData } from "../../services/dashboard.server";
 import "./UsersPage.css";
 import UsersPagination from "./UsersPagination";
 import UsersSearch from "./UsersSearch";
@@ -67,7 +67,7 @@ export default function UsersTable() {
 
   useEffect(() => {
     async function loadData() {
-      const result = await getDasboardData();
+      const result = await getDashboardData();
       setData(result);
     }
     loadData();
@@ -111,7 +111,11 @@ export default function UsersTable() {
         />
       )}
       {editUser && (
-        <EditUserModal user={editUser} onClose={() => setEditUser(null)} />
+        <EditUserModal
+          currentUserRole={currentUserRole}
+          user={editUser!}
+          onClose={() => setEditUser(null)}
+        />
       )}
     </>
   );

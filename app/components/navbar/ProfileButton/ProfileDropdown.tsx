@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { getDasboardData } from "../../../services/dashboard.server";
+import { getDashboardData } from "../../../services/dashboard.server";
 import { Settings, LucideUser, LucideLogOut } from "lucide-react";
 import { NavLink } from "react-router-dom";
 
@@ -18,6 +18,7 @@ type profileDropdownProps = {
   userLetter: string;
   userBackgroundColor: string;
   userTextColor: string;
+  onClose: () => void;
 };
 
 function shortenUserName(userName: string) {
@@ -30,6 +31,7 @@ export default function ProfileDropdown({
   userLetter,
   userBackgroundColor,
   userTextColor,
+  onClose,
 }: profileDropdownProps) {
   const [data, setData] = useState<DashboardData | null>(null);
   const displayName =
@@ -43,10 +45,23 @@ export default function ProfileDropdown({
 
   useEffect(() => {
     async function loadData() {
-      const result = await getDasboardData();
+      const result = await getDashboardData();
       setData(result);
     }
     loadData();
+  }, []);
+
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      const dropdown = document.getElementById("profileDropdown");
+      if (dropdown && !dropdown.contains(e.target as Node)) {
+        onClose();
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
   }, []);
 
   function clearLocalStorage(optionName: string) {
@@ -58,6 +73,7 @@ export default function ProfileDropdown({
 
   return (
     <motion.div
+      id="profileDropdown"
       initial={{
         opacity: 0,
         y: -30,
@@ -93,7 +109,8 @@ export default function ProfileDropdown({
     >
       <div className="flex items-center m-2">
         <div
-          className={`rounded-full ${userTextColor} font-bold ${userBackgroundColor} w-10 h-10 mr-2 flex justify-center items-center text-xl`}
+          style={{ backgroundColor: userBackgroundColor, color: userTextColor }}
+          className={`rounded-full font-bold w-10 h-10 mr-2 flex justify-center items-center text-xl`}
         >
           {userLetter}
         </div>
@@ -120,7 +137,6 @@ export default function ProfileDropdown({
         px-3
         cursor-pointer
         transition-colors
-
         hover:bg-slate-700
         light:hover:bg-slate-200
 

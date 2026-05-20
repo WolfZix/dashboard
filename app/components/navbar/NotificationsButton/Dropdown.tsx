@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getDasboardData } from "../../../services/dashboard.server";
+import { getDashboardData } from "../../../services/dashboard.server";
 import NotificationCard from "./NotificationCard";
 
 type DashboardData = {
@@ -11,19 +11,49 @@ type DashboardData = {
   }[];
 };
 
-export default function Dropdown() {
+type DropdownProps = {
+  onClose: () => void;
+};
+
+export default function Dropdown({ onClose }: DropdownProps) {
   const [data, setData] = useState<DashboardData | null>(null);
 
   useEffect(() => {
     async function loadData() {
-      const result = await getDasboardData();
+      const result = await getDashboardData();
       setData(result);
     }
     loadData();
   }, []);
 
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      const dropdown = document.getElementById("notificationsDropdown");
+
+      const button = document.getElementById("notificationsButton");
+
+      const target = e.target as Node;
+
+      if (
+        dropdown &&
+        !dropdown.contains(target) &&
+        button &&
+        !button.contains(target)
+      ) {
+        onClose();
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <div
+      id="notificationsDropdown"
       className="
         absolute
         top-14

@@ -6,8 +6,9 @@ export default function NotificationsButton() {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="relative">
+    <div className="relative z-999">
       <button
+        id="notificationsButton"
         onClick={() => setOpen((prev) => !prev)}
         className="
           relative
@@ -42,7 +43,7 @@ export default function NotificationsButton() {
         />
       </button>
 
-      {open && <Dropdown />}
+      {open && <Dropdown onClose={() => setOpen(false)} />}
     </div>
   );
 }
