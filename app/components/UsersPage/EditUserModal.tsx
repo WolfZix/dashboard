@@ -6,12 +6,14 @@ import ColorPicker from "./ColorPicker";
 type EditUserModalProps = {
   user: User;
   onClose: () => void;
+  onSave: (updateUser: User) => void;
   currentUserRole: User["role"];
 };
 
 export default function EditUserModal({
   user,
   onClose,
+  onSave,
   currentUserRole,
 }: EditUserModalProps) {
   const [role, setRole] = useState(user.role);
@@ -41,8 +43,12 @@ export default function EditUserModal({
   };
 
   function saveChanges() {
-    user.color = color;
-    user.role = role;
+    const updateUser = {
+      ...user,
+      role,
+      color,
+    };
+    onSave(updateUser);
     onClose();
   }
 
@@ -68,7 +74,7 @@ export default function EditUserModal({
           <div className="flex items-center gap-4 text-xl mb-2">
             {/* Icon */}
             <div>
-              <button
+              <div
                 style={{ backgroundColor: color }}
                 className="w-16 h-16 rounded-full p-5 flex justify-center items-center border-2 border-black text-black text-2xl font-bold select-none relative"
               >
@@ -82,7 +88,7 @@ export default function EditUserModal({
                 >
                   <Edit size={14} />
                 </button>
-              </button>
+              </div>
               {open && <ColorPicker color={color} setColor={setColor} />}
             </div>
             <div>

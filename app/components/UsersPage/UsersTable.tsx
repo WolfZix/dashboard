@@ -10,31 +10,21 @@ import { sortUsers, getPermissions } from "./users.helpers";
 import ViewUserModal from "./ViewUserModal";
 import EditUserModal from "./EditUserModal";
 
-type DashboardData = {
-  UsersData: User[];
-};
-
 export default function UsersTable() {
-  const [data, setData] = useState<DashboardData | null>(null);
-
+  const [users, setUsers] = useState<User[]>([]);
   const [search, setSearch] = useState("");
-
   const [page, setPage] = useState(0);
   const PAGE_SIZE = 6;
-
   const [sortBy, setSortBy] = useState<SortBy>("id");
   const [sortOrder, setSortOrder] = useState<SortOrder>(null);
   const [hasUserSorted, setHasUserSorted] = useState(false);
-
   const currentUsername = localStorage.getItem("username");
-  const currentUser = data?.UsersData.find(
-    (user) => user.name === currentUsername,
-  );
+  const currentUser = users.find((user) => user.name === currentUsername);
   const currentUserRole = currentUser?.role || "User";
   const { canView, canEdit, canDelete } = getPermissions(currentUserRole);
 
   const filteredUsers =
-    data?.UsersData.filter((user) =>
+    users.filter((user) =>
       user.name.toLowerCase().includes(search.toLowerCase()),
     ) || [];
 
@@ -66,9 +56,15 @@ export default function UsersTable() {
   }
 
   useEffect(() => {
+    const savedUsers = localStorage.getItem("users");
+    if (savedUsers) {
+      setUsers(JSON.parse(savedUsers));
+      return;
+    }
     async function loadData() {
       const result = await getDashboardData();
-      setData(result);
+      setUsers(result.UsersData);
+      localStorage.setItem("users", JSON.stringify(result.UsersData));
     }
     loadData();
   }, []);
@@ -115,6 +111,16 @@ export default function UsersTable() {
           currentUserRole={currentUserRole}
           user={editUser!}
           onClose={() => setEditUser(null)}
+          onSave={(updatedUser) => {
+            const updatedUsers = users.map((u) => {
+              if (u.id === updatedUser.id) {
+                return updatedUser;
+              }
+              return u;
+            });
+            setUsers(updatedUsers);
+            localStorage.setItem("users", JSON.stringify(updatedUsers));
+          }}
         />
       )}
     </>
