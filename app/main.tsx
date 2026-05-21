@@ -10,6 +10,7 @@ import Users from "./routes/users";
 import Analytics from "./routes/analytics";
 import Login from "./routes/login";
 import ProtectedRoute from "./components/ProtectedRoute";
+import ProfilePage from "./components/navbar/ProfileButton/ProfilePage";
 
 const isGitHubPages = window.location.hostname.includes("github.io");
 const basename = isGitHubPages ? "/dashboard" : "/";
@@ -31,6 +32,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           <Route index element={<Home />} />
           <Route path="users" element={<Users />} />
           <Route path="analytics" element={<Analytics />} />
+          <Route path="profile/:username" element={<ProfilePage />} />
         </Route>
       </Routes>
     </BrowserRouter>

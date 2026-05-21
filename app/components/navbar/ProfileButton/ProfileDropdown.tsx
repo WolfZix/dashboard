@@ -127,7 +127,9 @@ export default function ProfileDropdown({
 
         return (
           <NavLink
-            to={option.path}
+            to={
+              option.name === "Profile" ? `/profile/${userName}` : option.name
+            }
             key={option.name}
             onClick={() => clearLocalStorage(option.name)}
             className={`
