@@ -66,9 +66,12 @@ export default function ProfilePage() {
   return (
     <div className="flex flex-col gap-6">
       {/* Banner + Header */}
-      <div className="relative">
+      <div
+        style={{ boxShadow: `0 0 20px ${user.color}20` }}
+        className="relative rounded-4xl transition-all duration-300"
+      >
         {/* Banner */}
-        <div className="w-full h-55 rounded-[28px] bg-linear-to-br from-slate-950 to-slate-800 border border-slate-800 relative overflow-hidden">
+        <div className="w-full h-55 rounded-[28px] bg-linear-to-br from-slate-950 to-slate-800 relative overflow-hidden">
           {user.banner ? (
             <img src={user.banner} className="w-full h-full object-cover" />
           ) : null}
@@ -80,8 +83,12 @@ export default function ProfilePage() {
           <div className="flex items-end gap-6">
             {/* Avatar */}
             <div
-              style={{ backgroundColor: "black", borderColor: user.color }}
-              className="relative border rounded-full"
+              style={{
+                backgroundColor: "black",
+                borderColor: `${user.color}35`,
+                boxShadow: `0 0 20px ${user.color}25`,
+              }}
+              className="relative rounded-full border transition-all duration-300"
             >
               <div
                 style={{ backgroundColor: user.color }}
@@ -116,7 +123,24 @@ export default function ProfilePage() {
           <div className="flex items-end h-full">
             <button
               onClick={() => setEditProfileOpen(true)}
-              className="px-6 py-3 rounded-2xl bg-slate-950/80 hover:bg-slate-900 border border-slate-700 backdrop-blur-md transition cursor-pointer"
+              style={
+                {
+                  boxShadow: `0px 0px 20px ${user.color}50`,
+                  "--border-color": `${user.color}90`,
+                  "--text": `${user.color}60`,
+                  "--hover-text": `${user.color}`,
+                  "--bg": `${user.color}20`,
+                  "--hover-bg": `${user.color}70`,
+                } as React.CSSProperties
+              }
+              className={`px-6 py-3 rounded-2xl  border border-(--border-color)  backdrop-blur-md transition-all duration-300 cursor-pointer hover:bg-(--hover-bg) bg-(--bg) text-(--text) hover:text-(--hover-text) hover:scale-[1.02] active:scale-[0.98]
+                ${
+                  user.color === "#ffffff"
+                    ? "text-black bg-white/50 hover:text-black hover:bg-white"
+                    : user.color === "#000000"
+                      ? "text-white/75 bg-black transition-all duration-300 border-white hover:text-white hover:bg-white/5"
+                      : ""
+                }`}
             >
               Edit Profile
             </button>
@@ -126,24 +150,47 @@ export default function ProfilePage() {
       {/* Stats */}
       <div className="grid grid-cols-4 gap-3">
         <div className="bg-slate-900 border border-slate-800 rounded-3xl p-5">
-          <h2 className="text-4xl font-bold mb-2">{user?.projects}</h2>
+          <h2
+            style={{ color: `${user.color}90` }}
+            className="text-4xl font-bold mb-2"
+          >
+            {user?.projects}
+          </h2>
           <p className="text-slate-400">Projects</p>
         </div>
         <div className="bg-slate-900 border border-slate-800 rounded-3xl p-5">
-          <h2 className="text-4xl font-bold mb-2">{user?.reports}</h2>
+          <h2
+            style={{ color: `${user.color}90` }}
+            className="text-4xl font-bold mb-2"
+          >
+            {user?.reports}
+          </h2>
           <p className="text-slate-400">Reports</p>
         </div>
         <div className="bg-slate-900 border border-slate-800 rounded-3xl p-5">
-          <h2 className="text-4xl font-bold mb-2">{user?.tasks}</h2>
+          <h2
+            style={{ color: `${user.color}90` }}
+            className="text-4xl font-bold mb-2"
+          >
+            {user?.tasks}
+          </h2>
           <p className="text-slate-400">Tasks</p>
         </div>
         <div className="bg-slate-900 border border-slate-800 rounded-3xl p-5">
-          <h2 className="text-4xl font-bold mb-2">{user?.commits}</h2>
+          <h2
+            style={{ color: `${user.color}90` }}
+            className="text-4xl font-bold mb-2"
+          >
+            {user?.commits}
+          </h2>
           <p className="text-slate-400">Commits</p>
         </div>
       </div>
       {/* Activity */}
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl p-2">
+      <div
+        style={{ borderTopColor: `${user.color}90` }}
+        className="bg-slate-900 border border-slate-800 rounded-3xl p-2"
+      >
         <div className="h-62 overflow-y-auto p-3 scrollbar-thumb-slate-700">
           <h2 className="text-2xl font-bold mb-5">Recent Activity</h2>
           <div className="flex flex-col gap-3">

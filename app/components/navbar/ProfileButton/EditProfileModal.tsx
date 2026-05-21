@@ -19,6 +19,7 @@ export default function EditProfileModal({
   const [bio, setBio] = useState(user.bio);
   const [avatar, setAvatar] = useState(user.avatar || "");
   const [banner, setBanner] = useState(user.banner || "");
+  let isActive = false;
 
   function saveChanges() {
     const changedFields: string[] = [];
@@ -122,11 +123,31 @@ export default function EditProfileModal({
           : "bg-slate-500";
   }
 
+  const colors = [
+    "#fb2c36", // red
+    "#ff6900", // orange
+    "#f0b100", // amber
+    "#22c55e", // green
+    "#00b8db", // cyan
+    "#2b7fff", // blue
+    "#ad46ff", // purple
+    "#f6339a", // pink
+    "#000000", // black
+    "#ffffff", // white
+    "#62748e", // slate
+  ];
+
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-999 p-6 overflow-y-auto">
       <div className="w-140 max-w-full rounded-[28px] bg-slate-900 border border-slate-800 overflow-hidden shadow-2xl my-auto">
         {/* Header */}
-        <div className="relative h-44 bg-linear-to-br from-slate-950 to-slate-800 border-b border-slate-800 overflow-hidden">
+        <div
+          style={{
+            borderColor: `${color}50`,
+            boxShadow: `0 0 20px ${color}30`,
+          }}
+          className="relative h-44 bg-linear-to-br from-slate-950 to-slate-800 border-b overflow-hidden transition-all duration-300"
+        >
           {banner ? (
             <img
               src={banner}
@@ -160,8 +181,12 @@ export default function EditProfileModal({
           <div className="absolute left-8 bottom-6 z-20 flex items-end gap-5">
             {/* Avatar */}
             <div
-              style={{ backgroundColor: "black", borderColor: color }}
-              className="relative rounded-full border"
+              style={{
+                backgroundColor: "black",
+                borderColor: `${color}35`,
+                boxShadow: `0 0 20px ${color}25`,
+              }}
+              className="relative rounded-full border transition-all duration-300"
             >
               <div
                 style={{ backgroundColor: user.color }}
@@ -249,59 +274,22 @@ export default function EditProfileModal({
           <div>
             <p className="text-sm text-slate-400 mb-3">Profile Color</p>
             <div className="flex flex-wrap gap-3 justify-center">
-              <button
-                onClick={() => setColor("#fb2c36")}
-                className="w-7 h-7 rounded-full bg-red-500 border-2 border-transparent hover:scale-105 transition cursor-pointer"
-              ></button>
-
-              <button
-                onClick={() => setColor("#ff6900")}
-                className="w-7 h-7 rounded-full bg-orange-500 border-2 border-transparent hover:scale-105 transition cursor-pointer"
-              ></button>
-
-              <button
-                onClick={() => setColor("#f0b100")}
-                className="w-7 h-7 rounded-full bg-yellow-500 border-2 border-transparent hover:scale-105 transition cursor-pointer"
-              ></button>
-
-              <button
-                onClick={() => setColor("#7ccf00")}
-                className="w-7 h-7 rounded-full bg-lime-500 border-2 border-white hover:scale-105 transition cursor-pointer"
-              ></button>
-
-              <button
-                onClick={() => setColor("#00b8db")}
-                className="w-7 h-7 rounded-full bg-cyan-500 border-2 border-transparent hover:scale-105 transition cursor-pointer"
-              ></button>
-
-              <button
-                onClick={() => setColor("#2b7fff")}
-                className="w-7 h-7 rounded-full bg-blue-500 border-2 border-transparent hover:scale-105 transition cursor-pointer"
-              ></button>
-
-              <button
-                onClick={() => setColor("#ad46ff")}
-                className="w-7 h-7 rounded-full bg-purple-500 border-2 border-transparent hover:scale-105 transition cursor-pointer"
-              ></button>
-
-              <button
-                onClick={() => setColor("#f6339a")}
-                className="w-7 h-7 rounded-full bg-pink-500 border-2 border-transparent hover:scale-105 transition cursor-pointer"
-              ></button>
-              <button
-                onClick={() => setColor("#000000")}
-                className="w-7 h-7 rounded-full bg-black border-2 border-transparent hover:scale-105 transition cursor-pointer"
-              ></button>
-
-              <button
-                onClick={() => setColor("#FFFFFF")}
-                className="w-7 h-7 rounded-full bg-white border-2 border-transparent hover:scale-105 transition cursor-pointer"
-              ></button>
-
-              <button
-                onClick={() => setColor("#62748e")}
-                className="w-7 h-7 rounded-full bg-slate-500 border-2 border-transparent hover:scale-105 transition cursor-pointer"
-              ></button>
+              {colors.map((buttonColor) => (
+                <button
+                  key={buttonColor}
+                  onClick={() => setColor(buttonColor)}
+                  style={{ "--bg": `${buttonColor}` } as React.CSSProperties}
+                  className={`w-7 h-7 rounded-full bg-(--bg) border-2 hover:scale-105 transition cursor-pointer
+                    ${
+                      color === buttonColor
+                        ? buttonColor === "#ffffff"
+                          ? "shadow-[inset_0_0_0_2px_rgb(0,0,0)] scale-110"
+                          : "border-white scale-110"
+                        : "border-transparent"
+                    }
+                    `}
+                ></button>
+              ))}
             </div>
           </div>
 
@@ -316,7 +304,18 @@ export default function EditProfileModal({
 
             <button
               onClick={saveChanges}
-              className="flex-1 py-4 rounded-2xl bg-lime-600 hover:bg-lime-500 text-black font-semibold transition cursor-pointer"
+              style={
+                {
+                  borderColor: `${color}90`,
+                  boxShadow: `0px 0px 20px ${color}50`,
+                  "--text": `${color}`,
+                  "--hover-text": `${color}`,
+                  "--bg": `${color}20`,
+                  "--hover-bg": `${color}70`,
+                } as React.CSSProperties
+              }
+              className={`flex-1 py-4 border rounded-2xl font-semibold cursor-pointer transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] hover:bg-(--hover-bg) bg-(--bg) text-(--text) hover:text-(--hover-text)
+                ${color === "#000000" ? "text-white/75 bg-black/75 hover:text-white hover:bg-black" : ""}`}
             >
               Save Changes
             </button>
