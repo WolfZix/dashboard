@@ -122,7 +122,7 @@ Please change the parent <Route path="${e}"> to <Route path="${e===`/`?`*`:`${e}
     text-left\r
     z-50\r
 \r
-    `,children:[(0,P.jsxs)(`div`,{className:`flex items-center m-2`,children:[(0,P.jsx)(`div`,{style:{backgroundColor:i,color:a,borderColor:i},className:`rounded-full font-bold w-10 h-10 mr-2 flex justify-center items-center text-xl border`,children:t?(0,P.jsx)(`img`,{src:t,className:`w-full h-full object-cover rounded-full scale-[0.97] border-2 border-black`}):r}),(0,P.jsxs)(`div`,{className:`flex flex-col`,children:[(0,P.jsx)(`h1`,{className:` text-base`,children:l}),(0,P.jsx)(`p`,{className:`text-slate-400 text-xs`,children:n})]})]}),(0,P.jsx)(`hr`,{className:`text-slate-500`}),s?.profileOptions.map(t=>{let n=t.name===`Log Out`,r=u[t.icon];return(0,P.jsx)(Fn,{to:t.name===`Profile`?`/profile/${e}`:t.name===`Log Out`?`/login`:t.path,onClick:()=>d(t.name),className:`
+    `,children:[(0,P.jsxs)(`div`,{className:`flex items-center m-2`,children:[(0,P.jsx)(`div`,{style:{backgroundColor:i,color:a,borderColor:i},className:`rounded-full font-bold w-10 h-10 mr-2 flex justify-center items-center text-xl border`,children:t?(0,P.jsx)(`img`,{src:t,className:`w-full h-full object-cover rounded-full scale-[0.97] border-2 border-black`}):r}),(0,P.jsxs)(`div`,{className:`flex flex-col`,children:[(0,P.jsx)(`h1`,{className:` text-base`,children:l}),(0,P.jsx)(`p`,{className:`text-slate-400 text-xs`,children:n})]})]}),(0,P.jsx)(`hr`,{className:`text-slate-500`}),s?.profileOptions.map(t=>{let n=t.name===`Log Out`,r=u[t.icon];return(0,P.jsx)(Fn,{to:t.name===`Profile`?`/profile/:${e}`:t.name===`Log Out`?`/login`:t.path,onClick:()=>d(t.name),className:`
         text-base
         rounded-md
         py-2
