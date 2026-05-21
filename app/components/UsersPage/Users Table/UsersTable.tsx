@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
-import { getDashboardData } from "../../services/dashboard.server";
-import "./UsersPage.css";
-import UsersPagination from "./UsersPagination";
+import { getDashboardData } from "../../../services/dashboard.server";
+import "../UsersPage.css";
+import UsersPagination from "../UsersPagination";
 import UsersSearch from "./UsersSearch";
 import UsersTableHeader from "./UsersTableHeader";
 import UsersTableRow from "./UsersTableRow";
-import type { SortBy, SortOrder, User } from "./users.types";
-import { sortUsers, getPermissions } from "./users.helpers";
-import ViewUserModal from "./ViewUserModal";
-import EditUserModal from "./EditUserModal";
-import DeleteuserModal from "./DeleteUserModal";
-import CreateUserModal from "./CreateUserModal";
-import Toast from "./Toast";
+import type { SortBy, SortOrder, User } from "../users.types";
+import { sortUsers, getPermissions } from "../users.helpers";
+import ViewUserModal from "../CRUD/ViewUserModal";
+import EditUserModal from "../CRUD/EditUserModal";
+import DeleteuserModal from "../CRUD/DeleteUserModal";
+import CreateUserModal from "../CRUD/CreateUserModal";
+import Toast from "../Toast";
 
 export default function UsersTable() {
   const [users, setUsers] = useState<User[]>([]);

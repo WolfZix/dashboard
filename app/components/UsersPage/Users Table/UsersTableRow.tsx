@@ -1,5 +1,5 @@
-import UsersActions from "./UsersActions";
-import type { User } from "./users.types";
+import UsersActions from "../UsersActions";
+import type { User } from "../users.types";
 
 type UsersTableRowProps = {
   user: User;

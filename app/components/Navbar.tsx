@@ -5,6 +5,7 @@ import UserProfile from "./navbar/ProfileButton/UserProfile";
 import OverviewMessage from "./OverviewPage/OverviewMessage";
 import UsersMessage from "./UsersPage/UsersMessage";
 import AnalyticsMessage from "./AnalyticsPage/AnalyticsMessage";
+import ProfileMessage from "./UsersPage/ProfileMessage";
 import { useLocation } from "react-router-dom";
 
 export default function Navbar() {
@@ -26,6 +27,7 @@ export default function Navbar() {
         {location.pathname === "/" && <OverviewMessage />}
         {location.pathname === "/users" && <UsersMessage />}
         {location.pathname === "/analytics" && <AnalyticsMessage />}
+        {location.pathname === "/profile/:username" && <ProfileMessage />}
       </div>
 
       <div className="flex items-center gap-4">

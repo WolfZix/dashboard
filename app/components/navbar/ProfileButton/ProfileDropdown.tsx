@@ -69,6 +69,7 @@ export default function ProfileDropdown({
       localStorage.removeItem("username");
       localStorage.removeItem("password");
     }
+    onClose();
   }
 
   return (
@@ -128,7 +129,11 @@ export default function ProfileDropdown({
         return (
           <NavLink
             to={
-              option.name === "Profile" ? `/profile/${userName}` : option.name
+              option.name === "Profile"
+                ? `/profile/${userName}`
+                : option.name === "Log Out"
+                  ? "/login"
+                  : option.path
             }
             key={option.name}
             onClick={() => clearLocalStorage(option.name)}

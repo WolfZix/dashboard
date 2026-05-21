@@ -1,7 +1,7 @@
 import { useState } from "react";
-import type { User } from "./users.types";
+import type { User } from "../users.types";
 import { Edit, X } from "lucide-react";
-import ColorPicker from "./ColorPicker";
+import ColorPicker from "../ColorPicker";
 
 type EditUserModalProps = {
   user: User;

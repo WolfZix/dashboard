@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import UsersTable from "../components/UsersPage/UsersTable";
+import UsersTable from "../components/UsersPage/Users Table/UsersTable";
 import UsersLoading from "../components/UsersPage/UsersLoading";
 import { getDashboardData } from "../services/dashboard.server";
 

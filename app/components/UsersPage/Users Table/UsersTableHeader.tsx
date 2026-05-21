@@ -1,5 +1,5 @@
-import type { SortBy, SortOrder } from "./users.types";
-import { renderSortIcon } from "./users.helpers";
+import type { SortBy, SortOrder } from "../users.types";
+import { renderSortIcon } from "../users.helpers";
 
 type UsersTableHeaderProps = {
   sortBy: SortBy;
