@@ -13,6 +13,19 @@ export default function UserProfile() {
   const currentUsersProfilePicture = currentUser?.avatar || "";
 
   useEffect(() => {
+    function loadCurrentUser() {
+      const storedUsername = localStorage.getItem("username");
+      if (!storedUsername) return;
+
+      const savedUsers = localStorage.getItem("users");
+      if (!savedUsers) return;
+
+      const users: User[] = JSON.parse(savedUsers);
+      const foundUser = users.find(
+        (user) => user.name.toLowerCase() === storedUsername.toLowerCase(),
+      );
+      if (foundUser) setCurrentUser(foundUser);
+    }
     loadCurrentUser();
     window.addEventListener("usersUpdated", loadCurrentUser);
     return () => {

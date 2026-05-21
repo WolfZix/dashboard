@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ThemeToggle from "../components/navbar/ThemeToggle";
+import { getDashboardData } from "../services/dashboard.server";
 
 export default function LoginPage() {
   const [username, setUsername] = useState("");
@@ -15,11 +16,15 @@ export default function LoginPage() {
     }
   }, []);
 
-  function handleLogin(e: React.FormEvent) {
+  async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
     localStorage.setItem("username", username);
+    if (!localStorage.getItem("users")) {
+      const data = await getDashboardData();
+      localStorage.setItem("users", JSON.stringify(data.UsersData));
+    }
     localStorage.setItem("password", password);
-
+    window.dispatchEvent(new Event("usersUpdated"));
     navigate("/");
   }
 
