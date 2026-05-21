@@ -14,9 +14,10 @@ type DashboardData = {
 
 type profileDropdownProps = {
   userName: string;
+  userPicture: string;
   userRole: string;
   userLetter: string;
-  userBackgroundColor: string;
+  userColor: string;
   userTextColor: string;
   onClose: () => void;
 };
@@ -27,9 +28,10 @@ function shortenUserName(userName: string) {
 
 export default function ProfileDropdown({
   userName,
+  userPicture,
   userRole,
   userLetter,
-  userBackgroundColor,
+  userColor,
   userTextColor,
   onClose,
 }: profileDropdownProps) {
@@ -110,10 +112,21 @@ export default function ProfileDropdown({
     >
       <div className="flex items-center m-2">
         <div
-          style={{ backgroundColor: userBackgroundColor, color: userTextColor }}
-          className={`rounded-full font-bold w-10 h-10 mr-2 flex justify-center items-center text-xl`}
+          style={{
+            backgroundColor: userColor,
+            color: userTextColor,
+            borderColor: userColor,
+          }}
+          className={`rounded-full font-bold w-10 h-10 mr-2 flex justify-center items-center text-xl border`}
         >
-          {userLetter}
+          {userPicture ? (
+            <img
+              src={userPicture}
+              className="w-full h-full object-cover rounded-full scale-[1.01]"
+            />
+          ) : (
+            userLetter
+          )}
         </div>
         <div className="flex flex-col">
           <h1 className=" text-base">{displayName}</h1>

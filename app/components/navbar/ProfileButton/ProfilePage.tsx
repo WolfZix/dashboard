@@ -17,28 +17,6 @@ export default function ProfilePage() {
     (u: User) => u.name.toLowerCase() === username?.toLowerCase(),
   );
   const [editProfileOpen, setEditProfileOpen] = useState(false);
-  const activity = [
-    {
-      type: "profile_picture",
-      message: "Changed profile picture",
-      date: "2m ago",
-    },
-    {
-      type: "banner",
-      message: "Banner picture edited",
-      date: "1h ago",
-    },
-    {
-      type: "username",
-      message: "Username changed",
-      date: "6h ago",
-    },
-    {
-      type: "bio",
-      message: "Bio has been successfully updated",
-      date: "12h ago",
-    },
-  ];
 
   useEffect(() => {
     const savedUsers = localStorage.getItem("users");
@@ -56,24 +34,28 @@ export default function ProfilePage() {
 
   function getRoleColor(role: string) {
     return role === "Admin"
-      ? "bg-red-500/20 text-red-400"
+      ? "bg-red-500"
       : role === "Moderator"
-        ? "bg-orange-500/20 text-orange-400"
+        ? "bg-orange-500"
         : role === "Premium"
-          ? "bg-purple-500/20 text-purple-400"
-          : "bg-slate-500/20 text-slate-400";
+          ? "bg-purple-500"
+          : "bg-slate-500";
   }
 
   function getActivityColor(type: string) {
     return type === "profile_picture"
-      ? "bg-lime-400"
+      ? "bg-amber-400"
       : type === "banner"
-        ? "bg-cyan-400"
+        ? "bg-yellow-400"
         : type === "username"
-          ? "bg-red-400"
+          ? "bg-orange-400"
           : type === "bio"
-            ? "bg-yellow-400"
-            : "bg-slate-200";
+            ? "bg-lime-400"
+            : type === "profile_color"
+              ? "bg-green-400"
+              : type === "password"
+                ? "bg-red-400"
+                : "bg-teal-400";
   }
 
   if (!user) {
@@ -86,19 +68,32 @@ export default function ProfilePage() {
       <div className="relative">
         {/* Banner */}
         <div className="w-full h-55 rounded-[28px] bg-linear-to-br from-slate-950 to-slate-800 border border-slate-800 relative overflow-hidden">
-          <div className="absolute w-full h-full bg-linear-to-r from-black/75 from-25% via-black/50 to-transparent"></div>
+          {user.banner ? (
+            <img src={user.banner} className="w-full h-full object-cover" />
+          ) : null}
+          <div className="absolute inset-0 bg-black/85"></div>
         </div>
         {/* Content on banner */}
         <div className="absolute inset-0 flex items-end justify-between p-8">
           {/* Left */}
           <div className="flex items-end gap-6">
             {/* Avatar */}
-            <div className="relative">
+            <div
+              style={{ backgroundColor: "black", borderColor: user.color }}
+              className="relative border rounded-full"
+            >
               <div
                 style={{ backgroundColor: user.color }}
-                className="w-32 h-32 rounded-full border-[6px] border-slate-950 flex items-center justify-center text-black text-5xl font-bold select-none shadow-2xl"
+                className="w-32 h-32 rounded-full flex items-center justify-center text-black text-5xl font-bold select-none shadow-2xl m-1.25"
               >
-                {user?.name[0].toUpperCase()}
+                {user.avatar ? (
+                  <img
+                    src={user.avatar}
+                    className="w-full h-full object-cover rounded-full scale-[1.01]"
+                  />
+                ) : (
+                  user?.name[0].toUpperCase()
+                )}
               </div>
               <div className="absolute bottom-2 right-2 w-6 h-6 rounded-full bg-lime-400 border-4 border-slate-950"></div>
             </div>
@@ -153,7 +148,7 @@ export default function ProfilePage() {
           <div className="flex flex-col gap-3">
             {(user.activity || []).map((activityItem) => (
               <div
-                key={activityItem.message}
+                key={activityItem.id}
                 className="flex items-center justify-between bg-slate-950/60 rounded-2xl px-4 py-3"
               >
                 <div className="flex items-center gap-3">

@@ -12,6 +12,9 @@ export type User = {
     color: string;
     textColor: string;
     activity?: Activity[];
+    avatar?: string;
+    banner?: string;
+    password: string;
 };
 
 export type SortBy =
@@ -27,6 +30,7 @@ export type SortOrder =
     | null;
 
 export type Activity = {
+    id: string;
     type: string;
     message: string;
     date: string;

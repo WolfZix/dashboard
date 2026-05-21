@@ -8,8 +8,9 @@ export default function UserProfile() {
   const [open, setOpen] = useState(false);
   const currentUserLetter = currentUser?.name[0].toUpperCase();
   const currentUsersRole = currentUser?.role || "User";
-  const currentUsersBackgroundColor = currentUser?.color || "#22c55e";
+  const currentUsersColor = currentUser?.color || "#22c55e";
   const currentUsersTextColor = currentUser?.textColor || "#000000";
+  const currentUsersProfilePicture = currentUser?.avatar || currentUsersColor;
 
   useEffect(() => {
     loadCurrentUser();
@@ -63,8 +64,9 @@ export default function UserProfile() {
       >
         <div
           style={{
-            backgroundColor: currentUsersBackgroundColor,
+            backgroundColor: currentUsersColor,
             color: currentUsersTextColor,
+            borderColor: currentUsersColor,
           }}
           className={`
           h-10
@@ -75,18 +77,27 @@ export default function UserProfile() {
           justify-center
           font-bold
           text-xl
+          border
         `}
         >
-          {currentUserLetter}
+          {currentUsersProfilePicture ? (
+            <img
+              src={currentUsersProfilePicture}
+              className="w-full h-full object-cover rounded-full scale-[1.01]"
+            />
+          ) : (
+            currentUserLetter
+          )}
         </div>
       </button>
       <AnimatePresence>
         {open && (
           <ProfileDropdown
             userName={currentUser?.name || "Guest"}
+            userPicture={currentUsersProfilePicture}
             userRole={currentUsersRole}
             userLetter={currentUserLetter || "G"}
-            userBackgroundColor={currentUsersBackgroundColor}
+            userColor={currentUsersColor}
             userTextColor={currentUsersTextColor}
             onClose={() => setOpen(false)}
           />
