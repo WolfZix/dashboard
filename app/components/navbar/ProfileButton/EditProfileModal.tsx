@@ -18,12 +18,47 @@ export default function EditProfileModal({
   const [bio, setBio] = useState(user.bio);
 
   function saveChanges() {
+    const changedFields = [];
+    if (newUsername && newUsername !== user.name) {
+      changedFields.push("username");
+    }
+    if (bio !== user.bio) {
+      changedFields.push("bio");
+    }
+    if (color !== user.color) {
+      changedFields.push("profile_picture");
+    }
+    let newActivity;
+    if (changedFields.length > 1) {
+      newActivity = {
+        type: "profile_update",
+        message: "Updated profile",
+        date: `${new Date().getTime()}`,
+      };
+    } else {
+      const changed = changedFields[0];
+      newActivity = {
+        type: changed,
+        message:
+          changed === "username"
+            ? "Updated username"
+            : changed === "bio"
+              ? "Updated bio"
+              : changed === "profile_picture"
+                ? "Updated profile picture"
+                : "Updated profile",
+        date: `${new Date()}`,
+      };
+    }
+
     const updateUser = {
       ...user,
       name: newUsername || user.name,
       bio,
       color,
+      activity: [newActivity, ...(user.activity || [])],
     };
+
     onSave(updateUser);
     onClose();
   }

@@ -151,7 +151,7 @@ export default function ProfilePage() {
         <div className="h-62 overflow-y-auto p-3 scrollbar-thumb-slate-700">
           <h2 className="text-2xl font-bold mb-5">Recent Activity</h2>
           <div className="flex flex-col gap-3">
-            {activity.map((activityItem) => (
+            {(user.activity || []).map((activityItem) => (
               <div
                 key={activityItem.message}
                 className="flex items-center justify-between bg-slate-950/60 rounded-2xl px-4 py-3"

@@ -2,7 +2,7 @@ export default function UsersLoading() {
   return (
     <>
       <div className="usersSearchWrapper">
-        <div className=" h-12 w-[350px] rounded-xl bg-slate-800 light:bg-slate-200 animate-pulse " />
+        <div className=" h-12 w-87.5 rounded-xl bg-slate-800 light:bg-slate-200 animate-pulse " />
       </div>
 
       <div className="usersTableWrapper">

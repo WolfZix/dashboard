@@ -11,6 +11,7 @@ export type User = {
     commits: number;
     color: string;
     textColor: string;
+    activity?: Activity[];
 };
 
 export type SortBy =
@@ -24,3 +25,9 @@ export type SortOrder =
     | "asc"
     | "desc"
     | null;
+
+export type Activity = {
+    type: string;
+    message: string;
+    date: string;
+};
