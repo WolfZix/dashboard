@@ -4,6 +4,7 @@ import EditProfileModal from "./EditProfileModal";
 import { useEffect, useState } from "react";
 import { getDashboardData } from "../../../services/dashboard.server";
 import { useNavigate } from "react-router-dom";
+import { formatTimeAgo } from "./profile.helpers";
 
 export default function ProfilePage() {
   const navigate = useNavigate();
@@ -46,15 +47,15 @@ export default function ProfilePage() {
     return type === "profile_picture"
       ? "bg-amber-400"
       : type === "banner"
-        ? "bg-yellow-400"
+        ? "bg-yellow-300"
         : type === "username"
-          ? "bg-orange-400"
+          ? "bg-orange-500"
           : type === "bio"
-            ? "bg-lime-400"
+            ? "bg-lime-300"
             : type === "profile_color"
-              ? "bg-green-400"
+              ? "bg-green-500"
               : type === "password"
-                ? "bg-red-400"
+                ? "bg-red-500"
                 : "bg-teal-400";
   }
 
@@ -158,13 +159,37 @@ export default function ProfilePage() {
                   <div className="text-slate-300">{activityItem.message}</div>
                 </div>
                 <div className="text-xs text-slate-500">
-                  {activityItem.date}
+                  {formatTimeAgo(activityItem.date)}
                 </div>
               </div>
             ))}
           </div>
         </div>
       </div>
+      {toast && (
+        <div className="fixed bottom-5 right-5 z-999 overflow-hidden rounded-2xl border border-slate-700 bg-slate-900 shadow-2xl min-w-80">
+          {/* Progress bar */}
+          <div className="absolute bottom-0 left-0 h-1 bg-lime-400 animate-[toast_2s_linear_forwards]"></div>
+
+          <div className="flex items-center gap-3 px-5 py-4">
+            {/* Icon */}
+            <div
+              className={`w-3 h-3 rounded-full ${
+                toast.type === "success" ? "bg-lime-400" : "bg-red-400"
+              }`}
+            ></div>
+
+            {/* Content */}
+            <div className="flex flex-col">
+              <p className="font-semibold">
+                {toast.type === "success" ? "Success!" : "Error!"}
+              </p>
+
+              <p className="text-sm text-slate-400">{toast.message}</p>
+            </div>
+          </div>
+        </div>
+      )}
       {editProfileOpen && (
         <EditProfileModal
           user={user}

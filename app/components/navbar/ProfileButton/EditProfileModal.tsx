@@ -31,10 +31,10 @@ export default function EditProfileModal({
     if (color !== user.color) {
       changedFields.push("profile_color");
     }
-    if (avatar !== user.avatar) {
+    if (avatar !== (user.avatar || "")) {
       changedFields.push("profile_picture");
     }
-    if (banner !== user.banner) {
+    if (banner !== (user.banner || "")) {
       changedFields.push("banner");
     }
     if (newPassword && newPassword !== localStorage.getItem("password")) {

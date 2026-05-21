@@ -122,7 +122,7 @@ export default function ProfileDropdown({
           {userPicture ? (
             <img
               src={userPicture}
-              className="w-full h-full object-cover rounded-full scale-[1.01]"
+              className="w-full h-full object-cover rounded-full scale-[0.97] border-2 border-black"
             />
           ) : (
             userLetter

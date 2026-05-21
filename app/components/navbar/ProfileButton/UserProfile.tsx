@@ -10,7 +10,7 @@ export default function UserProfile() {
   const currentUsersRole = currentUser?.role || "User";
   const currentUsersColor = currentUser?.color || "#22c55e";
   const currentUsersTextColor = currentUser?.textColor || "#000000";
-  const currentUsersProfilePicture = currentUser?.avatar || currentUsersColor;
+  const currentUsersProfilePicture = currentUser?.avatar || "";
 
   useEffect(() => {
     loadCurrentUser();
@@ -83,7 +83,7 @@ export default function UserProfile() {
           {currentUsersProfilePicture ? (
             <img
               src={currentUsersProfilePicture}
-              className="w-full h-full object-cover rounded-full scale-[1.01]"
+              className="w-full h-full object-cover rounded-full scale-[0.99] border-2 borde-black"
             />
           ) : (
             currentUserLetter
