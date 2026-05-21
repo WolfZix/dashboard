@@ -143,7 +143,7 @@ export default function ProfileDropdown({
           <NavLink
             to={
               option.name === "Profile"
-                ? `/profile/${userName}`
+                ? `/profile/:${userName}`
                 : option.name === "Log Out"
                   ? "/login"
                   : option.path
