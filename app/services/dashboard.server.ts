@@ -274,7 +274,7 @@ export async function getDashboardData(): Promise<DashboardData> {
             },
         ],
         profileOptions: [
-            { name: "Profile", icon: "user", path: "/profile" },
+            { name: "Profile", icon: "user", path: "/profile:username" },
             { name: "Settings", icon: "settings", path: "/settings" },
             { name: "Log Out", icon: "logout", path: "login" },
         ],
