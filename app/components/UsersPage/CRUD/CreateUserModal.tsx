@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { User } from "./users.types";
+import type { User } from "../users.types";
 
 type CreateUserModalProps = {
   onClose: () => void;
@@ -36,12 +36,13 @@ export default function CreateUserModal({
     commits: 0,
     color: "#22c55e",
     textColor: "#000000",
+    password: "",
   };
   onCreate(newUser);
   onClose();
   return (
     <div
-      className="fixed inset-0 bg-black/50 flex items-center justify-center z-999"
+      className="fixed inset-0 bg-black/50 flex items-center justify-center z-999 transition-all duration-300"
       onClick={onClose}
     >
       <div

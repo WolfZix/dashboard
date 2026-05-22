@@ -9,10 +9,12 @@ export default function OnlineStatus() {
         border border-slate-700
         light:bg-[white]
         light:border-[#e2e8f0]
+        transition-all
+        duration-300
       "
     >
-      <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
-      <span className="w-fit text-sm text-slate-300 light:text-slate-950 whitespace-nowrap">
+      <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse transition-all duration-300" />
+      <span className="w-fit text-sm text-slate-300 light:text-slate-950 whitespace-nowrap transition-all duration-300">
         All systems operational
       </span>
     </div>

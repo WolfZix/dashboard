@@ -16,6 +16,7 @@ export default function NotificationsButton() {
           border
           rounded-xl
           transition-all
+          duration-300
           cursor-pointer
 
           bg-slate-800
@@ -39,6 +40,8 @@ export default function NotificationsButton() {
             w-2
             rounded-full
             bg-green-500
+            transition-all
+            duration-300
           "
         />
       </button>

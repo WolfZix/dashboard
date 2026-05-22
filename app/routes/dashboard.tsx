@@ -38,12 +38,12 @@ export default function DashboardLayout() {
   }
 
   return (
-    <div className="min-h-screen flex bg-slate-950 text-white light:bg-[#f1f5f9] light:text-[#0f172a]">
+    <div className="min-h-screen flex bg-slate-950 text-white light:bg-slate-100 light:text-[#0f172a] transition-all duration-300">
       <Sidebar links={links} />
 
       <main className="flex-1">
         <Navbar />
-        <div className="flex-1 p-6">
+        <div className="flex-1 p-6 ">
           {loading ? <LoadComponent /> : <Outlet />}
         </div>
       </main>

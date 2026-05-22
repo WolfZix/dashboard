@@ -84,17 +84,17 @@ export default function UsersTable() {
 
   return (
     <>
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center transition-all duration-300">
         <UsersSearch search={search} setSearch={setSearch} />
         <button
           onClick={() => setCreateUserOpen(true)}
-          className="px-5 py-3 rounded-xl bg-green-700 hover:bg-green-600 transition cursor-pointer"
+          className="px-5 py-3 rounded-xl bg-green-700 hover:bg-green-600 transition-all duration-300 cursor-pointer"
         >
           Add User
         </button>
       </div>
-      <div className="usersTableWrapper">
-        <table className="usersTable">
+      <div className="usersTableWrapper transition-all duration-300">
+        <table className="usersTable transition-all duration-300">
           <UsersTableHeader
             sortBy={sortBy}
             sortOrder={sortOrder}

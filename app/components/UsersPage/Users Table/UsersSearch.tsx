@@ -7,15 +7,18 @@ type UsersSearchProps = {
 
 export default function UsersSearch({ search, setSearch }: UsersSearchProps) {
   return (
-    <div className="usersSearchWrapper">
+    <div className="usersSearchWrapper transition-all duration-300">
       <input
         type="text"
-        className="usersSearch"
+        className="usersSearch transition-all duration-300"
         placeholder="Search users..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />
-      <Search size={18} className="usersSearchIcon" />
+      <Search
+        size={18}
+        className="usersSearchIcon transition-all duration-300"
+      />
     </div>
   );
 }

@@ -34,13 +34,15 @@ export default function DailyNews({ news }: DailyNewsProps) {
           light:border-[#e2e8f0]
           light:hover:bg-[#f8fafc]
           light:shadow-[0_1px_3px_rgba(0,0,0,0.1)]
+          transition-all
+          duration-300
         "
       >
-        <h2 className="font-semibold text-2xl select-none mx-5 mb-2">
+        <h2 className="font-semibold text-2xl select-none mx-5 mb-2 transition-all duration-300">
           <DigitalClock />
         </h2>
 
-        <div className="overflow-hidden border-y-2 border-slate-700 light:border-[#e2e8f0] mb-2">
+        <div className="overflow-hidden border-y-2 border-slate-700 light:border-[#e2e8f0] mb-2 transition-all duration-300">
           <motion.div
             ref={marqueeRef}
             className="flex w-max gap-3 will-change-transform"
@@ -66,6 +68,8 @@ export default function DailyNews({ news }: DailyNewsProps) {
                     py-5
                     text-slate-300
                     light:text-[#475569]
+                    transition-all
+                    duration-300
                   "
               >
                 {message}

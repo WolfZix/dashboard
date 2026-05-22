@@ -21,17 +21,19 @@ export default function UsersTableRow({
   setDeleteUser,
 }: UsersTableRowProps) {
   return (
-    <tr>
-      <td>{user.id}</td>
-      <td>{user.name}</td>
-      <td>{user.role}</td>
-      <td>
-        <span className={`status-${user.status.toLowerCase()}`}>
+    <tr className=" transition-all duration-300">
+      <td className=" transition-all duration-300">{user.id}</td>
+      <td className=" transition-all duration-300">{user.name}</td>
+      <td className=" transition-all duration-300">{user.role}</td>
+      <td className=" transition-all duration-300">
+        <span
+          className={`status-${user.status.toLowerCase()} transition-all duration-300`}
+        >
           {user.status}
         </span>
       </td>
-      <td>{user.joined}</td>
-      <td>
+      <td className=" transition-all duration-300">{user.joined}</td>
+      <td className=" transition-all duration-300">
         <UsersActions
           canView={canView}
           canEdit={canEdit}

@@ -12,9 +12,9 @@ export default function UsersPagination({
   pages,
 }: UsersPaginationProps) {
   return (
-    <div className="usersPagination">
+    <div className="usersPagination transition-all duration-300">
       <button
-        className="flex justify-center items-center"
+        className="flex justify-center items-center transition-all duration-300"
         onClick={() => setPage((prev) => Math.max(prev - 1, 0))}
       >
         <ArrowLeft />
@@ -33,7 +33,7 @@ export default function UsersPagination({
       ))}
 
       <button
-        className="flex justify-center items-center"
+        className="flex justify-center items-center transition-all duration-300"
         onClick={() => setPage((prev) => Math.min(prev + 1, pages - 1))}
       >
         <ArrowRight />

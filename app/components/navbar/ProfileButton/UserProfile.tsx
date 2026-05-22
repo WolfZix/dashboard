@@ -57,7 +57,10 @@ export default function UserProfile() {
           items-center
           justify-center
           font-bold
-          text-xl"
+          text-xl
+          transition-all
+          duration-300
+          "
       ></div>
     );
   }
@@ -69,6 +72,7 @@ export default function UserProfile() {
         className={`
         flex items-center
         transition-all
+        duration-300
         cursor-pointer
         light:text-[#0f172a]
         light:hover:text-slate-950
@@ -91,6 +95,8 @@ export default function UserProfile() {
           font-bold
           text-xl
           border
+          transition-all
+          duration-300
         `}
         >
           {currentUsersProfilePicture ? (

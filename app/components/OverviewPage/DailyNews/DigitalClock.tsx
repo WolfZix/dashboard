@@ -31,7 +31,7 @@ function DigitalClock() {
     const currentTime = `${padZero(hours)}:${padZero(minutes)} ${meridiem}`;
 
     return (
-      <div className="w-full flex justify-between light:text-[#0f172a]">
+      <div className="w-full flex justify-between light:text-[#0f172a] transition-all duration-300">
         <p>Daily News</p>
         <div className="flex gap-5 text-lg light:text-[#0f172a]">
           <p className="text-right">{date}</p>

@@ -55,6 +55,8 @@ export default function OverviewChart({ chart }: OverviewChartProps) {
         h-80
         light:shadow-[0_1px_3px_rgba(0,0,0,0.1)]
         light:hover:bg-[#f8fafc]
+        transition-all
+        duration-300
       "
     >
       <h2
@@ -63,6 +65,8 @@ export default function OverviewChart({ chart }: OverviewChartProps) {
           mb-4
           text-[#0f172a]
           light:text-slate-950
+          transition-all
+          duration-300
         "
       >
         Revenue

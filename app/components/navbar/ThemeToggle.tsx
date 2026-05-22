@@ -31,6 +31,7 @@ export default function ThemeToggle() {
         rounded-xl
         border
         transition-all
+        duration-300
         cursor-pointer
         bg-slate-800
         border-slate-700

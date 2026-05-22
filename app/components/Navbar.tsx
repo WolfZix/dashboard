@@ -21,6 +21,8 @@ export default function Navbar() {
         light:bg-[rgba(255,255,255,0.7)]
         light:border-[#e2e8f0]
         light:text-[#0f172a]
+        transition-all
+        duration-300
       "
     >
       <div>
@@ -30,7 +32,7 @@ export default function Navbar() {
         {location.pathname === "/profile/:username" && <ProfileMessage />}
       </div>
 
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-4 transition-all duration-300">
         <OnlineStatus />
         <ThemeToggle />
         <NotificationsButton />
