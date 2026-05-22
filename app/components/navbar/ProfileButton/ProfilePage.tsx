@@ -64,14 +64,15 @@ export default function ProfilePage() {
 
   if (loading) {
     return (
-      <div className="animate-pulse min-h-screen transition-all duration-300">
-        <div className="h-55 rounded-4xl bg-slate-800 mb-6"></div>
-        <div className="grid grid-cols-4 gap-3">
-          <div className="h-32 rounded-3xl bg-slate-800"></div>
-          <div className="h-32 rounded-3xl bg-slate-800"></div>
-          <div className="h-32 rounded-3xl bg-slate-800"></div>
-          <div className="h-32 rounded-3xl bg-slate-800"></div>
+      <div className="animate-pulse">
+        <div className="h-55 rounded-4xl bg-slate-900 light:bg-white mb-6"></div>
+        <div className="grid grid-cols-4 gap-3 mb-6">
+          <div className="h-29 p-4 rounded-3xl bg-slate-900 border-slate-800 light:bg-white light:border-slate-200"></div>
+          <div className="h-29 p-4 rounded-3xl bg-slate-900 border-slate-800 light:bg-white light:border-slate-200"></div>
+          <div className="h-29 p-4 rounded-3xl bg-slate-900 border-slate-800 light:bg-white light:border-slate-200"></div>
+          <div className="h-29 p-4 rounded-3xl bg-slate-900 border-slate-800 light:bg-white light:border-slate-200"></div>
         </div>
+        <div className="h-55 rounded-4xl bg-slate-900 border-none light:bg-white mb-6"></div>
       </div>
     );
   }
@@ -80,7 +81,7 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="flex flex-col gap-6 transition-all duration-300">
+    <div className="flex flex-col gap-6">
       {/* Banner + Header */}
       <div
         style={
@@ -89,10 +90,10 @@ export default function ProfilePage() {
             "--boxShadow-light": `0 0 20px ${user.color}75`,
           } as React.CSSProperties
         }
-        className="relative rounded-4xl shadow-(--boxShadow) light:shadow-(--boxShadow-light) transition-all duration-300"
+        className="relative rounded-4xl shadow-(--boxShadow) light:shadow-(--boxShadow-light)"
       >
         {/* Banner */}
-        <div className="w-full h-55 rounded-[28px] bg-linear-to-br from-slate-950 to-slate-800 relative overflow-hidden transition-all duration-300">
+        <div className="w-full h-55 rounded-[28px] bg-linear-to-br from-slate-950 to-slate-800 relative overflow-hidden">
           {user.banner ? (
             <img
               src={user.banner}
@@ -133,8 +134,8 @@ export default function ProfilePage() {
               <div className="absolute bottom-2 right-2 w-6 h-6 rounded-full bg-lime-400 border border-slate-950 transition-all duration-300"></div>
             </div>
             {/* User info */}
-            <div className="pb-2 transition-all duration-300">
-              <div className="flex items-center gap-3 mb-2 transition-all duration-300">
+            <div className="pb-2">
+              <div className="flex items-center gap-3 mb-2">
                 <h1
                   style={
                     {
@@ -142,26 +143,22 @@ export default function ProfilePage() {
                       "--text-light": `${user.color}`,
                     } as React.CSSProperties
                   }
-                  className={`text-5xl font-bold text-(--text-dark) light:text-(--text-light) opacity-75 light:opacity-100 transition-all duration-300`}
+                  className={`text-5xl font-bold text-(--text-dark) light:text-(--text-light) opacity-75 light:opacity-100`}
                 >
                   {user?.name}
                 </h1>
                 <div
-                  className={`${getRoleColor(user.role)} px-4 py-1 rounded-full text-sm font-semibold text-white transition-all duration-300`}
+                  className={`${getRoleColor(user.role)} px-4 py-1 rounded-full text-sm font-semibold text-white`}
                 >
                   {user?.role}
                 </div>
               </div>
-              <p className="text-slate-300 mb-2 transition-all duration-300">
-                {user?.bio}
-              </p>
-              <p className="text-sm text-slate-500 transition-all duration-300">
-                {user?.joined}
-              </p>
+              <p className="text-slate-300 mb-2">{user?.bio}</p>
+              <p className="text-sm text-slate-500">{user?.joined}</p>
             </div>
           </div>
           {/* Right */}
-          <div className="flex items-end h-full transition-all duration-300">
+          <div className="flex items-end h-full">
             <button
               onClick={() => setEditProfileOpen(true)}
               style={
@@ -189,8 +186,8 @@ export default function ProfilePage() {
         </div>
       </div>
       {/* Stats */}
-      <div className="grid grid-cols-4 gap-3 transition-all duration-300">
-        <div className="bg-slate-900 border-slate-800 light:bg-white light:border-slate-200 border rounded-3xl p-5 transition-all duration-300">
+      <div className="grid grid-cols-4 gap-3">
+        <div className="bg-slate-900 border-slate-800 light:bg-white light:border-slate-200 border rounded-3xl p-5 transition-colors duration-300">
           <h2
             style={
               {
@@ -214,9 +211,9 @@ export default function ProfilePage() {
           >
             {user?.projects}
           </h2>
-          <p className="text-slate-400 transition-all duration-300">Projects</p>
+          <p className="text-slate-400">Projects</p>
         </div>
-        <div className="bg-slate-900 border-slate-800 light:bg-white light:border-slate-200 border rounded-3xl p-5 transition-all duration-300">
+        <div className="bg-slate-900 border-slate-800 light:bg-white light:border-slate-200 border rounded-3xl p-5 transition-colors duration-300">
           <h2
             style={
               {
@@ -240,9 +237,9 @@ export default function ProfilePage() {
           >
             {user?.reports}
           </h2>
-          <p className="text-slate-400 transition-all duration-300">Reports</p>
+          <p className="text-slate-400">Reports</p>
         </div>
-        <div className="bg-slate-900 border-slate-800 light:bg-white light:border-slate-200 border rounded-3xl p-5 transition-all duration-300">
+        <div className="bg-slate-900 border-slate-800 light:bg-white light:border-slate-200 border rounded-3xl p-5 transition-colors duration-300">
           <h2
             style={
               {
@@ -266,9 +263,9 @@ export default function ProfilePage() {
           >
             {user?.tasks}
           </h2>
-          <p className="text-slate-400 transition-all duration-300">Tasks</p>
+          <p className="text-slate-400">Tasks</p>
         </div>
-        <div className="bg-slate-900 border-slate-800 light:bg-white light:border-slate-200 border rounded-3xl p-5 transition-all duration-300">
+        <div className="bg-slate-900 border-slate-800 light:bg-white light:border-slate-200 border rounded-3xl p-5 transition-colors duration-300">
           <h2
             style={
               {
@@ -292,7 +289,7 @@ export default function ProfilePage() {
           >
             {user?.commits}
           </h2>
-          <p className="text-slate-400 transition-all duration-300">Commits</p>
+          <p className="text-slate-400">Commits</p>
         </div>
       </div>
       {/* Activity */}
@@ -303,8 +300,8 @@ export default function ProfilePage() {
             "--borderTop-light": `${user.color}75`,
           } as React.CSSProperties
         }
-        className={`bg-slate-900 light:bg-white border border-slate-800 light:border-slate-100 border-t-(--borderTop) transition-all duration-300 rounded-3xl p-2
-          ${user.color === "#ffffff" ? "light:border-t-slate-300" : "light:border-t-(--borderTop-light)"}`}
+        className={`bg-slate-900 light:bg-white border border-slate-800 light:border-slate-100 border-t-(--borderTop) transition-colors duration-300 rounded-3xl p-2
+          ${user.color === "#ffffff" ? "light:border-t-slate-300" : "light:border-slate-100 light:border-t-(--borderTop-light)"}`}
       >
         <div
           style={
@@ -314,12 +311,12 @@ export default function ProfilePage() {
                 user.color === "#ffffff" ? "#cbd5e1" : `${user.color}75`,
             } as React.CSSProperties
           }
-          className=" h-62 overflow-y-auto p-3 scrollbar-thumb-(--scrollbar-thumb) light:scrollbar-thumb-(--scrollbar-thumb-light)"
+          className=" h-62 overflow-y-auto p-3 scrollbar-thumb-(--scrollbar-thumb) light:scrollbar-thumb-(--scrollbar-thumb-light) transition-colors duration-300"
         >
           <h2 className="text-2xl font-bold mb-5 transition-all duration-300">
             Recent Activity
           </h2>
-          <div className="flex flex-col gap-3 transition-all duration-300">
+          <div className="flex flex-col gap-3">
             {(user.activity || []).map((activityItem) => (
               <div
                 key={activityItem.id}
