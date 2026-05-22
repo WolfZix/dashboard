@@ -9,10 +9,6 @@ type UsersActionsProps = {
   onDelete: () => void;
 };
 
-function deleteUser() {
-  console.log("Delete user");
-}
-
 export default function UsersActions({
   canView,
   canEdit,

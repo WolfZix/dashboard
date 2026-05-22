@@ -74,10 +74,21 @@ export default function EditUserModal({
             {/* Icon */}
             <div>
               <div
-                style={{ backgroundColor: color }}
-                className="w-16 h-16 rounded-full p-5 flex justify-center items-center border-2 border-black text-black text-2xl font-bold select-none relative"
+                style={{
+                  backgroundColor: user.color,
+                  color: user.textColor,
+                  borderColor: user.textColor,
+                }}
+                className="w-16 h-16 rounded-full flex justify-center items-center border text-black text-2xl font-bold select-none relative"
               >
-                {user.name[0]}
+                {user.avatar ? (
+                  <img
+                    src={user.avatar}
+                    className="w-full h-full object-cover rounded-full scale-[0.98]"
+                  />
+                ) : (
+                  user.name[0]
+                )}
                 <div
                   className={`${statusColor[user.status]} absolute bottom-0 left-0 w-5 h-5 rounded-full border-2 border-black`}
                 ></div>
