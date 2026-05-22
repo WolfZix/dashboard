@@ -45,10 +45,13 @@ export default function Sidebar({ links }: SidebarProps) {
         </nav>
       </div>
       <div className="p-4 border-t border-slate-800 light:border-slate-300">
-        <button className="cursor-pointer w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white light:text-slate-500 light:hover:bg-slate-200 light:hover:text-slate-600 transition-all">
+        <NavLink
+          to={"settings"}
+          className="cursor-pointer w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white light:text-slate-500 light:hover:bg-slate-200 light:hover:text-slate-600 transition-all"
+        >
           <Settings size={20} />
           Settings
-        </button>
+        </NavLink>
       </div>
     </aside>
   );
