@@ -75,7 +75,7 @@ export default function ProfilePage() {
           {user.banner ? (
             <img src={user.banner} className="w-full h-full object-cover" />
           ) : null}
-          <div className="absolute inset-0 bg-black/85"></div>
+          <div className="absolute inset-0 bg-black/85 light:bg-transparent"></div>
         </div>
         {/* Content on banner */}
         <div className="absolute inset-0 flex items-end justify-between p-8">
@@ -83,12 +83,15 @@ export default function ProfilePage() {
           <div className="flex items-end gap-6">
             {/* Avatar */}
             <div
-              style={{
-                backgroundColor: "black",
-                borderColor: `${user.color}35`,
-                boxShadow: `0 0 20px ${user.color}25`,
-              }}
-              className="relative rounded-full border transition-all duration-300"
+              style={
+                {
+                  backgroundColor: "black",
+                  boxShadow: `0 0 20px ${user.color}25`,
+                  "--border-color-dark": `${user.color}35`,
+                  "--border-color-light": `${user.color}`,
+                } as React.CSSProperties
+              }
+              className="relative rounded-full border transition-all duration-300 border-(--border-color-dark) light:border-(--border-color-light)"
             >
               <div
                 style={{ backgroundColor: user.color }}
@@ -103,12 +106,17 @@ export default function ProfilePage() {
                   user?.name[0].toUpperCase()
                 )}
               </div>
-              <div className="absolute bottom-2 right-2 w-6 h-6 rounded-full bg-lime-400 border-4 border-slate-950"></div>
+              <div className="absolute bottom-2 right-2 w-6 h-6 rounded-full bg-lime-400 border border-slate-950"></div>
             </div>
             {/* User info */}
             <div className="pb-2">
               <div className="flex items-center gap-3 mb-2">
-                <h1 className="text-5xl font-bold">{user?.name}</h1>
+                <h1
+                  style={{ color: `${user.color}` }}
+                  className="text-5xl font-bold"
+                >
+                  {user?.name}
+                </h1>
                 <div
                   className={`${getRoleColor(user.role)} px-4 py-1 rounded-full text-sm font-semibold`}
                 >
