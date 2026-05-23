@@ -15,7 +15,18 @@ export default function ThemeToggle() {
       document.documentElement.classList.add("light");
       localStorage.setItem("theme", "light");
     }
+    window.dispatchEvent(new Event("themeChanged"));
   }, [darkMode]);
+
+  useEffect(() => {
+    function syncTheme() {
+      setDarkModee(localStorage.getItem("theme") !== "light");
+    }
+    window.addEventListener("themeChanged", syncTheme);
+    return () => {
+      window.removeEventListener("themeChanged", syncTheme);
+    };
+  }, []);
 
   function changeMode() {
     setDarkModee((prev) => !prev);

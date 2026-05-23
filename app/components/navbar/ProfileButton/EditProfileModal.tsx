@@ -306,7 +306,7 @@ export default function EditProfileModal({
                         ? buttonColor === "#ffffff"
                           ? "shadow-[inset_0_0_0_2px_rgb(0,0,0)] scale-110"
                           : buttonColor === "#000000"
-                            ? "shadow-[inset_0_0_0_2px_rgb(255,255,255)] scale-110"
+                            ? "scale-110"
                             : "border-white light:border-black scale-110"
                         : "border-transparent light:border-slate-300"
                     }
