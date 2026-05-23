@@ -30,7 +30,7 @@ export default function SettingsSidebar() {
         {options.map((option) => {
           const Icon = option.icon;
           return (
-            <button className="flex items-center gap-3 px-3 py-3 w-full rounded-lg bg-transparent hover:bg-slate-800 text-white text-sm transition cursor-pointer">
+            <button className="flex items-center gap-3 px-3 py-3 w-full rounded-lg bg-transparent hover:bg-slate-800 text-white light:text-slate-900 light:hover:bg-slate-200 text-sm transition cursor-pointer">
               <Icon size={15} />
               <span>{option.name}</span>
             </button>

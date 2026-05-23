@@ -33,20 +33,6 @@ export default function UserProfile() {
     };
   }, []);
 
-  function loadCurrentUser() {
-    const storedUsername = localStorage.getItem("username");
-    if (!storedUsername) return;
-
-    const savedUsers = localStorage.getItem("users");
-    if (!savedUsers) return;
-
-    const users: User[] = JSON.parse(savedUsers);
-    const foundUser = users.find(
-      (user) => user.name.toLowerCase() === storedUsername.toLowerCase(),
-    );
-    if (foundUser) setCurrentUser(foundUser);
-  }
-
   if (!currentUser) {
     return (
       <div
