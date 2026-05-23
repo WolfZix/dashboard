@@ -299,18 +299,21 @@ export default function EditProfileModal({
                 <button
                   key={buttonColor}
                   onClick={() => setColor(buttonColor)}
-                  style={{ "--bg": `${buttonColor}` } as React.CSSProperties}
-                  className={`w-7 h-7 rounded-full bg-(--bg) border-2 hover:scale-105 transition-all duration-300 cursor-pointer
+                  style={{ "--bg": buttonColor } as React.CSSProperties}
+                  className={`w-7 h-7 rounded-full bg-(--bg) border transition-all duration-300 cursor-pointer
                     ${
                       color === buttonColor
                         ? buttonColor === "#ffffff"
-                          ? "shadow-[inset_0_0_0_2px_rgb(0,0,0)] scale-110"
+                          ? `scale-105 border-white light:border-black dark:shadow-[inset_0_0_0_2px_rgb(0,0,0)] light:shadow-none`
                           : buttonColor === "#000000"
-                            ? "scale-110"
-                            : "border-white light:border-black scale-110"
-                        : "border-transparent light:border-slate-300"
-                    }
-                    `}
+                            ? `scale-105 border-white light:border-black light:shadow-[inset_0_0_0_2px_rgb(255,255,255)]`
+                            : `scale-105 border-white light:border-black`
+                        : buttonColor === "#ffffff"
+                          ? `border-transparent light:border-black light:scale-105`
+                          : buttonColor === "#000000"
+                            ? `dark:border-white light:border-black scale-105`
+                            : `border-transparent`
+                    } hover:scale-110`}
                 ></button>
               ))}
             </div>

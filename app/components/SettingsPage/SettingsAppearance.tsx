@@ -4,7 +4,7 @@ import type { User } from "../UsersPage/users.types";
 export default function SettingsAppearance() {
   const [user, setUser] = useState<User | null>(null);
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "dark");
-  const [userColor, setUserColor] = useState(user?.color);
+  const [color, setColor] = useState("");
   const colors = [
     "#fb2c36", // red
     "#ff6900", // orange
@@ -18,6 +18,12 @@ export default function SettingsAppearance() {
     "#ffffff", // white
     "#62748e", // slate
   ];
+
+  useEffect(() => {
+    if (user?.color) {
+      setColor(user.color);
+    }
+  }, [user]);
 
   useEffect(() => {
     setTheme(localStorage.getItem("theme") || "dark");
@@ -152,23 +158,22 @@ export default function SettingsAppearance() {
               {colors.map((buttonColor) => (
                 <button
                   key={buttonColor}
-                  onClick={() =>
-                    setUser((prev) =>
-                      prev ? { ...prev, color: buttonColor } : null,
-                    )
-                  }
-                  style={{ "--bg": `${buttonColor}` } as React.CSSProperties}
-                  className={`w-7 h-7 rounded-full bg-(--bg) border-2 hover:scale-105 transition-all duration-300 cursor-pointer
-                        ${
-                          buttonColor === user?.color
-                            ? buttonColor === "#ffffff"
-                              ? "border-black scale-110"
-                              : buttonColor === "#000000"
-                                ? "scale-110"
-                                : "border-white light:border-black scale-110"
-                            : "border-transparent light:border-slate-300"
-                        }
-                        `}
+                  onClick={() => setColor(buttonColor)}
+                  style={{ "--bg": buttonColor } as React.CSSProperties}
+                  className={`w-7 h-7 rounded-full bg-(--bg) border transition-all duration-300 cursor-pointer
+                    ${
+                      color === buttonColor
+                        ? buttonColor === "#ffffff"
+                          ? `scale-105 border-white light:border-black dark:shadow-[inset_0_0_0_2px_rgb(0,0,0)] light:shadow-none`
+                          : buttonColor === "#000000"
+                            ? `scale-105 border-white light:border-black light:shadow-[inset_0_0_0_2px_rgb(255,255,255)]`
+                            : `scale-105 border-white light:border-black`
+                        : buttonColor === "#ffffff"
+                          ? `border-transparent light:border-black light:scale-105`
+                          : buttonColor === "#000000"
+                            ? `dark:border-white light:border-black scale-105`
+                            : `border-transparent`
+                    } hover:scale-110`}
                 ></button>
               ))}
             </div>
