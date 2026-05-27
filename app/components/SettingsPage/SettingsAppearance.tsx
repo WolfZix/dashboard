@@ -4,7 +4,10 @@ import type { User } from "../UsersPage/users.types";
 export default function SettingsAppearance() {
   const [user, setUser] = useState<User | null>(null);
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "dark");
-  const [color, setColor] = useState("");
+  const [mode, setMode] = useState("comfortable");
+  const [previewColor, setPreviewColor] = useState(
+    localStorage.getItem("color") || user?.color,
+  );
   const colors = [
     "#fb2c36", // red
     "#ff6900", // orange
@@ -21,7 +24,7 @@ export default function SettingsAppearance() {
 
   useEffect(() => {
     if (user?.color) {
-      setColor(user.color);
+      setPreviewColor(user.color);
     }
   }, [user]);
 
@@ -68,6 +71,15 @@ export default function SettingsAppearance() {
     window.dispatchEvent(new Event("themeChanged"));
   }
 
+  function handleUserColorChange(color: string) {
+    setPreviewColor(color);
+    window.dispatchEvent(
+      new CustomEvent("userColorChanged", {
+        detail: color,
+      }),
+    );
+  }
+
   return (
     <div className="rounded-4xl border border-slate-800 bg-slate-900 light:border-slate-300 light:bg-white p-6 transition-all duration-300">
       <div className="mb-6">
@@ -85,6 +97,13 @@ export default function SettingsAppearance() {
           <div className="flex gap-3">
             <button
               onClick={() => toggleTheme("dark")}
+              style={
+                {
+                  "--border-light": `${previewColor}`,
+                  "--border-dark": `${previewColor}55`,
+                  "--boxShadow": `0 0 20px ${previewColor}25`,
+                } as React.CSSProperties
+              }
               className={`
                 flex-1
                 h-28
@@ -99,7 +118,7 @@ export default function SettingsAppearance() {
                 justify-between
                 ${
                   theme === "dark"
-                    ? "border-slate-700 bg-slate-800 hover:bg-slate-700 light:border-slate-400 light:bg-slate-200 light:hover:bg-slate-300"
+                    ? "shadow-(--boxShadow) border-(--border-dark) bg-slate-800 hover:bg-slate-700 light:border-(--border-light) light:bg-slate-200 light:hover:bg-slate-300"
                     : "border-slate-800 bg-slate-950 hover:bg-slate-800 light:border-slate-400 light:bg-slate-100 light:hover:bg-slate-200"
                 }
                 `}
@@ -116,6 +135,13 @@ export default function SettingsAppearance() {
             </button>
             <button
               onClick={() => toggleTheme("light")}
+              style={
+                {
+                  "--border-light": `${previewColor}`,
+                  "--border-dark": `${previewColor}75`,
+                  "--boxShadow-light": `0 0 20px${previewColor}50`,
+                } as React.CSSProperties
+              }
               className={`
                 flex-1
                 h-28
@@ -130,7 +156,9 @@ export default function SettingsAppearance() {
                 justify-between
                 ${
                   theme === "light"
-                    ? "border-slate-700 bg-slate-800 hover:bg-slate-700 light:border-slate-400 light:bg-slate-200 light:hover:bg-slate-300"
+                    ? previewColor !== "#ffffff"
+                      ? "light:shadow-(--boxShadow-light) border-(--border-dark) bg-slate-800 hover:bg-slate-700 light:border-(--border-light) light:bg-slate-200 light:hover:bg-slate-300"
+                      : "light:shadow-[0px_0px_20px_#00000025] light:border-black/25 bg-slate-800 hover:bg-slate-700 light:bg-slate-200 light:hover:bg-slate-300"
                     : "border-slate-800 bg-slate-950 hover:bg-slate-800 light:border-slate-400 light:bg-slate-100 light:hover:bg-slate-200"
                 }
                 `}
@@ -158,11 +186,11 @@ export default function SettingsAppearance() {
               {colors.map((buttonColor) => (
                 <button
                   key={buttonColor}
-                  onClick={() => setColor(buttonColor)}
+                  onClick={() => handleUserColorChange(buttonColor)}
                   style={{ "--bg": buttonColor } as React.CSSProperties}
                   className={`w-7 h-7 rounded-full bg-(--bg) border transition-all duration-300 cursor-pointer
                     ${
-                      color === buttonColor
+                      previewColor === buttonColor
                         ? buttonColor === "#ffffff"
                           ? `scale-105 border-white dark:shadow-[inset_0_0_0_2px_rgb(0,0,0)] light:border-black light:shadow-[inset_0_0_0_1px_rgb(0,0,0)]`
                           : buttonColor === "#000000"
@@ -184,10 +212,40 @@ export default function SettingsAppearance() {
             UI Density
           </p>
           <div className="flex gap-3">
-            <button className="flex-1 py-4 rounded-2xl border border-slate-600 bg-slate-800 hover:bg-slate-700 light:border-slate-300 light:bg-slate-200 light:hover:bg-slate-100 font-semibold transition-all duration-300 cursor-pointer">
+            <button
+              style={
+                {
+                  "--bg-dark": mode === "comfortable" ? "#1d293d" : "#020618",
+                  "--bg-light": mode === "comfortable" ? "#e2e8f0" : "f1f5f9",
+                  "--text-dark":
+                    mode === "comfortable" ? "#ffffff" : "#ffffff50",
+                  "--text-light":
+                    mode === "comfortable" ? "#000000" : "#00000075",
+                  "--border-dark":
+                    mode === "comfortable" ? "#45556c" : "#45556c50",
+                  "--border-light":
+                    mode === "comfortable" ? "#d1d5db" : "#d1d5db",
+                } as React.CSSProperties
+              }
+              onClick={() => setMode("comfortable")}
+              className="flex-1 py-4 text-(--text-dark) light:text-(--text-light) rounded-2xl border border-(--border-dark) bg-(--bg-dark) hover:bg-slate-700 light:border-(--border-light) light:bg-(--bg-light) light:hover:bg-slate-100 font-semibold transition-all duration-300 cursor-pointer"
+            >
               Comfortable
             </button>
-            <button className="flex-1 py-4 rounded-2xl border border-slate-800 hover:border-slate-700 bg-slate-950 hover:bg-slate-900 text-slate-400 hover:text-white light:border-slate-400 light:bg-slate-100 light:hover:bg-slate-200 light:text-slate-600 light:hover:text-slate-950 transition-all duration-300 cursor-pointer">
+            <button
+              style={
+                {
+                  "--bg-dark": mode === "compact" ? "#1d293d" : "#020618",
+                  "--bg-light": mode === "compact" ? "#e2e8f0" : "f1f5f9",
+                  "--text-dark": mode === "compact" ? "#ffffff" : "#ffffff50",
+                  "--text-light": mode === "compact" ? "#000000" : "#00000075",
+                  "--border-dark": mode === "compact" ? "#45556c" : "#45556c50",
+                  "--border-light": mode === "compact" ? "#d1d5db" : "#d1d5db",
+                } as React.CSSProperties
+              }
+              onClick={() => setMode("compact")}
+              className="flex-1 py-4 text-(--text-dark) light:text-(--text-light) rounded-2xl border border-(--border-dark) bg-(--bg-dark) hover:bg-slate-700 light:border-(--border-light) light:bg-(--bg-light) light:hover:bg-slate-100 font-semibold transition-all duration-300 cursor-pointer"
+            >
               Compact
             </button>
           </div>

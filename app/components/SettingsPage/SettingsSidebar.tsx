@@ -1,3 +1,6 @@
+import { useEffect, useState } from "react";
+import type { User } from "../UsersPage/users.types";
+
 type SidebarOptions = {
   name: string;
   icon: React.ElementType;
@@ -14,6 +17,38 @@ export default function SettingsSidebar({
   activeTab,
   setActiveTab,
 }: SettingsSidebarProps) {
+  const [user, setUser] = useState<User | null>(null);
+  const [color, setColor] = useState(user?.color || "#00FF00");
+
+  useEffect(() => {
+    const storedUsername = localStorage.getItem("username");
+    if (!storedUsername) return;
+
+    const savedUsers = localStorage.getItem("users");
+    if (!savedUsers) return;
+
+    const users: User[] = JSON.parse(savedUsers);
+    const foundUser = users.find(
+      (user) => user.name.toLowerCase() === storedUsername.toLowerCase(),
+    );
+
+    if (foundUser) {
+      setUser(foundUser);
+      setColor(foundUser.color);
+    }
+  }, []);
+
+  useEffect(() => {
+    function syncColor(event: Event) {
+      const customEvent = event as CustomEvent;
+      setColor(customEvent.detail);
+    }
+    window.addEventListener("userColorChanged", syncColor);
+    return () => {
+      window.removeEventListener("userColorChanged", syncColor);
+    };
+  }, []);
+
   return (
     <div className="w-72 h-fit rounded-4xl pt-6">
       <div className="mb-6">
@@ -37,7 +72,12 @@ export default function SettingsSidebar({
               <Icon size={15} />
               <span>{option.name}</span>
               {activeTab === option.name && (
-                <div className="absolute -left-1.5 rounded-4xl bg-lime-500 w-0.75 h-6"></div>
+                <div
+                  style={{
+                    backgroundColor: color || "#00FF00",
+                  }}
+                  className={`absolute -left-1.5 rounded-4xl w-0.75 h-6`}
+                ></div>
               )}
             </button>
           );
