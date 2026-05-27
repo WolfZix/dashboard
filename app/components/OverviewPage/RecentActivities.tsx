@@ -44,8 +44,8 @@ export default function RecentActivities({
   };
 
   return (
-    <div className="bg-slate-900 border border-slate-700 light:bg-[white] light:border-[#e2e8f0] light:shadow-[0_1px_3px_rgba(0,0,0,0.1)] light:hover:bg-[#f8fafc] rounded-2xl px-6 py-5 transition-all duration-300">
-      <h2 className="font-semibold mb-2 text-2xl select-none light:text-[#0f172a]">
+    <div className="bg-slate-900 border border-slate-700 light:bg-[white] light:border-[#e2e8f0] light:shadow-[0_1px_3px_rgba(0,0,0,0.1)] light:hover:bg-[#f8fafc] rounded-2xl px-6 py-5 compact:rounded-xl compact:px-3 compact:py-2 compact:col-span-1 transition-all duration-300">
+      <h2 className="font-semibold mb-2 text-2xl compact:mb-1 compact:text-xl select-none light:text-[#0f172a]">
         Recent activities (last 5 days)
       </h2>
 
@@ -61,7 +61,7 @@ export default function RecentActivities({
             duration: 0.2,
             ease: "easeInOut",
           }}
-          className="text-lg text-slate-400 light:text-[#475569] space-y-2 select-none"
+          className="text-lg compact:text-base text-slate-400 light:text-[#475569] space-y-2 compact:space-y-1 select-none"
         >
           {visibleActivities.map((item, i) => (
             <motion.li
@@ -76,7 +76,7 @@ export default function RecentActivities({
         </motion.ul>
       </AnimatePresence>
 
-      <div className="mt-3 flex gap-1">
+      <div className="mt-3 flex gap-1 compact:mt-1.5 compact:gap-0.5">
         {Array.from({ length: pages }).map((_, i) => (
           <div
             key={i}
@@ -84,7 +84,7 @@ export default function RecentActivities({
               setPage(i);
               resetInterval();
             }}
-            className={`h-2.5 w-9.5 cursor-pointer rounded-full transition-all duration-300 ${
+            className={`h-2.5 w-9.5 compact:h-1.75 cursor-pointer rounded-full transition-all duration-300 ${
               i === page
                 ? "bg-[#22c55e]"
                 : "bg-slate-700 light:bg-[#cbd5e1] light:hover:bg-[#b2bbc6]"

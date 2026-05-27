@@ -43,7 +43,7 @@ export default function DashboardLayout() {
 
       <main className="flex-1">
         <Navbar />
-        <div className="flex-1 p-6 ">
+        <div className="flex-1 p-6 compact:p-3">
           {loading ? <LoadComponent /> : <Outlet />}
         </div>
       </main>

@@ -15,6 +15,8 @@ export default function Navbar() {
       className="
         px-6
         py-4
+        compact:py-2
+        compact:px-3
         border-b border-slate-800
         bg-slate-900
         flex items-center justify-between

@@ -43,9 +43,9 @@ export default function Home() {
   }
 
   return (
-    <div className="space-y-6 transition-all duration-300">
+    <div className="space-y-6 compact:space-y-3 transition-all duration-300">
       <OverviewCards stats={data.stats} />
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 transition-all duration-300">
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 compact:xl:grid-cols-4 compact:gap-2 transition-all duration-300">
         <OverviewChart chart={data.chart} />
         <RecentActivities activities={data.activity} />
         <DailyNews news={data.news} />

@@ -53,6 +53,10 @@ export default function OverviewChart({ chart }: OverviewChartProps) {
         rounded-2xl
         p-5
         h-80
+        compact:p-2
+        compact:rounded-xl
+        compact:h-[100%]
+        compact:col-span-2
         light:shadow-[0_1px_3px_rgba(0,0,0,0.1)]
         light:hover:bg-[#f8fafc]
         transition-all
@@ -63,6 +67,7 @@ export default function OverviewChart({ chart }: OverviewChartProps) {
         className="
           font-semibold
           mb-4
+          compact:mb-2
           text-[#0f172a]
           light:text-slate-950
           transition-all

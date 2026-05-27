@@ -4,7 +4,9 @@ import type { User } from "../UsersPage/users.types";
 export default function SettingsAppearance() {
   const [user, setUser] = useState<User | null>(null);
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "dark");
-  const [mode, setMode] = useState("comfortable");
+  const [mode, setMode] = useState(() => {
+    return localStorage.getItem("mode");
+  });
   const [previewColor, setPreviewColor] = useState(
     localStorage.getItem("color") || user?.color,
   );
@@ -78,6 +80,17 @@ export default function SettingsAppearance() {
         detail: color,
       }),
     );
+  }
+
+  function toggleMode(density: string) {
+    localStorage.setItem("mode", density);
+    setMode(density);
+    if (density === "comfortable") {
+      document.documentElement.classList.remove("compact");
+    } else {
+      document.documentElement.classList.add("compact");
+    }
+    window.dispatchEvent(new Event("themeChanged"));
   }
 
   return (
@@ -227,7 +240,7 @@ export default function SettingsAppearance() {
                     mode === "comfortable" ? "#d1d5db" : "#d1d5db",
                 } as React.CSSProperties
               }
-              onClick={() => setMode("comfortable")}
+              onClick={() => toggleMode("comfortable")}
               className="flex-1 py-4 text-(--text-dark) light:text-(--text-light) rounded-2xl border border-(--border-dark) bg-(--bg-dark) hover:bg-slate-700 light:border-(--border-light) light:bg-(--bg-light) light:hover:bg-slate-100 font-semibold transition-all duration-300 cursor-pointer"
             >
               Comfortable
@@ -243,7 +256,7 @@ export default function SettingsAppearance() {
                   "--border-light": mode === "compact" ? "#d1d5db" : "#d1d5db",
                 } as React.CSSProperties
               }
-              onClick={() => setMode("compact")}
+              onClick={() => toggleMode("compact")}
               className="flex-1 py-4 text-(--text-dark) light:text-(--text-light) rounded-2xl border border-(--border-dark) bg-(--bg-dark) hover:bg-slate-700 light:border-(--border-light) light:bg-(--bg-light) light:hover:bg-slate-100 font-semibold transition-all duration-300 cursor-pointer"
             >
               Compact

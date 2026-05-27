@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 @custom-variant light (&:where(.light, .light *));
+@custom-variant compact (.compact &);
 
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif,

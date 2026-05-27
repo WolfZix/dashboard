@@ -11,7 +11,7 @@ type OverviewCards = {
 
 export default function OverviewCards({ stats }: OverviewCards) {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 compact:mb-2 compact:gap-2">
       <StatCard title="Revenue" value={stats.revenue} change="12.4%" />
       <StatCard title="Users" value={stats.users} change="0%" />
       <StatCard title="Orders" value={stats.orders} change="8.1%" />
