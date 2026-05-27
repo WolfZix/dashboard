@@ -304,16 +304,16 @@ export default function EditProfileModal({
                     ${
                       color === buttonColor
                         ? buttonColor === "#ffffff"
-                          ? `scale-105 border-white light:border-black dark:shadow-[inset_0_0_0_2px_rgb(0,0,0)] light:shadow-none`
+                          ? `scale-105 border-white dark:shadow-[inset_0_0_0_2px_rgb(0,0,0)] light:border-black light:shadow-[inset_0_0_0_1px_rgb(0,0,0)]`
                           : buttonColor === "#000000"
-                            ? `scale-105 border-white light:border-black light:shadow-[inset_0_0_0_2px_rgb(255,255,255)]`
-                            : `scale-105 border-white light:border-black`
+                            ? `scale-105 border-white light:border-black light:shadow-[inset_0_0_0_2px_rgb(255,255,255)] dark:shadow-[inset_0_0_0_1px_rgb(255,255,255)]`
+                            : `scale-110 border-white light:border-black light:shadow-[inset_0_0_0_1px_rgb(0,0,0)] dark:shadow-[inset_0_0_0_1px_rgb(255,255,255)]`
                         : buttonColor === "#ffffff"
-                          ? `border-transparent light:border-black light:scale-105`
+                          ? `border-transparent light:border-black light:scale-105 hover:scale-105`
                           : buttonColor === "#000000"
-                            ? `dark:border-white light:border-black scale-105`
-                            : `border-transparent`
-                    } hover:scale-110`}
+                            ? `dark:border-white light:border-black scale-105 hover:scale-110`
+                            : `border-transparent hover:scale-105`
+                    }`}
                 ></button>
               ))}
             </div>
