@@ -7,6 +7,12 @@
     background: #0f172a;
     border: 1px solid #1e293b;
     border-radius: 20px;
+    margin-top: 20px;
+}
+
+.compact .usersTableWrapper {
+    border-radius: 10px;
+    margin-top: 10px;
 }
 
 .usersTable {
@@ -32,6 +38,12 @@
     background: #111827;
     border-bottom: 1px solid #1e293b;
     cursor: pointer;
+}
+
+.compact .usersTable th {
+    padding: 5px;
+    font-size: 0.85rem;
+    font-weight: 500;
 }
 
 .usersTable th:hover {
@@ -73,6 +85,12 @@
     border-bottom: 1px solid #1e293b;
 }
 
+.compact .usersTable td {
+    padding: 5px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
 .usersTable tbody tr:hover { background: rgba(255,255,255,0.03); }
 
 .status-online { color: #4ade80; }
@@ -83,7 +101,6 @@
 .usersSearchWrapper {
     position: relative;
     width: 350px;
-    margin-bottom: 20px;
 }
 
 .usersSearch {
@@ -96,6 +113,11 @@
     outline: none;
 }
 
+.compact .usersSearch {
+    padding: 5px 23px 5px 9px;
+    border-radius: 7px;
+}
+
 .usersSearchIcon {
     position: absolute;
     right: 16px;
@@ -103,6 +125,10 @@
     transform: translateY(-50%);
     color: #64748b;
     pointer-events: none;
+}
+
+.compact .usersSearchIcon {
+    right: 8px;
 }
 
 .userActions {
@@ -141,6 +167,11 @@
     justify-content: center;
     gap: 10px;
     margin-top: 20px;
+}
+
+.compact .usersPagination {
+    gap: 5px;
+    margin-top: 10px;
 }
 
 .usersPagination button {

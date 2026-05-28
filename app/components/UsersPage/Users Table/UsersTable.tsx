@@ -17,7 +17,8 @@ export default function UsersTable() {
   const [users, setUsers] = useState<User[]>([]);
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(0);
-  const PAGE_SIZE = 6;
+  const isCompact = localStorage.getItem("mode") === "compact";
+  const PAGE_SIZE = isCompact ? 10 : 6;
   const [sortBy, setSortBy] = useState<SortBy>("id");
   const [sortOrder, setSortOrder] = useState<SortOrder>(null);
   const [hasUserSorted, setHasUserSorted] = useState(false);
@@ -84,11 +85,11 @@ export default function UsersTable() {
 
   return (
     <>
-      <div className="flex justify-between items-center transition-all duration-300">
+      <div className="flex justify-between items-end transition-all duration-300">
         <UsersSearch search={search} setSearch={setSearch} />
         <button
           onClick={() => setCreateUserOpen(true)}
-          className="px-5 py-3 rounded-xl bg-green-700 hover:bg-green-600 transition-all duration-300 cursor-pointer"
+          className="px-5 py-3 compact:px-3 compact:py-1.5 h-fit rounded-xl compact:rounded-lg bg-green-700 hover:bg-green-600 transition-all duration-300 cursor-pointer"
         >
           Add User
         </button>

@@ -68,7 +68,7 @@ export default function OverviewChart({ chart }: OverviewChartProps) {
           font-semibold
           mb-4
           compact:mb-2
-          text-[#0f172a]
+          text-slate-500
           light:text-slate-950
           transition-all
           duration-300
@@ -99,9 +99,13 @@ export default function OverviewChart({ chart }: OverviewChartProps) {
             vertical={false}
           />
 
-          <XAxis dataKey="name" stroke={chartText} />
+          <XAxis
+            dataKey="name"
+            stroke={chartText}
+            style={{ fontSize: "14px" }}
+          />
 
-          <YAxis stroke={chartText} />
+          <YAxis stroke={chartText} style={{ fontSize: "14px" }} />
 
           <Tooltip
             contentStyle={{
