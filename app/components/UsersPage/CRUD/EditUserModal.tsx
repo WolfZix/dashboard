@@ -57,11 +57,11 @@ export default function EditUserModal({
       onClick={onClose}
     >
       <div
-        className="bg-slate-900 light:bg-white border border-slate-700 light:border-[#e2e8f0] rounded 2xl p-6 w-112.5 transition-all duration-300"
+        className="bg-slate-900 light:bg-white border border-slate-700 light:border-[#e2e8f0] rounded-2xl p-6 compact:rounded-xl compact:p-3 w-112.5 transition-all duration-300"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex justify-between transition-all duration-300">
-          <h1 className="text-2xl font-bold mb-6 transition-all duration-300">
+          <h1 className="text-2xl font-bold mb-6 compact:mb-3 transition-all duration-300">
             Edit User
           </h1>
           <button
@@ -72,7 +72,7 @@ export default function EditUserModal({
           </button>
         </div>
         <div>
-          <div className="flex items-center gap-4 text-xl mb-2 transition-all duration-300">
+          <div className="flex items-center gap-4 text-xl mb-2 compact:gap-2 compact:mb-1 transition-all duration-300">
             {/* Icon */}
             <div>
               <div
@@ -105,13 +105,13 @@ export default function EditUserModal({
             </div>
             <div>
               {/* Profile info */}
-              <div className="flex gap-2 items-center mb-1 transition-all duration-300">
+              <div className="flex gap-2 items-center mb-1 compact:gap-1 compact:mb-0.5 transition-all duration-300">
                 <input
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   disabled={!canEditUser}
-                  className="w-[50%] bg-transparent outline-none border border-slate-400 focus:border-slate-600 light:focus:border-slate-300 rounded-lg px-2 py-1 disabled:opacity-60 transition-all duration-300"
+                  className="w-[50%] bg-transparent outline-none border border-slate-400 focus:border-slate-600 light:focus:border-slate-300 rounded-lg px-2 py-1 compact:rounded-md compact:px-1 compact:py-0.5 disabled:opacity-60 transition-all duration-300"
                 />
                 {/* Role badges */}
                 <select
@@ -120,7 +120,7 @@ export default function EditUserModal({
                   disabled={!canEditUser}
                   onClick={() => setSelectFocused((prev) => !prev)}
                   onBlur={() => setSelectFocused(false)}
-                  className={`bg-slate-800 hover:bg-slate-700 light:bg-slate-100 light:hover:bg-slate-200 cursor-pointer rounded-xl p-1 outline-none text-sm transition-all duration-300 ${
+                  className={`bg-slate-800 hover:bg-slate-700 light:bg-slate-100 light:hover:bg-slate-200 cursor-pointer rounded-xl p-1 compact:rounded-lg compact:p-0.5 outline-none text-sm transition-all duration-300 ${
                     selectFocused
                       ? "rounded-t-xl rounded-bl-none rounded-br-none"
                       : "rounded-xl"
@@ -137,7 +137,7 @@ export default function EditUserModal({
           </div>
         </div>
         <button
-          className="w-full py-3 mt-6 rounded-xl bg-green-800 hover:bg-green-700 light:bg-green-600 light:hover:bg-green-500 transition-all duration-300 cursor-pointer"
+          className="w-full py-3 mt-6 rounded-xl compact:py-1.5 compact:mt-3 compact:rounded-lg bg-green-800 hover:bg-green-700 light:bg-green-600 light:hover:bg-green-500 transition-all duration-300 cursor-pointer"
           onClick={saveChanges}
         >
           Save Changes

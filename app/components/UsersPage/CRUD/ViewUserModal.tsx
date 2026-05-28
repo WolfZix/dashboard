@@ -31,7 +31,7 @@ export default function UserModal({ user, onClose }: UserModalProps) {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex justify-between transition-all duration-300">
-          <h1 className="text-2xl font-bold mb-6 transition-all duration-300">
+          <h1 className="text-2xl font-bold mb-6 compact:mb-3 transition-all duration-300">
             User Details
           </h1>
           <button
@@ -42,7 +42,7 @@ export default function UserModal({ user, onClose }: UserModalProps) {
           </button>
         </div>
         <div>
-          <div className="flex items-center gap-2 text-xl mb-2 transition-all duration-300">
+          <div className="flex items-center gap-2 text-xl mb-2 compact:gap-1 compact:mb-1 transition-all duration-300">
             {/* Icon */}
             <button
               style={{
@@ -50,7 +50,7 @@ export default function UserModal({ user, onClose }: UserModalProps) {
                 color: user.textColor,
                 borderColor: user.textColor,
               }}
-              className="w-16 h-16 rounded-full flex justify-center items-center border text-2xl font-bold select-none relative transition-all duration-300"
+              className="w-16 h-16 rounded-full flex justify-center items-center border text-2xl compact:text-xl font-bold select-none relative transition-all duration-300"
             >
               {user.avatar ? (
                 <img
@@ -66,11 +66,11 @@ export default function UserModal({ user, onClose }: UserModalProps) {
             </button>
             <div>
               {/* Profile info */}
-              <div className="flex gap-2 items-center mb-1 font-bold transition-all duration-300">
+              <div className="flex gap-2 compact:gap-1 items-center mb-1 compact:mb-0.5 font-bold transition-all duration-300">
                 <div>{user.name}</div>
                 {/* Role badges */}
                 <div
-                  className={`text-white font-normal text-xs px-2 py-1 rounded-2xl select-none ${roleStyles[user.role]} transition-all duration-300`}
+                  className={`text-white font-normal text-xs px-2 py-1 rounded-2xl compact:px-1.5 compact:py-0.5 compact:rounded-xl select-none ${roleStyles[user.role]} transition-all duration-300`}
                 >
                   {user.role}
                 </div>
@@ -83,16 +83,16 @@ export default function UserModal({ user, onClose }: UserModalProps) {
           </div>
           {/* Bio */}
           {user.bio ? (
-            <div className="text-sm bg-slate-800 w-fit px-3 py-2 rounded-2xl light:bg-white transition-all duration-300">
+            <div className="text-sm bg-slate-800 w-fit px-3 py-2 rounded-2xl compact:px-1.5 compact:py-1 compact:rounded-xl light:bg-white transition-all duration-300">
               {user.bio}
             </div>
           ) : (
-            <div className="text-sm bg-slate-800 w-fit px-3 py-2 rounded-2xl light:bg-white transition-all duration-300">
+            <div className="text-sm bg-slate-800 w-fit px-3 py-2 rounded-2xl compact:px-2 compact:py-1 compact:rounded-xl light:bg-white transition-all duration-300">
               No status set
             </div>
           )}
-          <div className="grid grid-cols-2 gap-3 mt-5 transition-all duration-300">
-            <div className="bg-slate-800 light:bg-slate-100 rounded-2xl p-4 transition-all duration-300">
+          <div className="grid grid-cols-2 gap-3 mt-5 compact:gap-1.5 compact:mt-2.5 transition-all duration-300">
+            <div className="bg-slate-800 light:bg-slate-100 rounded-2xl p-4 compact:rounded-xl compact:p-2 compact:h-fit transition-all duration-300">
               <div className="text-slate-400 text-sm transition-all duration-300">
                 Projects
               </div>
@@ -100,7 +100,7 @@ export default function UserModal({ user, onClose }: UserModalProps) {
                 {user.projects}
               </div>
             </div>
-            <div className="bg-slate-800 light:bg-slate-100 rounded-2xl p-4 transition-all duration-300">
+            <div className="bg-slate-800 light:bg-slate-100 rounded-2xl p-4 compact:rounded-xl compact:p-2 compact:h-fit transition-all duration-300">
               <div className="text-slate-400 text-sm transition-all duration-300">
                 Reports
               </div>
@@ -108,7 +108,7 @@ export default function UserModal({ user, onClose }: UserModalProps) {
                 {user.reports}
               </div>
             </div>
-            <div className="bg-slate-800 light:bg-slate-100 rounded-2xl p-4 transition-all duration-300">
+            <div className="bg-slate-800 light:bg-slate-100 rounded-2xl p-4 compact:rounded-xl compact:p-2 compact:h-fit transition-all duration-300">
               <div className="text-slate-400 text-sm transition-all duration-300">
                 Tasks
               </div>
@@ -116,7 +116,7 @@ export default function UserModal({ user, onClose }: UserModalProps) {
                 {user.tasks}
               </div>
             </div>
-            <div className="bg-slate-800 light:bg-slate-100 rounded-2xl p-4 transition-all duration-300">
+            <div className="bg-slate-800 light:bg-slate-100 rounded-2xl p-4 compact:rounded-xl compact:p-2 compact:h-fit transition-all duration-300">
               <div className="text-slate-400 text-sm transition-all duration-300">
                 Commits
               </div>
