@@ -73,10 +73,10 @@ export default function Dropdown({ onClose }: DropdownProps) {
         z-50
       "
     >
-      <div className="p-4 border-b border-slate-700 light:border-[#e2e8f0]">
+      <div className="p-4 compact:p-2 border-b border-slate-700 light:border-[#e2e8f0]">
         <h2 className="font-semibold text-lg">Notifications</h2>
       </div>
-      <div className="p-2 space-y-2">
+      <div className="p-2 space-y-2 compact:p-1">
         {data?.notifications.map((notification, index) => {
           return (
             <div key={index}>

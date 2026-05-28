@@ -34,7 +34,7 @@ export default function Navbar() {
         {location.pathname === "/profile/:username" && <ProfileMessage />}
       </div>
 
-      <div className="flex items-center gap-4 transition-all duration-300">
+      <div className="flex items-center gap-4 compact:gap-2 transition-all duration-300">
         <OnlineStatus />
         <ThemeToggle />
         <NotificationsButton />

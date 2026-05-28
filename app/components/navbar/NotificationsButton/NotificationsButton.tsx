@@ -13,16 +13,16 @@ export default function NotificationsButton() {
         className="
           relative
           p-2.5
+          compact:p-1.5
           border
           rounded-xl
+          compact:rounded-lg
           transition-all
           duration-300
           cursor-pointer
-
           bg-slate-800
           border-slate-700
           hover:border-slate-600
-
           light:bg-white
           light:border-[#e2e8f0]
           light:text-[#0f172a]
@@ -38,6 +38,8 @@ export default function NotificationsButton() {
             right-1.5
             h-2
             w-2
+            compact:h-1.5
+            compact:w-1.5
             rounded-full
             bg-green-500
             transition-all

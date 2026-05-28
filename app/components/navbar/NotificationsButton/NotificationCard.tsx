@@ -16,19 +16,18 @@ export default function NotificationCard({
   return (
     <div
       className="
-        p-4
-        rounded-xl
-        border
-
-        bg-slate-900
-        border-slate-700
-
-        light:bg-white
-        light:border-[#e2e8f0]
+      p-4
+      compact:p-2
+      rounded-xl
+      border
+      bg-slate-900
+      border-slate-700
+      light:bg-white
+      light:border-[#e2e8f0]
       "
     >
-      <div className="flex items-center justify-between mb-1">
-        <p className="font-medium max-w-45">{title}</p>
+      <div className="flex items-center justify-between mb-1 compact:mb-0.5">
+        <p className="font-medium max-w-45 compact:max-w-65">{title}</p>
 
         <span
           className="
@@ -55,6 +54,7 @@ export default function NotificationCard({
         className="
           text-xs
           mt-3
+          compact:mt-1.5
           text-green-500
         "
       >

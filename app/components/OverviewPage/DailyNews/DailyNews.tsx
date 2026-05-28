@@ -228,7 +228,6 @@ export default function DailyNews({ news }: DailyNewsProps) {
                 }}
                 className="
                   flex
-                  items-center
                   h-full
                   px-4
                   py-4

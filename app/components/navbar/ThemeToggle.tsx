@@ -39,7 +39,9 @@ export default function ThemeToggle() {
       onMouseLeave={() => setHovered(false)}
       className="
         p-2.5
+        compact:p-1.5
         rounded-xl
+        compact:rounded-lg
         border
         transition-all
         duration-300
@@ -49,7 +51,6 @@ export default function ThemeToggle() {
         hover:border-slate-600
         hover:bg-white
         hover:text-black
-        
         light:bg-[white]
         light:border-[#e2e8f0]
         light:hover:bg-slate-800

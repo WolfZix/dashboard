@@ -81,7 +81,7 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-6 compact:gap-3">
       {/* Banner + Header */}
       <div
         style={
@@ -90,10 +90,10 @@ export default function ProfilePage() {
             "--boxShadow-light": `0 0 20px ${user.color}75`,
           } as React.CSSProperties
         }
-        className="relative rounded-4xl shadow-(--boxShadow) light:shadow-(--boxShadow-light)"
+        className="relative rounded-4xl compact:rounded-2xl shadow-(--boxShadow) light:shadow-(--boxShadow-light)"
       >
         {/* Banner */}
-        <div className="w-full h-55 rounded-[28px] bg-linear-to-br from-slate-950 to-slate-800 relative overflow-hidden">
+        <div className="w-full h-55 rounded-[28px] compact:rounded-[14px] bg-linear-to-br from-slate-950 to-slate-800 relative overflow-hidden">
           {user.banner ? (
             <img
               src={user.banner}
@@ -103,9 +103,9 @@ export default function ProfilePage() {
           <div className="absolute inset-0 bg-black/85 light:bg-transparent transition-all duration-300"></div>
         </div>
         {/* Content on banner */}
-        <div className="absolute inset-0 flex items-end justify-between p-8 transition-all duration-300">
+        <div className="absolute inset-0 flex items-end justify-between p-8 compact:p-4 transition-all duration-300">
           {/* Left */}
-          <div className="flex items-end gap-6 transition-all duration-300">
+          <div className="flex items-end gap-6 compact:gap-3 transition-all duration-300">
             {/* Avatar */}
             <div
               style={
@@ -120,7 +120,7 @@ export default function ProfilePage() {
             >
               <div
                 style={{ backgroundColor: user.color }}
-                className="w-32 h-32 rounded-full flex items-center justify-center text-black text-5xl font-bold select-none shadow-2xl m-1.25 transition-all duration-300"
+                className="w-32 h-32 rounded-full flex items-center justify-center text-black text-5xl font-bold select-none shadow-2xl m-1.25 compact:m-0.5 transition-all duration-300"
               >
                 {user.avatar ? (
                   <img
@@ -134,8 +134,8 @@ export default function ProfilePage() {
               <div className="absolute bottom-2 right-2 w-6 h-6 rounded-full bg-lime-400 border border-slate-950 transition-all duration-300"></div>
             </div>
             {/* User info */}
-            <div className="pb-2">
-              <div className="flex items-center gap-3 mb-2">
+            <div className="pb-2 compact:pb-1">
+              <div className="flex items-center gap-3 mb-2 compact:gap-1.5 compact:mb-1">
                 <h1
                   style={
                     {
@@ -148,12 +148,12 @@ export default function ProfilePage() {
                   {user?.name}
                 </h1>
                 <div
-                  className={`${getRoleColor(user.role)} px-4 py-1 rounded-full text-sm font-semibold text-white`}
+                  className={`${getRoleColor(user.role)} px-4 py-1 compact:px-2 compact:py-0.5 rounded-full text-sm font-semibold text-white`}
                 >
                   {user?.role}
                 </div>
               </div>
-              <p className="text-slate-300 mb-2">{user?.bio}</p>
+              <p className="text-slate-300 mb-2 compact:mb-1">{user?.bio}</p>
               <p className="text-sm text-slate-500">{user?.joined}</p>
             </div>
           </div>
@@ -171,7 +171,7 @@ export default function ProfilePage() {
                   "--hover-bg": `${user.color}70`,
                 } as React.CSSProperties
               }
-              className={`px-6 py-3 rounded-2xl transition-all duration-300 border border-(--border-color)  backdrop-blur-md cursor-pointer hover:scale-[1.02] active:scale-[0.98]
+              className={`px-6 py-3 rounded-2xl compact:px-3 compact:py-1.5 compact:rounded-xl transition-all duration-300 border border-(--border-color) backdrop-blur-md cursor-pointer hover:scale-[1.02] active:scale-[0.98]
                 ${
                   user.color === "#ffffff"
                     ? "text-black light:bg-white light:hover:bg-white/80 light:opacity-100 bg-white opacity-75 hover:opacity-100"
@@ -186,8 +186,8 @@ export default function ProfilePage() {
         </div>
       </div>
       {/* Stats */}
-      <div className="grid grid-cols-4 gap-3">
-        <div className="bg-slate-900 border-slate-800 light:bg-white light:border-slate-200 border rounded-3xl p-5 transition-colors duration-300">
+      <div className="grid grid-cols-4 gap-3 compact:gap-1.5">
+        <div className="bg-slate-900 border-slate-800 light:bg-white light:border-slate-200 border rounded-3xl p-5 compact:rounded-2xl compact:p-2.5 transition-colors duration-300">
           <h2
             style={
               {
@@ -195,7 +195,7 @@ export default function ProfilePage() {
                 "--text-light": `${user.color}`,
               } as React.CSSProperties
             }
-            className={`text-4xl font-bold mb-2 transition-all duration-300 dark:text-(--text-dark) 
+            className={`text-4xl font-bold mb-2 compact:mb-1 transition-all duration-300 dark:text-(--text-dark) 
               ${
                 user.color === "#ffffff"
                   ? "light:text-slate-400"
@@ -213,7 +213,7 @@ export default function ProfilePage() {
           </h2>
           <p className="text-slate-400">Projects</p>
         </div>
-        <div className="bg-slate-900 border-slate-800 light:bg-white light:border-slate-200 border rounded-3xl p-5 transition-colors duration-300">
+        <div className="bg-slate-900 border-slate-800 light:bg-white light:border-slate-200 border rounded-3xl p-5 compact:rounded-2xl compact:p-2.5 transition-colors duration-300">
           <h2
             style={
               {
@@ -221,7 +221,7 @@ export default function ProfilePage() {
                 "--text-light": `${user.color}`,
               } as React.CSSProperties
             }
-            className={`text-4xl font-bold mb-2 transition-all duration-300 dark:text-(--text-dark) 
+            className={`text-4xl font-bold mb-2 compact:mb-1 transition-all duration-300 dark:text-(--text-dark) 
               ${
                 user.color === "#ffffff"
                   ? "light:text-slate-400"
@@ -239,7 +239,7 @@ export default function ProfilePage() {
           </h2>
           <p className="text-slate-400">Reports</p>
         </div>
-        <div className="bg-slate-900 border-slate-800 light:bg-white light:border-slate-200 border rounded-3xl p-5 transition-colors duration-300">
+        <div className="bg-slate-900 border-slate-800 light:bg-white light:border-slate-200 border rounded-3xl p-5 compact:rounded-2xl compact:p-2.5 transition-colors duration-300">
           <h2
             style={
               {
@@ -247,7 +247,7 @@ export default function ProfilePage() {
                 "--text-light": `${user.color}`,
               } as React.CSSProperties
             }
-            className={`text-4xl font-bold transition-all duration-300 mb-2 dark:text-(--text-dark) 
+            className={`text-4xl font-bold transition-all duration-300 mb-2 compact:mb-1 dark:text-(--text-dark) 
               ${
                 user.color === "#ffffff"
                   ? "light:text-slate-400"
@@ -265,7 +265,7 @@ export default function ProfilePage() {
           </h2>
           <p className="text-slate-400">Tasks</p>
         </div>
-        <div className="bg-slate-900 border-slate-800 light:bg-white light:border-slate-200 border rounded-3xl p-5 transition-colors duration-300">
+        <div className="bg-slate-900 border-slate-800 light:bg-white light:border-slate-200 border rounded-3xl p-5 compact:rounded-2xl compact:p-2.5 transition-colors duration-300">
           <h2
             style={
               {
@@ -273,7 +273,7 @@ export default function ProfilePage() {
                 "--text-light": `${user.color}`,
               } as React.CSSProperties
             }
-            className={`text-4xl font-bold transition-all duration-300 mb-2 dark:text-(--text-dark) 
+            className={`text-4xl font-bold transition-all duration-300 mb-2 compact:mb-1 dark:text-(--text-dark) 
               ${
                 user.color === "#ffffff"
                   ? "light:text-slate-400"
@@ -300,7 +300,7 @@ export default function ProfilePage() {
             "--borderTop-light": `${user.color}75`,
           } as React.CSSProperties
         }
-        className={`bg-slate-900 light:bg-white border border-slate-800 light:border-slate-100 border-t-(--borderTop) transition-colors duration-300 rounded-3xl p-2
+        className={`bg-slate-900 light:bg-white border border-slate-800 light:border-slate-100 border-t-(--borderTop) transition-colors duration-300 rounded-3xl p-2 compact:rounded-2xl compact:p-1
           ${user.color === "#ffffff" ? "light:border-t-slate-300" : "light:border-slate-100 light:border-t-(--borderTop-light)"}`}
       >
         <div
@@ -311,18 +311,18 @@ export default function ProfilePage() {
                 user.color === "#ffffff" ? "#cbd5e1" : `${user.color}75`,
             } as React.CSSProperties
           }
-          className=" h-62 overflow-y-auto p-3 scrollbar-thumb-(--scrollbar-thumb) light:scrollbar-thumb-(--scrollbar-thumb-light) transition-colors duration-300"
+          className=" h-62 overflow-y-auto p-3 compact:p-1.5 scrollbar-thumb-(--scrollbar-thumb) light:scrollbar-thumb-(--scrollbar-thumb-light) transition-colors duration-300"
         >
-          <h2 className="text-2xl font-bold mb-5 transition-all duration-300">
+          <h2 className="text-2xl font-bold mb-5 compact:mb-2.5 transition-all duration-300">
             Recent Activity
           </h2>
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-3 compact:gap-1.5">
             {(user.activity || []).map((activityItem) => (
               <div
                 key={activityItem.id}
-                className="flex items-center justify-between bg-slate-950/60 light:bg-slate-100 rounded-2xl px-4 py-3 transition-all duration-300"
+                className="flex items-center justify-between bg-slate-950/60 light:bg-slate-100 rounded-2xl px-4 py-3 compact:rounded-xl compact:px-2 compact:py-1.5 transition-all duration-300"
               >
-                <div className="flex items-center gap-3 transition-all duration-300">
+                <div className="flex items-center gap-3 compact:gap-1.5 transition-all duration-300">
                   <div
                     className={`w-3 h-3 transition-all duration-300 rounded-full ${getActivityColor(activityItem.type)}`}
                   ></div>
@@ -339,11 +339,11 @@ export default function ProfilePage() {
         </div>
       </div>
       {toast && (
-        <div className="fixed bottom-5 right-5 z-999 overflow-hidden rounded-2xl border border-slate-700 bg-slate-900 shadow-2xl min-w-80 transition-all duration-300">
+        <div className="fixed bottom-5 right-5 z-999 overflow-hidden rounded-2xl compact:rounded-xl border border-slate-700 bg-slate-900 shadow-2xl min-w-80 transition-all duration-300">
           {/* Progress bar */}
           <div className="absolute bottom-0 left-0 h-1 bg-lime-400 animate-[toast_2s_linear_forwards] transition-all duration-300"></div>
 
-          <div className="flex items-center gap-3 px-5 py-4 transition-all duration-300">
+          <div className="flex items-center gap-3 px-5 py-4 compact:gap-1.5 compact:px-2.5 compact:py-2 transition-all duration-300">
             {/* Icon */}
             <div
               className={`w-3 h-3 transition-all duration-300 rounded-full ${

@@ -3,8 +3,11 @@ export default function OnlineStatus() {
     <div
       className="
         flex items-center gap-2
+        compact:gap-1
         px-3 py-2
+        compact:px-1.5
         rounded-xl
+        compact:rounded-lg
         bg-slate-800
         border border-slate-700
         light:bg-[white]

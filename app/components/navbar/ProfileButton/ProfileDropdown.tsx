@@ -93,10 +93,12 @@ export default function ProfileDropdown({
         duration: 0.15,
       }}
       className="
-    flex flex-col gap-2 
+    flex flex-col gap-2
+    compact:gap-1
     absolute 
     top-full
     w-52
+    compact:w-38
     right-0 
     min-h-10 
     bg-slate-900
@@ -104,19 +106,20 @@ export default function ProfileDropdown({
     light:bg-[white]
     light:border-[#e2e8f0]
     rounded-xl
+    compact:rounded-lg
     rounded-tr-none
     text-left
     z-50
     "
     >
-      <div className="flex items-center m-2 transition-all duration-300">
+      <div className="flex items-center m-2 compact:m-1.5 transition-all duration-300">
         <div
           style={{
             backgroundColor: userColor,
             color: userTextColor,
             borderColor: userColor,
           }}
-          className={`rounded-full font-bold w-10 h-10 mr-2 flex justify-center items-center text-xl border`}
+          className={`rounded-full font-bold w-10 h-10 compact:w-9 compact:h-9 mr-2 compact:mr-1 flex justify-center items-center text-xl border`}
         >
           {userPicture ? (
             <img
@@ -151,8 +154,12 @@ export default function ProfileDropdown({
             className={`
         text-base
         rounded-md
+        compact:rounded-sm
+        compact:text-sm
         py-2
         px-3
+        compact:py-1
+        compact:px-1.5
         cursor-pointer
         transition-colors
         hover:bg-slate-700

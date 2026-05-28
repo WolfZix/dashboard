@@ -36,8 +36,9 @@ export default function UserProfile() {
   if (!currentUser) {
     return (
       <div
-        className="h-10
-          w-10
+        className="
+          h-5
+          w-5
           rounded-full
           flex
           items-center
@@ -74,6 +75,8 @@ export default function UserProfile() {
           className={`
           h-10
           w-10
+          compact:h-9
+          compact:w-9
           rounded-full
           flex
           items-center

@@ -94,20 +94,20 @@ export default function SettingsAppearance() {
   }
 
   return (
-    <div className="rounded-4xl border border-slate-800 bg-slate-900 light:border-slate-300 light:bg-white p-6 transition-all duration-300">
-      <div className="mb-6">
-        <h2 className="text-2xl font-bold mb-2">Appearance</h2>
+    <div className="rounded-4xl compact:rounded-2xl border border-slate-800 bg-slate-900 light:border-slate-300 light:bg-white p-6 compact:p-3 transition-all duration-300">
+      <div className="mb-6 compact:mb-3">
+        <h2 className="text-2xl font-bold mb-2 compact:mb-1">Appearance</h2>
         <p className="text-slate-400 light:text-slate-600 transition-all duration-300">
           Customize how your dashboard looks and feels.
         </p>
       </div>
 
-      <div className="flex flex-col gap-8">
+      <div className="flex flex-col gap-8 compact:gap-4">
         <div>
-          <p className="text-sm text-slate-400 light:text-slate-600 mb-3 transition-all duration-300">
+          <p className="text-sm text-slate-400 light:text-slate-600 mb-3 compact:mb-1.5 transition-all duration-300">
             Theme
           </p>
-          <div className="flex gap-3">
+          <div className="flex gap-3 compact:gap-1.5">
             <button
               onClick={() => toggleTheme("dark")}
               style={
@@ -120,12 +120,15 @@ export default function SettingsAppearance() {
               className={`
                 flex-1
                 h-28
+                compact:h-22
                 rounded-3xl
+                compact:rounded-2xl
                 border
                 transition-all
                 duration-300
                 cursor-pointer
                 p-4
+                compact:p-2
                 flex
                 flex-col
                 justify-between
@@ -140,7 +143,7 @@ export default function SettingsAppearance() {
                 <div className="text-lg font-semibold">Dark</div>
                 <div className="w-3 h-3 rounded-full bg-transparent border border-slate-400 transition-all duration-300"></div>
               </div>
-              <div className="flex gap-2">
+              <div className="flex gap-2 compact:gap-1">
                 <div className="w-8 h-8 rounded-lg bg-slate-950 border border-slate-600 light:border-slate-400 transition-all duration-300"></div>
                 <div className="w-8 h-8 rounded-lg bg-slate-800 border border-slate-600 light:border-slate-400 transition-all duration-300"></div>
                 <div className="w-8 h-8 rounded-lg bg-slate-700 border border-slate-600 light:border-slate-400 transition-all duration-300"></div>
@@ -158,12 +161,15 @@ export default function SettingsAppearance() {
               className={`
                 flex-1
                 h-28
+                compact:h-22
                 rounded-3xl
+                compact:rounded-2xl
                 border
                 transition-all
                 duration-300
                 cursor-pointer
                 p-4
+                compact:p-2
                 flex
                 flex-col
                 justify-between
@@ -180,7 +186,7 @@ export default function SettingsAppearance() {
                 <div className="text-lg font-semibold">Light</div>
                 <div className="w-3 h-3 rounded-full bg-transparent border border-slate-400 transition-all duration-300"></div>
               </div>
-              <div className="flex gap-2">
+              <div className="flex gap-2 compact:gap-1">
                 <div className="w-8 h-8 rounded-lg bg-white border border-slate-600 light:border-slate-400 transition-all duration-300"></div>
                 <div className="w-8 h-8 rounded-lg bg-slate-200 border border-slate-600 light:border-slate-400 transition-all duration-300"></div>
                 <div className="w-8 h-8 rounded-lg bg-slate-300 border border-slate-600 light:border-slate-400 transition-all duration-300"></div>
@@ -195,7 +201,7 @@ export default function SettingsAppearance() {
           </p>
           {!user && <div className="min-h-7"></div>}
           {user && (
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-3 compact:gap-1.5">
               {colors.map((buttonColor) => (
                 <button
                   key={buttonColor}
@@ -221,10 +227,10 @@ export default function SettingsAppearance() {
           )}
         </div>
         <div>
-          <p className="text-sm text-slate-400 light:text-slate-600 mb-3 transition-all duration-300">
+          <p className="text-sm text-slate-400 light:text-slate-600 mb-3 compact:mb-1.5 transition-all duration-300">
             UI Density
           </p>
-          <div className="flex gap-3">
+          <div className="flex gap-3 compact:gap-1.5">
             <button
               style={
                 {
@@ -241,7 +247,7 @@ export default function SettingsAppearance() {
                 } as React.CSSProperties
               }
               onClick={() => toggleMode("comfortable")}
-              className="flex-1 py-4 text-(--text-dark) light:text-(--text-light) rounded-2xl border border-(--border-dark) bg-(--bg-dark) hover:bg-slate-700 light:border-(--border-light) light:bg-(--bg-light) light:hover:bg-slate-100 font-semibold transition-all duration-300 cursor-pointer"
+              className="flex-1 py-4 compact:py-2 text-(--text-dark) light:text-(--text-light) rounded-2xl compact:rounded-xl border border-(--border-dark) bg-(--bg-dark) hover:bg-slate-700 light:border-(--border-light) light:bg-(--bg-light) light:hover:bg-slate-100 font-semibold transition-all duration-300 cursor-pointer"
             >
               Comfortable
             </button>
@@ -257,7 +263,7 @@ export default function SettingsAppearance() {
                 } as React.CSSProperties
               }
               onClick={() => toggleMode("compact")}
-              className="flex-1 py-4 text-(--text-dark) light:text-(--text-light) rounded-2xl border border-(--border-dark) bg-(--bg-dark) hover:bg-slate-700 light:border-(--border-light) light:bg-(--bg-light) light:hover:bg-slate-100 font-semibold transition-all duration-300 cursor-pointer"
+              className="flex-1 py-4 compact:py-2 text-(--text-dark) light:text-(--text-light) rounded-2xl compact:rounded-xl border border-(--border-dark) bg-(--bg-dark) hover:bg-slate-700 light:border-(--border-light) light:bg-(--bg-light) light:hover:bg-slate-100 font-semibold transition-all duration-300 cursor-pointer"
             >
               Compact
             </button>
@@ -267,7 +273,7 @@ export default function SettingsAppearance() {
         <div>
           <div className="flex items-center justify-between">
             <div>
-              <h3 className="text-lg light:text-slate-700 font-semibold mb-1 transition-all duration-300">
+              <h3 className="text-lg light:text-slate-700 font-semibold mb-1 compact:mb-0.5 transition-all duration-300">
                 Animations
               </h3>
               <p className="text-sm text-slate-400 light:text-slate-600 transition-all duration-300">
