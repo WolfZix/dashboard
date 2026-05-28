@@ -2,6 +2,7 @@
 
 @custom-variant light (&:where(.light, .light *));
 @custom-variant compact (.compact &);
+@custom-variant noAnimations (&:where(.NoAnimations, .NoAnimations *));
 
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif,
@@ -65,9 +66,9 @@ input:-webkit-autofill:hover {
   text-decoration: none;
 }
 
-.no-animations *,
-.no-animations *::before,
-.no-animations *::after {
+.NoAnimations *,
+.NoAnimations *::before,
+.NoAnimations *::after {
   transition: none !important;
   animation: none !important;
   scroll-behavior: auto !important;

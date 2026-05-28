@@ -9,19 +9,30 @@ export default function RecentActivities({
   activities,
 }: RecentActivitiesProps) {
   const [page, setPage] = useState(0);
-
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
-
   const PAGE_SIZE = 6;
-
   const pages = Math.ceil(activities.length / PAGE_SIZE) || 1;
-
   const visibleActivities = activities.slice(
     page * PAGE_SIZE,
     page * PAGE_SIZE + PAGE_SIZE,
   );
+  const [canAnimate, setCanAnimate] = useState(
+    localStorage.getItem("animations") === "true",
+  );
 
   useEffect(() => {
+    const syncAnimations = () => {
+      setCanAnimate(localStorage.getItem("animations") === "true");
+    };
+
+    window.addEventListener("animationsChanged", syncAnimations);
+    return () => {
+      window.removeEventListener("animationsChanged", syncAnimations);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!canAnimate) return;
     intervalRef.current = setInterval(() => {
       setPage((p) => (p + 1) % pages);
     }, 5000);
@@ -31,9 +42,10 @@ export default function RecentActivities({
         clearInterval(intervalRef.current);
       }
     };
-  }, [pages]);
+  }, [pages, canAnimate]);
 
   const resetInterval = () => {
+    if (!canAnimate) return;
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
     }
@@ -52,23 +64,31 @@ export default function RecentActivities({
       <AnimatePresence mode="wait">
         <motion.ul
           key={page}
-          onMouseEnter={() => clearInterval(intervalRef.current!)}
-          onMouseLeave={resetInterval}
-          initial={{ opacity: 0, x: 10 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: -10 }}
-          transition={{
-            duration: 0.2,
-            ease: "easeInOut",
+          onMouseEnter={() => {
+            if (intervalRef.current) {
+              clearInterval(intervalRef.current);
+            }
           }}
+          onMouseLeave={resetInterval}
+          initial={canAnimate ? { opacity: 0, x: 10 } : false}
+          animate={canAnimate ? { opacity: 1, x: 0 } : undefined}
+          exit={canAnimate ? { opacity: 0, x: -10 } : undefined}
+          transition={
+            canAnimate
+              ? {
+                  duration: 0.2,
+                  ease: "easeInOut",
+                }
+              : undefined
+          }
           className="text-lg compact:text-base text-slate-400 light:text-[#475569] space-y-2 compact:space-y-1 select-none"
         >
           {visibleActivities.map((item, i) => (
             <motion.li
               key={item + i}
-              initial={{ opacity: 0, x: 10 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: i * 0.1 }}
+              initial={canAnimate ? { opacity: 0, x: 10 } : false}
+              animate={canAnimate ? { opacity: 1, x: 0 } : undefined}
+              transition={canAnimate ? { delay: i * 0.1 } : undefined}
             >
               {item}
             </motion.li>

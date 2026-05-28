@@ -14,6 +14,9 @@ export default function DailyNews({ news }: DailyNewsProps) {
   const [flashDirection, setFlashDirection] = useState<"left" | "right" | null>(
     null,
   );
+  const [canAnimate, setCanAnimate] = useState(
+    localStorage.getItem("animations") === "true",
+  );
 
   useEffect(() => {
     if (marqueeRef.current) {
@@ -24,9 +27,12 @@ export default function DailyNews({ news }: DailyNewsProps) {
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
+    if (!canAnimate || localStorage.getItem("mode") !== "compact") {
+      return;
+    }
+
     intervalRef.current = setInterval(() => {
       setPage((p) => (p + 1) % news.length);
-
       setFlashDirection("right");
     }, 5000);
 
@@ -35,7 +41,7 @@ export default function DailyNews({ news }: DailyNewsProps) {
         clearInterval(intervalRef.current);
       }
     };
-  }, [news.length]);
+  }, [news.length, canAnimate]);
 
   useEffect(() => {
     if (!flashDirection) return;
@@ -47,7 +53,20 @@ export default function DailyNews({ news }: DailyNewsProps) {
     return () => clearTimeout(timeout);
   }, [flashDirection]);
 
+  useEffect(() => {
+    function syncAnimations() {
+      setCanAnimate(localStorage.getItem("animations") === "true");
+    }
+
+    window.addEventListener("animationsChanged", syncAnimations);
+
+    return () => {
+      window.removeEventListener("animationsChanged", syncAnimations);
+    };
+  }, []);
+
   function resetInterval() {
+    if (!canAnimate) return;
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
     }
@@ -64,7 +83,7 @@ export default function DailyNews({ news }: DailyNewsProps) {
       {localStorage.getItem("mode") !== "compact" && (
         <AnimatePresence>
           <div
-            className="
+            className={`
               bg-slate-900
               border border-slate-700
               rounded-2xl
@@ -77,14 +96,16 @@ export default function DailyNews({ news }: DailyNewsProps) {
               compact:min-h-[100%]
               compact:col-span-1
               compact:hidden
-              overflow-hidden
               light:bg-[white]
               light:border-[#e2e8f0]
               light:hover:bg-[#f8fafc]
               light:shadow-[0_1px_3px_rgba(0,0,0,0.1)]
+              scrollbar-thumb-slate-700
+              light:scrollbar-thumb-[#e2e8f0]
               transition-all
               duration-300
-            "
+              ${canAnimate ? "overflow-hidden" : "overflow-x-auto"}
+            `}
           >
             <h2
               className="
@@ -104,16 +125,19 @@ export default function DailyNews({ news }: DailyNewsProps) {
             </h2>
 
             <div
-              className="
-                overflow-hidden
+              className={`
                 border-y-2
                 border-slate-700
                 light:border-[#e2e8f0]
                 mb-2
                 compact:mb-1
+                scrollbar-thumb-slate-700
+                light:scrollbar-thumb-[#e2e8f0]
                 transition-all
                 duration-300
-              "
+                noAnimations:transition-none
+                ${canAnimate ? "overflow-hidden" : "overflow-x-auto"}
+              `}
             >
               <motion.div
                 ref={marqueeRef}
@@ -124,15 +148,23 @@ export default function DailyNews({ news }: DailyNewsProps) {
                   compact:gap-1.5
                   will-change-transform
                 "
-                animate={{
-                  x: [0, -marqueeWidth],
-                }}
-                transition={{
-                  ease: "linear",
-                  duration: 400,
-                  repeat: Infinity,
-                  repeatType: "loop",
-                }}
+                animate={
+                  canAnimate
+                    ? {
+                        x: [0, -marqueeWidth],
+                      }
+                    : { x: 0 }
+                }
+                transition={
+                  canAnimate
+                    ? {
+                        ease: "linear",
+                        duration: 350,
+                        repeat: Infinity,
+                        repeatType: "loop",
+                      }
+                    : undefined
+                }
               >
                 {[...news, ...news].map((message, index) => (
                   <p
@@ -164,7 +196,7 @@ export default function DailyNews({ news }: DailyNewsProps) {
 
       {localStorage.getItem("mode") === "compact" && (
         <div
-          className="
+          className={`
             bg-slate-900
             border border-slate-700
             rounded-2xl
@@ -181,7 +213,7 @@ export default function DailyNews({ news }: DailyNewsProps) {
             duration-300
             flex
             flex-col
-          "
+          `}
         >
           <h2
             className="
@@ -210,22 +242,38 @@ export default function DailyNews({ news }: DailyNewsProps) {
             <AnimatePresence mode="wait">
               <motion.div
                 key={page}
-                initial={{
-                  opacity: 0,
-                  x: 10,
-                }}
-                animate={{
-                  opacity: 1,
-                  x: 0,
-                }}
-                exit={{
-                  opacity: 0,
-                  x: -10,
-                }}
-                transition={{
-                  duration: 0.2,
-                  ease: "easeInOut",
-                }}
+                initial={
+                  canAnimate
+                    ? {
+                        opacity: 0,
+                        x: 10,
+                      }
+                    : undefined
+                }
+                animate={
+                  canAnimate
+                    ? {
+                        opacity: 1,
+                        x: 0,
+                      }
+                    : undefined
+                }
+                exit={
+                  canAnimate
+                    ? {
+                        opacity: 0,
+                        x: -10,
+                      }
+                    : undefined
+                }
+                transition={
+                  canAnimate
+                    ? {
+                        duration: 0.2,
+                        ease: "easeInOut",
+                      }
+                    : undefined
+                }
                 className="
                   flex
                   h-full

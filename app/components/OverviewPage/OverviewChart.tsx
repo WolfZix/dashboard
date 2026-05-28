@@ -35,9 +35,7 @@ export default function OverviewChart({ chart }: OverviewChartProps) {
   }, []);
 
   const chartGrid = isLightMode ? "#cbd5e1" : "#1f2937";
-
   const chartText = "#64748b";
-
   const tooltipBorder = isLightMode
     ? "1px solid rgba(0,0,0,0.1)"
     : "1px solid hsla(225, 0%, 100%, 0.15)";

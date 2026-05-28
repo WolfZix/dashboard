@@ -69,7 +69,7 @@ export default function SettingsAppearance() {
   useEffect(() => {
     const animations = localStorage.getItem("animations");
     if (animations === "false") {
-      document.documentElement.classList.add("no-animations");
+      document.documentElement.classList.add("NoAnimations");
     }
   });
 
@@ -108,10 +108,11 @@ export default function SettingsAppearance() {
     const newValue = !animationsEnabled;
     setAnimationsEnabled(newValue);
     localStorage.setItem("animations", newValue.toString());
+    window.dispatchEvent(new Event("animationsChanged"));
     if (newValue) {
-      document.documentElement.classList.remove("no-animations");
+      document.documentElement.classList.remove("NoAnimations");
     } else {
-      document.documentElement.classList.add("no-animations");
+      document.documentElement.classList.add("NoAnimations");
     }
   }
 

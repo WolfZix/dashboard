@@ -11,6 +11,7 @@ export default function UserProfile() {
   const currentUsersColor = currentUser?.color || "#22c55e";
   const currentUsersTextColor = currentUser?.textColor || "#000000";
   const currentUsersProfilePicture = currentUser?.avatar || "";
+  const [canAnimate, setCanAnimate] = useState(true);
 
   useEffect(() => {
     function loadCurrentUser() {
@@ -27,9 +28,23 @@ export default function UserProfile() {
       if (foundUser) setCurrentUser(foundUser);
     }
     loadCurrentUser();
+    setCanAnimate(localStorage.getItem("animations") === "true");
+    window.dispatchEvent(new Event("animationsChanged"));
     window.addEventListener("usersUpdated", loadCurrentUser);
     return () => {
       window.removeEventListener("usersUpdated", loadCurrentUser);
+    };
+  }, []);
+
+  useEffect(() => {
+    function syncAnimations() {
+      setCanAnimate(localStorage.getItem("animations") === "true");
+    }
+
+    window.addEventListener("animationsChanged", syncAnimations);
+
+    return () => {
+      window.removeEventListener("animationsChanged", syncAnimations);
     };
   }, []);
 
@@ -47,6 +62,7 @@ export default function UserProfile() {
           text-xl
           transition-all
           duration-300
+          noAnimations:transition-none
           "
       ></div>
     );
@@ -60,11 +76,15 @@ export default function UserProfile() {
         flex items-center
         transition-all
         duration-300
+        noAnimations:transition-none
         cursor-pointer
         light:text-[#0f172a]
         light:hover:text-slate-950
       `}
-        onClick={() => setOpen((prev) => !prev)}
+        onClick={(e) => {
+          setOpen((prev) => !prev);
+          e.stopPropagation();
+        }}
       >
         <div
           style={{
@@ -86,6 +106,7 @@ export default function UserProfile() {
           border
           transition-all
           duration-300
+          noAnimations:transition-none
         `}
         >
           {currentUsersProfilePicture ? (
@@ -107,6 +128,7 @@ export default function UserProfile() {
             userLetter={currentUserLetter || "G"}
             userColor={currentUsersColor}
             userTextColor={currentUsersTextColor}
+            canAnimate={canAnimate}
             onClose={() => setOpen(false)}
           />
         )}

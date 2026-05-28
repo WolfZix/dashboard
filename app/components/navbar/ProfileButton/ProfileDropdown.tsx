@@ -20,6 +20,7 @@ type profileDropdownProps = {
   userColor: string;
   userTextColor: string;
   onClose: () => void;
+  canAnimate: boolean;
 };
 
 function shortenUserName(userName: string) {
@@ -34,6 +35,7 @@ export default function ProfileDropdown({
   userColor,
   userTextColor,
   onClose,
+  canAnimate,
 }: profileDropdownProps) {
   const [data, setData] = useState<DashboardData | null>(null);
   const displayName =
@@ -60,9 +62,9 @@ export default function ProfileDropdown({
         onClose();
       }
     }
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("click", handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("click", handleClickOutside);
     };
   }, []);
 
@@ -77,21 +79,37 @@ export default function ProfileDropdown({
   return (
     <motion.div
       id="profileDropdown"
-      initial={{
-        opacity: 0,
-        y: -30,
-      }}
-      animate={{
-        opacity: 1,
-        y: 0,
-      }}
-      exit={{
-        opacity: 0,
-        y: -30,
-      }}
-      transition={{
-        duration: 0.15,
-      }}
+      initial={
+        canAnimate
+          ? {
+              opacity: 0,
+              y: -30,
+            }
+          : false
+      }
+      animate={
+        canAnimate
+          ? {
+              opacity: 1,
+              y: 0,
+            }
+          : undefined
+      }
+      exit={
+        canAnimate
+          ? {
+              opacity: 0,
+              y: -30,
+            }
+          : undefined
+      }
+      transition={
+        canAnimate
+          ? {
+              duration: 0.15,
+            }
+          : undefined
+      }
       className="
     flex flex-col gap-2
     compact:gap-1
