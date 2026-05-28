@@ -14,6 +14,14 @@
   min-height: 100vh;
 }
 
+:root {
+  --scrollbar-thumb: #334155;
+}
+
+.light {
+  --scrollbar-thumb: #e2e8f0;
+}
+
 html,
 body {
   @apply

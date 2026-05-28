@@ -100,8 +100,8 @@ export default function DailyNews({ news }: DailyNewsProps) {
               light:border-[#e2e8f0]
               light:hover:bg-[#f8fafc]
               light:shadow-[0_1px_3px_rgba(0,0,0,0.1)]
-              scrollbar-thumb-slate-700
-              light:scrollbar-thumb-[#e2e8f0]
+              scrollbar-thumb-(--scrollbar-thumb)
+              light:scrollbar-thumb-(--scrollbar-thumb)
               transition-all
               duration-300
               ${canAnimate ? "overflow-hidden" : "overflow-x-auto"}
@@ -131,8 +131,6 @@ export default function DailyNews({ news }: DailyNewsProps) {
                 light:border-[#e2e8f0]
                 mb-2
                 compact:mb-1
-                scrollbar-thumb-slate-700
-                light:scrollbar-thumb-[#e2e8f0]
                 transition-all
                 duration-300
                 noAnimations:transition-none

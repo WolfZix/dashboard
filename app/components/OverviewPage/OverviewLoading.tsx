@@ -2,11 +2,6 @@ export default function HomeLoading() {
   return (
     <>
       <div className="space-y-6 compact:space-y-3 transition-all duration-300">
-        <div className="space-y-2 compact:space-y-1">
-          <div className="h-8 w-64 bg-slate-800 animate-pulse rounded" />
-          <div className="h-4 w-96 bg-slate-800 animate-pulse rounded" />
-        </div>
-
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 compact:gap-2">
           {[1, 2, 3, 4].map((i) => (
             <div
