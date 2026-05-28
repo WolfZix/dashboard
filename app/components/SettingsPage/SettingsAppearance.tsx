@@ -24,6 +24,10 @@ export default function SettingsAppearance() {
     "#62748e", // slate
   ];
 
+  const [animationsEnabled, setAnimationsEnabled] = useState(() => {
+    return localStorage.getItem("animations") !== "false";
+  });
+
   useEffect(() => {
     if (user?.color) {
       setPreviewColor(user.color);
@@ -62,6 +66,13 @@ export default function SettingsAppearance() {
     };
   }, []);
 
+  useEffect(() => {
+    const animations = localStorage.getItem("animations");
+    if (animations === "false") {
+      document.documentElement.classList.add("no-animations");
+    }
+  });
+
   function toggleTheme(newTheme: string) {
     localStorage.setItem("theme", newTheme);
     setTheme(newTheme);
@@ -91,6 +102,17 @@ export default function SettingsAppearance() {
       document.documentElement.classList.add("compact");
     }
     window.dispatchEvent(new Event("themeChanged"));
+  }
+
+  function toggleAnimations() {
+    const newValue = !animationsEnabled;
+    setAnimationsEnabled(newValue);
+    localStorage.setItem("animations", newValue.toString());
+    if (newValue) {
+      document.documentElement.classList.remove("no-animations");
+    } else {
+      document.documentElement.classList.add("no-animations");
+    }
   }
 
   return (
@@ -280,8 +302,15 @@ export default function SettingsAppearance() {
                 Enable smooth transitions and effects.
               </p>
             </div>
-            <button className="relative w-14 h-8 rounded-full bg-lime-500 transition-all duration-300 cursor-pointer">
-              <div className="absolute top-1 right-1 w-6 h-6 rounded-full bg-white"></div>
+            <button
+              onClick={toggleAnimations}
+              className={`relative w-14 h-8 rounded-full cursor-pointer
+            ${animationsEnabled ? "bg-lime-500 transition-all duration-300" : "bg-gray-400"}`}
+            >
+              <div
+                className={`absolute top-1 right-1 w-6 h-6 rounded-full bg-white
+                ${animationsEnabled ? "translate-x-0 transition-all duration-300" : "-translate-x-6"}`}
+              ></div>
             </button>
           </div>
         </div>

@@ -64,3 +64,11 @@ input:-webkit-autofill:hover {
   color: rgb(0, 0, 0) !important;
   text-decoration: none;
 }
+
+.no-animations *,
+.no-animations *::before,
+.no-animations *::after {
+  transition: none !important;
+  animation: none !important;
+  scroll-behavior: auto !important;
+}
