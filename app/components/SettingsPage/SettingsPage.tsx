@@ -1,12 +1,25 @@
-import { useState } from "react";
+import { Bell, Brush, LucideUnlock, UserRound } from "lucide-react";
 import SettingsAppearance from "./SettingsAppearance";
 import SettingsAccount from "./SettingsAccount";
 import SettingsPrivacy from "./SettingsPrivacy";
 import SettingsNotifications from "./SettingsNotifications";
-import { Bell, Brush, LucideUnlock, UserRound } from "lucide-react";
 import SettingsSidebar from "./SettingsSidebar";
+import { useEffect, useState } from "react";
+import type { User } from "../UsersPage/users.types";
 
 export default function SettingsPage() {
+  const [user, setUser] = useState<User | null>(null);
+  useEffect(() => {
+    const storedUsername = localStorage.getItem("username");
+    if (!storedUsername) return;
+    const savedUsers = localStorage.getItem("users");
+    if (!savedUsers) return;
+    const users: User[] = JSON.parse(savedUsers);
+    const foundUser = users.find(
+      (u) => u.name.toLowerCase() === storedUsername.toLowerCase(),
+    );
+    if (foundUser) setUser(foundUser);
+  }, []);
   const [activeTab, setActiveTab] = useState("Appearance");
   const options = [
     {
@@ -27,6 +40,8 @@ export default function SettingsPage() {
     },
   ];
 
+  if (!user) return <div>Loading...</div>;
+
   return (
     <div className="flex gap-6 compact:gap-3 h-full">
       <SettingsSidebar
@@ -35,8 +50,12 @@ export default function SettingsPage() {
         setActiveTab={setActiveTab}
       />
       <div className="flex-1 flex flex-col gap-6 compact:gap-3">
-        {activeTab === "Appearance" && <SettingsAppearance />}
-        {activeTab === "Account" && <SettingsAccount />}
+        {activeTab === "Appearance" && (
+          <SettingsAppearance user={user} setUser={setUser} />
+        )}
+        {activeTab === "Account" && (
+          <SettingsAccount user={user} setUser={setUser} />
+        )}
         {activeTab === "Privacy" && <SettingsPrivacy />}
         {activeTab === "Notifications" && <SettingsNotifications />}
       </div>

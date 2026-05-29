@@ -1,6 +1,7 @@
 export type User = {
     id: number;
     name: string;
+    email: string;
     role: | "Admin" | "Moderator" | "Premium" | "User";
     status: | "Online" | "Busy" | "Away" | "Offline";
     joined: string;

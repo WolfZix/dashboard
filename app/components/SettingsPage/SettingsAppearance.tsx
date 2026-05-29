@@ -1,15 +1,20 @@
 import { useState, useEffect } from "react";
 import type { User } from "../UsersPage/users.types";
 
-export default function SettingsAppearance() {
-  const [user, setUser] = useState<User | null>(null);
+type SettingsAppearanceProps = {
+  user: User | null;
+  setUser: React.Dispatch<React.SetStateAction<User | null>>;
+};
+
+export default function SettingsAppearance({
+  user,
+  setUser,
+}: SettingsAppearanceProps) {
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "dark");
   const [mode, setMode] = useState(() => {
     return localStorage.getItem("mode");
   });
-  const [previewColor, setPreviewColor] = useState(
-    localStorage.getItem("color") || user?.color,
-  );
+  const [previewColor, setPreviewColor] = useState("#22c55e");
   const colors = [
     "#fb2c36", // red
     "#ff6900", // orange
@@ -35,28 +40,6 @@ export default function SettingsAppearance() {
   }, [user]);
 
   useEffect(() => {
-    setTheme(localStorage.getItem("theme") || "dark");
-    function loadCurrentUser() {
-      const storedUsername = localStorage.getItem("username");
-      if (!storedUsername) return;
-
-      const savedUsers = localStorage.getItem("users");
-      if (!savedUsers) return;
-
-      const users: User[] = JSON.parse(savedUsers);
-      const foundUser = users.find(
-        (user) => user.name.toLowerCase() === storedUsername.toLowerCase(),
-      );
-      if (foundUser) setUser(foundUser);
-    }
-    loadCurrentUser();
-    window.addEventListener("usersUpdated", loadCurrentUser);
-    return () => {
-      window.removeEventListener("usersUpdated", loadCurrentUser);
-    };
-  }, []);
-
-  useEffect(() => {
     function syncTheme() {
       setTheme(localStorage.getItem("theme") || "dark");
     }
@@ -71,7 +54,7 @@ export default function SettingsAppearance() {
     if (animations === "false") {
       document.documentElement.classList.add("NoAnimations");
     }
-  });
+  }, []);
 
   function toggleTheme(newTheme: string) {
     localStorage.setItem("theme", newTheme);
@@ -86,6 +69,7 @@ export default function SettingsAppearance() {
 
   function handleUserColorChange(color: string) {
     setPreviewColor(color);
+    setUser((prev) => (prev ? { ...prev, color } : null));
     window.dispatchEvent(
       new CustomEvent("userColorChanged", {
         detail: color,
@@ -101,7 +85,7 @@ export default function SettingsAppearance() {
     } else {
       document.documentElement.classList.add("compact");
     }
-    window.dispatchEvent(new Event("themeChanged"));
+    window.dispatchEvent(new Event("ModeChanged"));
   }
 
   function toggleAnimations() {
