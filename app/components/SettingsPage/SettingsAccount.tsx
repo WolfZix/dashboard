@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import type { User } from "../UsersPage/users.types";
 
 type SettingsAccountProps = {
@@ -16,7 +16,13 @@ export default function SettingsAccount({
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const hasChanges =
+    username !== user?.name ||
+    email !== user?.email ||
+    bio !== user?.bio ||
+    newPassword;
 
+  const toastTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const [toast, setToast] = useState<{
     type: "success" | "error";
     message: string;
@@ -24,22 +30,61 @@ export default function SettingsAccount({
 
   function saveChanges() {
     if (!user) return;
-    if (newPassword !== currentPassword) {
-      if (confirmPassword !== newPassword) {
-      }
+    if (toastTimeoutRef.current) {
+      clearTimeout(toastTimeoutRef.current);
     }
-    const updateUser: User = {
-      ...user,
-      name: username,
-      email,
-      bio,
-      password: newPassword ? newPassword : user.password,
-    };
-    setUser(updateUser);
-    setToast({ type: "success", message: "Saved changes" });
-    setTimeout(() => {
-      setToast(null);
-    }, 2000);
+    if (newPassword) {
+      if (currentPassword !== user.password) {
+        setToast({ type: "error", message: "Current password is incorrect" });
+        toastTimeoutRef.current = setTimeout(() => {
+          setToast(null);
+        }, 2000);
+        return;
+      }
+      if (newPassword != confirmPassword) {
+        setToast({ type: "error", message: "Passwords do not match" });
+        toastTimeoutRef.current = setTimeout(() => {
+          setToast(null);
+        }, 2000);
+        return;
+      }
+
+      const updateUser: User = {
+        ...user,
+        name: username,
+        email,
+        bio,
+        password: newPassword ? newPassword : user.password,
+      };
+      setUser(updateUser);
+      const users: User[] = JSON.parse(localStorage.getItem("users") || "[]");
+      const updatedUsers = users.map((u) =>
+        u.id === user.id ? updateUser : u,
+      );
+      localStorage.setItem("users", JSON.stringify(updatedUsers));
+      window.dispatchEvent(new Event("usersUpdated"));
+
+      setCurrentPassword("");
+      setNewPassword("");
+      setConfirmPassword("");
+      setToast({ type: "success", message: "Saved changes" });
+      setTimeout(() => {
+        setToast(null);
+      }, 2000);
+    }
+  }
+
+  function exportData() {
+    if (!user) return;
+    const blob = new Blob([JSON.stringify(user, null, 2)], {
+      type: "application/json",
+    });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `${user.name}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
   }
 
   return (
@@ -141,7 +186,12 @@ export default function SettingsAccount({
             type="password"
             placeholder="Current password"
             value={currentPassword}
-            onChange={(e) => setCurrentPassword(e.target.value)}
+            onChange={(e) => {
+              setCurrentPassword(e.target.value);
+              if (toast?.type === "error") {
+                setToast(null);
+              }
+            }}
             style={{ "--border-color": user?.color } as React.CSSProperties}
             className="
             focus:text-white
@@ -163,7 +213,12 @@ export default function SettingsAccount({
             type="password"
             placeholder="New password"
             value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
+            onChange={(e) => {
+              setNewPassword(e.target.value);
+              if (toast?.type === "error") {
+                setToast(null);
+              }
+            }}
             style={{ "--border-color": user?.color } as React.CSSProperties}
             className="
             focus:text-white
@@ -185,7 +240,12 @@ export default function SettingsAccount({
             type="password"
             placeholder="Confirm password"
             value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
+            onChange={(e) => {
+              setConfirmPassword(e.target.value);
+              if (toast?.type === "error") {
+                setToast(null);
+              }
+            }}
             style={{ "--border-color": user?.color } as React.CSSProperties}
             className="
             focus:text-white
@@ -214,7 +274,7 @@ export default function SettingsAccount({
             className="bg-slate-800 light:bg-slate-100 rounded-xl p-4 border border-slate-800 border-t-(--border-color)"
           >
             <p className="text-sm text-slate-400">Joined</p>
-            <p className="font-semibold">24.05.2026</p>
+            <p className="font-semibold">{user?.joined}</p>
           </div>
 
           <div
@@ -222,7 +282,7 @@ export default function SettingsAccount({
             className="bg-slate-800 light:bg-slate-100 rounded-xl p-4 border border-slate-800 border-t-(--border-color)"
           >
             <p className="text-sm text-slate-400">Projects</p>
-            <p className="font-semibold">12</p>
+            <p className="font-semibold">{user?.projects}</p>
           </div>
 
           <div
@@ -230,7 +290,7 @@ export default function SettingsAccount({
             className="bg-slate-800 light:bg-slate-100 rounded-xl p-4 border border-slate-800 border-t-(--border-color)"
           >
             <p className="text-sm text-slate-400">Tasks</p>
-            <p className="font-semibold">58</p>
+            <p className="font-semibold">{user?.tasks}</p>
           </div>
 
           <div
@@ -238,7 +298,7 @@ export default function SettingsAccount({
             className="bg-slate-800 light:bg-slate-100 rounded-xl p-4 border border-slate-800 border-t-(--border-color)"
           >
             <p className="text-sm text-slate-400">Commits</p>
-            <p className="font-semibold">321</p>
+            <p className="font-semibold">{user?.commits}</p>
           </div>
         </div>
       </div>
@@ -246,6 +306,7 @@ export default function SettingsAccount({
       <div className="flex gap-3 mb-8">
         <button
           onClick={saveChanges}
+          disabled={!hasChanges}
           className="
           px-5
           py-3
@@ -262,6 +323,7 @@ export default function SettingsAccount({
 
         <button
           style={{ "--border-color": user?.color } as React.CSSProperties}
+          onClick={() => exportData()}
           className="
           px-5
           py-3

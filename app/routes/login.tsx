@@ -7,6 +7,10 @@ export default function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const [toast, setToast] = useState<{
+    type: "success" | "error";
+    message: string;
+  } | null>(null);
 
   useEffect(() => {
     const username = localStorage.getItem("username");
@@ -18,12 +22,30 @@ export default function LoginPage() {
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
-    localStorage.setItem("username", username);
     if (!localStorage.getItem("users")) {
       const data = await getDashboardData();
       localStorage.setItem("users", JSON.stringify(data.UsersData));
     }
-    localStorage.setItem("password", password);
+    const users = JSON.parse(localStorage.getItem("users") || "[]");
+    const foundUser = users.find(
+      (u: any) => u.name.toLowerCase() === username.toLowerCase(),
+    );
+    if (!foundUser) {
+      setToast({ type: "error", message: "User does not exist" });
+      setTimeout(() => {
+        setToast(null);
+      }, 2000);
+      return;
+    }
+    if (foundUser.password !== password) {
+      setToast({ type: "error", message: "Incorrect password" });
+      setTimeout(() => {
+        setToast(null);
+      }, 2000);
+      return;
+    }
+    localStorage.setItem("username", foundUser.name);
+    localStorage.setItem("mode", "comfortable");
     window.dispatchEvent(new Event("usersUpdated"));
     navigate("/");
   }
@@ -112,11 +134,32 @@ export default function LoginPage() {
             Sign in
           </button>
         </form>
-
-        <p className="text-xs text-slate-400 mt-6 text-center">
-          Demo UI — no auth yet
-        </p>
       </div>
+      {toast && (
+        <div className="fixed bottom-5 right-5 z-999 overflow-hidden rounded-2xl compact:rounded-xl border border-slate-700 bg-slate-900 shadow-2xl min-w-80 transition-all duration-300">
+          {/* Progress bar */}
+          <div className="absolute bottom-0 left-0 h-1 bg-lime-400 animate-[toast_2s_linear_forwards] transition-all duration-300"></div>
+          <div className="flex items-center gap-3 px-5 py-4 compact:gap-1.5 compact:px-2.5 compact:py-2 transition-all duration-300">
+            {/* Icon */}
+            <div
+              className={`w-3 h-3 transition-all duration-300 rounded-full ${
+                toast.type === "success" ? "bg-lime-400" : "bg-red-400"
+              }`}
+            ></div>
+
+            {/* Content */}
+            <div className="flex flex-col transition-all duration-300">
+              <p className="font-semibold transition-all duration-300 text-white">
+                {toast.type === "success" ? "Success!" : "Error!"}
+              </p>
+
+              <p className="text-sm text-slate-400 transition-all duration-300">
+                {toast.message}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
