@@ -56,19 +56,8 @@ export default function RecentActivities({
   };
 
   return (
-    <div
-      className="
-      dashboard-card 
-      rounded-2xl 
-      px-6 
-      py-5 
-      compact:rounded-xl 
-      compact:px-3 
-      compact:py-2 
-      compact:col-span-1
-      "
-    >
-      <h2 className="font-semibold mb-2 text-2xl compact:mb-1 compact:text-xl select-none light:text-[#0f172a]">
+    <div className="dashboard-card rounded-2xl px-6 py-5 compact:rounded-xl compact:px-3 compact:py-2 compact:col-span-1">
+      <h2 className="dashboard-title mb-2 text-2xl compact:mb-1 compact:text-xl">
         Recent activities (last 5 days)
       </h2>
 
@@ -92,7 +81,7 @@ export default function RecentActivities({
                 }
               : undefined
           }
-          className="text-lg compact:text-base text-slate-400 light:text-[#475569] space-y-2 compact:space-y-1 select-none"
+          className="text-lg compact:text-base dashboard-muted-text space-y-2 compact:space-y-1 select-none"
         >
           {visibleActivities.map((item, i) => (
             <motion.li
@@ -115,7 +104,7 @@ export default function RecentActivities({
               setPage(i);
               resetInterval();
             }}
-            className={`h-2.5 w-9.5 compact:h-1.75 cursor-pointer rounded-full transition-all duration-300 ${
+            className={`dashboard-pagination-dot compact:h-1.75 ${
               i === page
                 ? "bg-[#22c55e]"
                 : "bg-slate-700 light:bg-[#cbd5e1] light:hover:bg-[#b2bbc6]"

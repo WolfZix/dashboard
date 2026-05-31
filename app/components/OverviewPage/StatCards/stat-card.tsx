@@ -29,9 +29,7 @@ export default function StatCard({ title, value, change }: StatCardProps) {
     function syncAnimations() {
       setCanAnimate(localStorage.getItem("animations") === "true");
     }
-
     window.addEventListener("animationsChanged", syncAnimations);
-
     return () => {
       window.removeEventListener("animationsChanged", syncAnimations);
     };
@@ -44,18 +42,10 @@ export default function StatCard({ title, value, change }: StatCardProps) {
       whileHover={canAnimate ? { scale: 1.02 } : undefined}
       className="dashboard-card rounded-2xl compact:rounded-xl p-5 compact:p-3"
     >
-      <p className="text-slate-400 light:text-[#64748b] text-sm transition-all duration-300">
-        {title}
-      </p>
-
-      <div className="flex items-end justify-between mt-2 compact:mt-1 transition-all duration-300">
-        <h3 className="text-2xl font-bold light:text-[#0f172a] transition-all duration-300">
-          {value}
-        </h3>
-
-        <span
-          className={`text-sm ${changeTextColor} transition-all duration-300`}
-        >
+      <p className="dashboard-subtitle">{title}</p>
+      <div className="flex items-end justify-between mt-2 compact:mt-1">
+        <h3 className="dashboard-heading">{value}</h3>
+        <span className={`text-sm ${changeTextColor}`}>
           {changeSymbol}
           {change}
         </span>

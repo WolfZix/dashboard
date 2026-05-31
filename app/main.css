@@ -23,11 +23,17 @@
       transition-all
       duration-300;
   }
+  .dashboard-heading {
+    @apply font-bold light:text-[#0f172a] text-2xl;
+  }
   .dashboard-title {
     @apply
       font-semibold
       select-none
       light:text-[#0f172a];
+  }
+  .dashboard-subtitle {
+    @apply text-slate-400 light:text-[#64748b] text-sm;
   }
   .dashboard-icon-button {
     @apply
@@ -82,6 +88,154 @@
       rounded-full
       transition-all
       duration-300;
+  }
+  .dashboard-input {
+    @apply
+      w-full
+      px-4
+      py-3
+      rounded-xl
+      bg-slate-800
+      border
+      border-slate-700
+      outline-none
+      light:bg-slate-100
+      light:border-slate-300
+      focus:border-lime-500;
+  }
+  .dashboard-stat-box {
+    @apply
+    bg-slate-800
+    light:bg-slate-100
+    rounded-xl
+    p-4
+    border
+    border-slate-800;
+  }
+  .dashboard-stat-label {
+  @apply
+    text-sm
+    text-slate-400;
+  }
+  .dashboard-stat-value {
+    @apply
+      font-semibold;
+  }
+  .dashboard-button {
+    @apply
+      px-5
+      py-3
+      rounded-xl
+      transition-all
+      duration-300
+      cursor-pointer;
+  }
+  .dashboard-button-secondary {
+    @apply
+      px-5
+      py-3
+      rounded-xl
+      transition-all
+      duration-300
+      cursor-pointer
+      bg-slate-800
+      hover:bg-slate-700
+      light:bg-slate-200
+      light:hover:bg-slate-300;
+  }
+  .dashboard-section-title {
+    @apply
+      text-lg
+      font-semibold
+      mb-4;
+  }
+  .dashboard-label {
+    @apply
+      block
+      text-sm
+      text-slate-400
+      mb-2;
+  }
+  .dashboard-section-label {
+    @apply
+      text-sm
+      text-slate-400
+      light:text-slate-600;
+  }
+  .dashboard-option-card {
+    @apply
+      flex-1
+      h-28
+      compact:h-22
+      rounded-3xl
+      compact:rounded-2xl
+      border
+      p-4
+      compact:p-2
+      flex
+      flex-col
+      justify-between
+      transition-all
+      duration-300
+      cursor-pointer;
+  }
+  .dashboard-density-button {
+    @apply
+      flex-1
+      py-4
+      compact:py-2
+      rounded-2xl
+      compact:rounded-xl
+      border
+      font-semibold
+      transition-all
+      duration-300
+      cursor-pointer;
+  }
+  .dashboard-color-picker {
+    @apply
+      w-7
+      h-7
+      rounded-full
+      border
+      cursor-pointer
+      transition-all
+      duration-300;
+  }
+  .dashboard-sidebar-border {
+    @apply border-slate-800 light:border-[#e2e8f0];
+  }
+  .dashboard-sidebar-link {
+    @apply
+      flex
+      items-center
+      gap-3
+      px-4
+      py-3
+      rounded-xl
+      compact:gap-1.5
+      compact:px-2
+      compact:py-1
+      compact:rounded-lg
+      transition-all
+      duration-300;
+  }
+  .dashboard-sidebar-link-inactive {
+    @apply
+      text-slate-400
+      hover:bg-slate-800
+      hover:text-white
+      light:text-slate-500
+      light:hover:bg-slate-200
+      light:hover:text-slate-600;
+  }
+
+  .dashboard-sidebar-link-active {
+    @apply
+      bg-slate-700
+      text-white
+      light:bg-[#f1f5f9]
+      light:text-slate-950;
   }
 }
 

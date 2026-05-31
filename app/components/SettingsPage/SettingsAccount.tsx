@@ -89,88 +89,43 @@ export default function SettingsAccount({
 
   return (
     <div className="dashboard-card rounded-2xl p-6">
-      <h2 className="text-2xl font-bold mb-6">Account</h2>
+      <h2 className="dashboard-heading mb-6">Account</h2>
 
       <div className="mb-8">
-        <h3 className="text-lg font-semibold mb-4">Profile Information</h3>
+        <h3 className="dashboard-section-title">Profile Information</h3>
 
         <div className="space-y-4">
           <div>
-            <label className="block text-sm text-slate-400 mb-2">
-              Username
-            </label>
+            <label className="dashboard-label">Username</label>
             <input
               type="text"
               placeholder={`${user?.name || "Username"}`}
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               style={{ "--border-color": user?.color } as React.CSSProperties}
-              className={`
-              text-gray-400
-              focus:text-white
-              w-full
-              px-4
-              py-3
-              rounded-xl
-              bg-slate-800
-              border border-slate-700
-              border-t-(--border-color)
-              outline-none
-              focus:border-lime-500
-              light:bg-slate-100
-              light:border-slate-300
-            `}
+              className={`dashboard-input text-gray-400 focus:text-white border-t-(--border-color)`}
             />
           </div>
 
           <div>
-            <label className="block text-sm text-slate-400 mb-2">Email</label>
+            <label className="dashboard-label">Email</label>
             <input
               type="email"
               placeholder={user?.email || "example@email.com"}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               style={{ "--border-color": user?.color } as React.CSSProperties}
-              className="
-              text-gray-400
-              focus:text-white
-              w-full
-              px-4
-              py-3
-              rounded-xl
-              bg-slate-800
-              border border-slate-700
-              border-t-(--border-color)
-              outline-none
-              focus:border-lime-500
-              light:bg-slate-100
-              light:border-slate-300
-            "
+              className="dashboard-input text-gray-400 focus:text-white border-t-(--border-color)"
             />
           </div>
 
           <div>
-            <label className="block text-sm text-slate-400 mb-2">Bio</label>
+            <label className="dashboard-label">Bio</label>
             <textarea
               rows={4}
               placeholder={user?.bio || "Tell us about yourself..."}
               style={{ "--border-color": user?.color } as React.CSSProperties}
-              className="
-              text-gray-400
-              focus:text-white
-              w-full
-              px-4
-              py-3
-              rounded-xl
-              bg-slate-800
-              border border-slate-700
-              border-t-(--border-color)
-              outline-none
-              resize-none
-              focus:border-lime-500
-              light:bg-slate-100
-              light:border-slate-300
-            "
+              className="dashboard-input text-gray-400 focus:text-white border-t-(--border-color) resize-none"
               value={bio}
               onChange={(e) => setBio(e.target.value)}
             />
@@ -179,7 +134,7 @@ export default function SettingsAccount({
       </div>
 
       <div className="mb-8">
-        <h3 className="text-lg font-semibold mb-4">Security</h3>
+        <h3 className="dashboard-section-title">Security</h3>
 
         <div className="space-y-4">
           <input
@@ -193,20 +148,7 @@ export default function SettingsAccount({
               }
             }}
             style={{ "--border-color": user?.color } as React.CSSProperties}
-            className="
-            focus:text-white
-            w-full
-            px-4
-            py-3
-            rounded-xl
-            bg-slate-800
-            border border-slate-700
-            border-t-(--border-color)
-            outline-none
-            focus:border-lime-500
-            light:bg-slate-100
-            light:border-slate-300
-          "
+            className="dashboard-input focus:text-white border-t-(--border-color)"
           />
 
           <input
@@ -220,20 +162,7 @@ export default function SettingsAccount({
               }
             }}
             style={{ "--border-color": user?.color } as React.CSSProperties}
-            className="
-            focus:text-white
-            w-full
-            px-4
-            py-3
-            rounded-xl
-            bg-slate-800
-            border border-slate-700
-            border-t-(--border-color)
-            outline-none
-            focus:border-lime-500
-            light:bg-slate-100
-            light:border-slate-300
-          "
+            className="dashboard-input focus:text-white border-t-(--border-color)"
           />
 
           <input
@@ -247,58 +176,45 @@ export default function SettingsAccount({
               }
             }}
             style={{ "--border-color": user?.color } as React.CSSProperties}
-            className="
-            focus:text-white
-            w-full
-            px-4
-            py-3
-            rounded-xl
-            bg-slate-800
-            border border-slate-700
-            border-t-(--border-color)
-            outline-none
-            focus:border-lime-500
-            light:bg-slate-100
-            light:border-slate-300
-          "
+            className="dashboard-input focus:text-white border-t-(--border-color)"
           />
         </div>
       </div>
 
       <div className="mb-8">
-        <h3 className="text-lg font-semibold mb-4">Statistics</h3>
+        <h3 className="dashboard-section-title">Statistics</h3>
 
         <div className="grid grid-cols-2 gap-4">
           <div
             style={{ "--border-color": user?.color } as React.CSSProperties}
-            className="bg-slate-800 light:bg-slate-100 rounded-xl p-4 border border-slate-800 border-t-(--border-color)"
+            className="dashboard-stat-box border-t-(--border-color)"
           >
-            <p className="text-sm text-slate-400">Joined</p>
-            <p className="font-semibold">{user?.joined}</p>
+            <p className="dashboard-stat-label">Joined</p>
+            <p className="dashboard-stat-value">{user?.joined}</p>
           </div>
 
           <div
             style={{ "--border-color": user?.color } as React.CSSProperties}
-            className="bg-slate-800 light:bg-slate-100 rounded-xl p-4 border border-slate-800 border-t-(--border-color)"
+            className="dashboard-stat-box border-t-(--border-color)"
           >
-            <p className="text-sm text-slate-400">Projects</p>
-            <p className="font-semibold">{user?.projects}</p>
+            <p className="dashboard-stat-label">Projects</p>
+            <p className="dashboard-stat-value">{user?.projects}</p>
           </div>
 
           <div
             style={{ "--border-color": user?.color } as React.CSSProperties}
-            className="bg-slate-800 light:bg-slate-100 rounded-xl p-4 border border-slate-800 border-t-(--border-color)"
+            className="dashboard-stat-box border-t-(--border-color)"
           >
-            <p className="text-sm text-slate-400">Tasks</p>
-            <p className="font-semibold">{user?.tasks}</p>
+            <p className="dashboard-stat-label">Tasks</p>
+            <p className="dashboard-stat-value">{user?.tasks}</p>
           </div>
 
           <div
             style={{ "--border-color": user?.color } as React.CSSProperties}
-            className="bg-slate-800 light:bg-slate-100 rounded-xl p-4 border border-slate-800 border-t-(--border-color)"
+            className="dashboard-stat-box border-t-(--border-color)"
           >
-            <p className="text-sm text-slate-400">Commits</p>
-            <p className="font-semibold">{user?.commits}</p>
+            <p className="dashboard-stat-label">Commits</p>
+            <p className="dashboard-stat-value">{user?.commits}</p>
           </div>
         </div>
       </div>
@@ -307,16 +223,7 @@ export default function SettingsAccount({
         <button
           onClick={saveChanges}
           disabled={!hasChanges}
-          className="
-          px-5
-          py-3
-          rounded-xl
-          bg-lime-600
-          hover:bg-lime-500
-          transition-all
-          duration-300
-          cursor-pointer
-        "
+          className="dashboard-button bg-lime-600 hover:bg-lime-500"
         >
           Save Changes
         </button>
@@ -324,18 +231,7 @@ export default function SettingsAccount({
         <button
           style={{ "--border-color": user?.color } as React.CSSProperties}
           onClick={() => exportData()}
-          className="
-          px-5
-          py-3
-          rounded-xl
-          bg-slate-800
-          hover:bg-slate-700
-          light:bg-slate-200
-          light:hover:bg-slate-300
-          transition-all
-          duration-300
-          cursor-pointer
-        "
+          className="dashboard-button-secondary"
         >
           Export Data
         </button>
@@ -343,46 +239,33 @@ export default function SettingsAccount({
 
       <div className="border border-red-500/30 rounded-2xl p-5">
         <h3 className="text-red-400 font-semibold mb-2">Danger Zone</h3>
-        <p className="text-sm text-slate-400 mb-4">
+        <p className="dashboard-subtitle mb-4">
           Deleting your account is permanent and cannot be undone.
         </p>
-        <button
-          className="
-          px-5
-          py-3
-          rounded-xl
-          bg-red-600
-          hover:bg-red-500
-          transition-all
-          duration-300
-          cursor-pointer
-        "
-        >
+        <button className="dashboard-button bg-red-600 hover:bg-red-500">
           Delete Account
         </button>
       </div>
       {toast && (
-        <div className="fixed bottom-5 right-5 z-999 overflow-hidden rounded-2xl compact:rounded-xl border border-slate-700 bg-slate-900 shadow-2xl min-w-80 transition-all duration-300">
+        <div className="fixed bottom-5 right-5 z-999 overflow-hidden rounded-2xl compact:rounded-xl border dashboard-border bg-slate-900 shadow-2xl min-w-80">
           {/* Progress bar */}
-          <div className="absolute bottom-0 left-0 h-1 bg-lime-400 animate-[toast_2s_linear_forwards] transition-all duration-300"></div>
+          <div className="absolute bottom-0 left-0 h-1 bg-lime-400 animate-[toast_2s_linear_forwards]"></div>
 
-          <div className="flex items-center gap-3 px-5 py-4 compact:gap-1.5 compact:px-2.5 compact:py-2 transition-all duration-300">
+          <div className="flex items-center gap-3 px-5 py-4 compact:gap-1.5 compact:px-2.5 compact:py-2">
             {/* Icon */}
             <div
-              className={`w-3 h-3 transition-all duration-300 rounded-full ${
+              className={`w-3 h-3 rounded-full ${
                 toast.type === "success" ? "bg-lime-400" : "bg-red-400"
               }`}
             ></div>
 
             {/* Content */}
-            <div className="flex flex-col transition-all duration-300">
-              <p className="font-semibold transition-all duration-300">
+            <div className="flex flex-col">
+              <p className="font-semibold">
                 {toast.type === "success" ? "Success!" : "Error!"}
               </p>
 
-              <p className="text-sm text-slate-400 transition-all duration-300">
-                {toast.message}
-              </p>
+              <p className="dashboard-subtitle">{toast.message}</p>
             </div>
           </div>
         </div>
