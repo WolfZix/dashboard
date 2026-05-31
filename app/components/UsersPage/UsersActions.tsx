@@ -18,28 +18,19 @@ export default function UsersActions({
   onDelete,
 }: UsersActionsProps) {
   return (
-    <div className="userActions transition-all duration-300">
+    <div className="userActions">
       {canView && (
-        <button
-          onClick={onView}
-          className="userActionBtn transition-all duration-300"
-        >
+        <button onClick={onView} className="userActionBtn">
           <Eye />
         </button>
       )}
       {canEdit && (
-        <button
-          onClick={onEdit}
-          className="userActionBtn transition-all duration-300"
-        >
+        <button onClick={onEdit} className="userActionBtn">
           <Pencil />
         </button>
       )}
       {canDelete && (
-        <button
-          onClick={onDelete}
-          className="userActionBtn userDeleteBtn transition-all duration-300"
-        >
+        <button onClick={onDelete} className="userActionBtn userDeleteBtn">
           <Trash />
         </button>
       )}

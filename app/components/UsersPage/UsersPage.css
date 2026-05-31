@@ -146,7 +146,7 @@
     border: 1px solid #1e293b;
     background: #111827;
     cursor: pointer;
-    transition: 0.3s;
+    transition: all 0.3s;
 }
 
 .userActionBtn:hover { background: #1e293b; }

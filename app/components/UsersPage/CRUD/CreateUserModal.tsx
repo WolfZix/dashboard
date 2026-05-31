@@ -47,37 +47,42 @@ export default function CreateUserModal({
     onClose();
   }
   return (
-    <div
-      className="fixed inset-0 bg-black/50 flex items-center justify-center z-999 transition-all duration-300"
-      onClick={onClose}
-    >
+    <div className="dashboard-modal-overlay" onClick={onClose}>
       <div
         className="dashboard-card rounded-2xl p-6 compact:rounded-xl compact:p-3 w-112.5"
         onClick={(e) => e.stopPropagation()}
       >
-        <h1 className="text-2xl font-bold mb-6 compact:mb-3">Create User</h1>
+        <h1 className="dashboard-heading mb-6 compact:mb-3">Create User</h1>
         <div className="space-y-4 compact:space-y-2">
-          <p className="text-slate-400 mb-1 compact:mb-0.5">Username:</p>
+          <p className="dashboard-form-label">Username:</p>
           <input
             type="text"
             placeholder="Username"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="w-full px-4 py-3 rounded-lg compact:px-2 compact:py-1.5 bg-slate-800 light:bg-slate-100 outline-none"
+            className="dashboard-input compact:px-2 compact:py-1.5 rounded-lg"
           />
-          <p className="text-slate-400 mb-1 compact:mb-0.5">Password:</p>
+          <p className="dashboard-form-label">Password:</p>
           <input
             type="password"
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full px-4 py-3 rounded-lg compact:px-2 compact:py-1.5 bg-slate-800 light:bg-slate-100 outline-none"
+            className="dashboard-input compact:px-2 compact:py-1.5 rounded-lg"
           />
-          <p className="text-slate-400 mb-1 compact:mb-0.5">Role:</p>
+          <p className="dashboard-form-label">Email:</p>
+          <input
+            type="text"
+            placeholder="example@gmail.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="dashboard-input compact:px-2 compact:py-1.5 rounded-lg"
+          />
+          <p className="dashboard-form-label">Role:</p>
           <select
             value={role}
             onChange={(e) => setRole(e.target.value as User["role"])}
-            className="w-full px-4 py-3 rounded-lg compact:px-2 compact:py-1.5 bg-slate-800 light:bg-slate-100 outline-none"
+            className="dashboard-input compact:px-2 compact:py-1.5 rounded-lg"
           >
             <option value="User">User</option>
             <option value="Premium">Premium</option>
@@ -89,14 +94,14 @@ export default function CreateUserModal({
         <div className="flex gap-3 mt-6 compact:gap-1.5 compact:mt-3">
           <button
             onClick={onClose}
-            className="flex-1 py-3 rounded-lg compact:py-1.5 bg-slate-800 hover:bg-slate-700 light:bg-slate-100 light:hover:bg-slate-200 transition"
+            className="dashboard-button-secondary flex-1 rounded-lg"
           >
             Cancel
           </button>
 
           <button
             onClick={createUser}
-            className="flex-1 py-3 rounded-lg compact:py-1.5 bg-green-700 hover:bg-green-600 transition"
+            className="dashboard-button-success flex-1 rounded-lg"
           >
             Create
           </button>

@@ -237,6 +237,85 @@
       light:bg-[#f1f5f9]
       light:text-slate-950;
   }
+  .dashboard-modal-overlay {
+    @apply
+      fixed
+      inset-0
+      bg-black/50
+      flex
+      items-center
+      justify-center
+      z-999;
+  }
+  .dashboard-user-badge {
+    @apply
+      text-white
+      font-normal
+      text-xs
+      px-2
+      py-1
+      rounded-2xl
+      compact:px-1.5
+      compact:py-0.5
+      compact:rounded-xl
+      select-none;
+  }
+  .dashboard-avatar-edit-button {
+    @apply
+      absolute
+      -bottom-1
+      -right-1
+      w-7
+      h-7
+      rounded-full
+      bg-slate-900
+      light:bg-white
+      border
+      border-slate-700
+      light:border-[#e2e8f0]
+      flex
+      items-center
+      justify-center
+      text-slate-300
+      light:text-slate-700
+      hover:scale-105
+      hover:text-white
+      light:hover:text-black
+      transition-all
+      duration-300
+      cursor-pointer
+      shadow-lg;
+  }
+  .dashboard-button-success {
+    @apply
+      px-5
+      py-3
+      rounded-xl
+      transition-all
+      duration-300
+      cursor-pointer
+      bg-green-800
+      hover:bg-green-700
+      light:bg-green-600
+      light:hover:bg-green-500;
+  }
+  .dashboard-form-label {
+    @apply
+      text-slate-400
+      mb-1
+      compact:mb-0.5;
+  }
+  .dashboard-button-danger {
+    @apply
+      px-5
+      py-3
+      rounded-xl
+      transition-all
+      duration-300
+      cursor-pointer
+      bg-red-600
+      hover:bg-red-500;
+  }
 }
 
 #root {

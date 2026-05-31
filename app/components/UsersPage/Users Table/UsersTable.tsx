@@ -83,9 +83,19 @@ export default function UsersTable() {
     setPage(0);
   }, [search]);
 
+  function showToast(message: string) {
+    setToast({
+      type: "success",
+      message,
+    });
+    setTimeout(() => {
+      setToast(null);
+    }, 2000);
+  }
+
   return (
     <>
-      <div className="flex justify-between items-end transition-all duration-300">
+      <div className="flex justify-between items-end">
         <UsersSearch search={search} setSearch={setSearch} />
         <button
           onClick={() => setCreateUserOpen(true)}
@@ -95,7 +105,7 @@ export default function UsersTable() {
         </button>
       </div>
       <div className="usersTableWrapper transition-all duration-300">
-        <table className="usersTable transition-all duration-300">
+        <table className="usersTable">
           <UsersTableHeader
             sortBy={sortBy}
             sortOrder={sortOrder}
@@ -139,10 +149,7 @@ export default function UsersTable() {
             });
             setUsers(updatedUsers);
             localStorage.setItem("users", JSON.stringify(updatedUsers));
-            setToast({ type: "success", message: "User updated successfully" });
-            setTimeout(() => {
-              setToast(null);
-            }, 2000);
+            showToast("User updated successfully");
           }}
         />
       )}
@@ -155,10 +162,7 @@ export default function UsersTable() {
             setUsers(updatedUsers);
             localStorage.setItem("users", JSON.stringify(updatedUsers));
             setDeleteUser(null);
-            setToast({ type: "success", message: "User deleted successfully" });
-            setTimeout(() => {
-              setToast(null);
-            }, 2000);
+            showToast("User deleted successfully");
           }}
         />
       )}
@@ -169,10 +173,7 @@ export default function UsersTable() {
             const updatedUsers = [...users, newUser];
             setUsers(updatedUsers);
             localStorage.setItem("users", JSON.stringify(updatedUsers));
-            setToast({ type: "success", message: "User created successfully" });
-            setTimeout(() => {
-              setToast(null);
-            }, 2000);
+            showToast("User created successfully");
           }}
         />
       )}
