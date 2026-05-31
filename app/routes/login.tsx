@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ThemeToggle from "../components/navbar/ThemeToggle";
 import { getDashboardData } from "../services/dashboard.server";
+import type { User } from "../components/UsersPage/users.types";
 
 export default function LoginPage() {
   const [username, setUsername] = useState("");
@@ -28,7 +29,7 @@ export default function LoginPage() {
     }
     const users = JSON.parse(localStorage.getItem("users") || "[]");
     const foundUser = users.find(
-      (u: any) => u.name.toLowerCase() === username.toLowerCase(),
+      (u: User) => u.name.toLowerCase() === username.toLowerCase(),
     );
     if (!foundUser) {
       setToast({ type: "error", message: "User does not exist" });

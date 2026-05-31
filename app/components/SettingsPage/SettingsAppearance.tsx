@@ -285,8 +285,6 @@ export default function SettingsAppearance({
               h-8
               rounded-full
               cursor-pointer
-              transition-all
-              duration-300
               ${animationsEnabled ? "bg-lime-500" : "bg-gray-400"}
             `}
             >

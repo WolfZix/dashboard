@@ -130,7 +130,7 @@ export default function ProfileDropdown({
     z-50
     "
     >
-      <div className="flex items-center m-2 compact:m-1.5 transition-all duration-300">
+      <div className="flex items-center m-2 compact:m-1.5">
         <div
           style={{
             backgroundColor: userColor,

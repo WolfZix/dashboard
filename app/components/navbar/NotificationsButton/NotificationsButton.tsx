@@ -42,8 +42,6 @@ export default function NotificationsButton() {
             compact:w-1.5
             rounded-full
             bg-green-500
-            transition-all
-            duration-300
           "
         />
       </button>

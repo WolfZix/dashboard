@@ -60,8 +60,6 @@ export default function UserProfile() {
           justify-center
           font-bold
           text-xl
-          transition-all
-          duration-300
           noAnimations:transition-none
           "
       ></div>
@@ -74,8 +72,6 @@ export default function UserProfile() {
         id="profileButton"
         className={`
         flex items-center
-        transition-all
-        duration-300
         noAnimations:transition-none
         cursor-pointer
         light:text-[#0f172a]
@@ -104,8 +100,6 @@ export default function UserProfile() {
           font-bold
           text-xl
           border
-          transition-all
-          duration-300
           noAnimations:transition-none
         `}
         >

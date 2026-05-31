@@ -95,10 +95,7 @@ export default function ProfilePage() {
         {/* Banner */}
         <div className="w-full h-55 rounded-[28px] compact:rounded-[14px] bg-linear-to-br from-slate-950 to-slate-800 relative overflow-hidden">
           {user.banner ? (
-            <img
-              src={user.banner}
-              className="w-full h-full object-cover transition-all duration-300"
-            />
+            <img src={user.banner} className="w-full h-full object-cover" />
           ) : null}
           <div className="absolute inset-0 bg-black/85 light:bg-transparent transition-all duration-300"></div>
         </div>
@@ -131,7 +128,7 @@ export default function ProfilePage() {
                   user?.name[0].toUpperCase()
                 )}
               </div>
-              <div className="absolute bottom-2 right-2 w-6 h-6 rounded-full bg-lime-400 border border-slate-950 transition-all duration-300"></div>
+              <div className="absolute bottom-2 right-2 w-6 h-6 rounded-full bg-lime-400 border border-slate-950"></div>
             </div>
             {/* User info */}
             <div className="pb-2 compact:pb-1">
@@ -322,9 +319,9 @@ export default function ProfilePage() {
                 key={activityItem.id}
                 className="flex items-center justify-between bg-slate-950/60 light:bg-slate-100 rounded-2xl px-4 py-3 compact:rounded-xl compact:px-2 compact:py-1.5 transition-all duration-300"
               >
-                <div className="flex items-center gap-3 compact:gap-1.5 transition-all duration-300">
+                <div className="flex items-center gap-3 compact:gap-1.5">
                   <div
-                    className={`w-3 h-3 transition-all duration-300 rounded-full ${getActivityColor(activityItem.type)}`}
+                    className={`w-3 h-3 rounded-full ${getActivityColor(activityItem.type)}`}
                   ></div>
                   <div className="text-slate-300 light:text-slate-950 transition-all duration-300">
                     {activityItem.message}
@@ -338,6 +335,7 @@ export default function ProfilePage() {
           </div>
         </div>
       </div>
+      {/* ZROBIĆ LIGHT MODE DLA TOAST */}
       {toast && (
         <div className="fixed bottom-5 right-5 z-999 overflow-hidden rounded-2xl compact:rounded-xl border border-slate-700 bg-slate-900 shadow-2xl min-w-80 transition-all duration-300">
           {/* Progress bar */}

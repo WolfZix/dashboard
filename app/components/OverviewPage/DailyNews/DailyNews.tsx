@@ -94,8 +94,6 @@ export default function DailyNews({ news }: DailyNewsProps) {
             compact:mx-2.5
             compact:mb-1
             compact:text-xl
-            transition-all
-            duration-300
           "
         >
           <DigitalClock />
@@ -109,6 +107,8 @@ export default function DailyNews({ news }: DailyNewsProps) {
             overflow-hidden
             flex
             justify-center
+            transition-all
+            duration-300
           "
         >
           {showArrow && (
@@ -199,8 +199,6 @@ export default function DailyNews({ news }: DailyNewsProps) {
             mx-2.5
             mb-2
             text-xl
-            transition-all
-            duration-300
             "
           >
             <DigitalClock />
@@ -211,8 +209,6 @@ export default function DailyNews({ news }: DailyNewsProps) {
             overflow-hidden
             border-y-2
             dashboard-border
-            transition-all
-            duration-300
             "
           >
             <AnimatePresence mode="wait">

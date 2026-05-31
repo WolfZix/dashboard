@@ -137,8 +137,8 @@ export default function EditProfileModal({
   ];
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-999 p-6 compact:p-3 overflow-y-auto transition-all duration-300">
-      <div className="w-140 max-w-full rounded-[28px] compact:rounded-[14px] bg-slate-900 light:bg-slate-200 border border-slate-800 overflow-hidden shadow-2xl my-auto transition-all duration-300">
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-999 p-6 compact:p-3 overflow-y-auto">
+      <div className="w-140 max-w-full rounded-[28px] compact:rounded-[14px] bg-slate-900 light:bg-slate-200 border border-slate-800 overflow-hidden shadow-2xl my-auto">
         {/* Header */}
         <div
           style={{
@@ -150,15 +150,12 @@ export default function EditProfileModal({
           {banner ? (
             <img
               src={banner}
-              className="absolute inset-0 w-full h-full object-cover transition-all duration-300"
+              className="absolute inset-0 w-full h-full object-cover"
             />
           ) : null}
 
           {/* Overlay */}
-          <div
-            className={`absolute inset-0 bg-black/85 transition-all duration-300
-          ${color === "#ffffff" ? "light:bg-black/50" : ""}`}
-          ></div>
+          <div className={`absolute inset-0 bg-black/85`}></div>
 
           {/* Close button */}
           <button
@@ -180,7 +177,7 @@ export default function EditProfileModal({
           </label>
 
           {/* Profile */}
-          <div className="absolute left-8 bottom-6 z-20 flex items-end gap-5 compact:gap-2.5 transition-all duration-300">
+          <div className="absolute left-8 bottom-6 z-20 flex items-end gap-5 compact:gap-2.5">
             {/* Avatar */}
             <div
               style={{
@@ -192,12 +189,12 @@ export default function EditProfileModal({
             >
               <div
                 style={{ backgroundColor: user.color }}
-                className="w-28 h-28 rounded-full flex items-center justify-center text-black text-5xl font-bold select-none shadow-2xl m-1.25 compact:m-0.5 transition-all duration-300"
+                className="w-28 h-28 rounded-full flex items-center justify-center text-black text-5xl font-bold select-none shadow-2xl m-1.25 compact:m-0.5"
               >
                 {avatar ? (
                   <img
                     src={avatar}
-                    className="w-full h-full object-cover rounded-full scale-[1.01] transition-all duration-300"
+                    className="w-full h-full object-cover rounded-full scale-[1.01]"
                   />
                 ) : (
                   user.name[0].toUpperCase()
@@ -217,8 +214,8 @@ export default function EditProfileModal({
             </div>
 
             {/* User info */}
-            <div className="pb-2 compact:pb-1 transition-all duration-300">
-              <div className="flex items-center gap-3 mb-2 compact:gap-1.5 compact:mb-1 transition-all duration-300">
+            <div className="pb-2 compact:pb-1">
+              <div className="flex items-center gap-3 mb-2 compact:gap-1.5 compact:mb-1">
                 <div
                   style={{
                     color: `${color}`,
@@ -229,24 +226,22 @@ export default function EditProfileModal({
                 </div>
 
                 <div
-                  className={`px-4 py-1 compact:px-2 compact:py-0.5 rounded-full ${getRoleColor(user.role)} text-sm font-semibold transition-all duration-300`}
+                  className={`px-4 py-1 compact:px-2 compact:py-0.5 rounded-full ${getRoleColor(user.role)} text-sm font-semibold`}
                 >
                   {user.role}
                 </div>
               </div>
 
-              <p className="text-sm text-slate-300 transition-all duration-300">
-                Joined: {user.joined}
-              </p>
+              <p className="text-sm text-slate-300">Joined: {user.joined}</p>
             </div>
           </div>
         </div>
 
         {/* Content */}
-        <div className="p-8 compact:p-4 flex flex-col gap-6 compact:gap-3 transition-all duration-300">
+        <div className="p-8 compact:p-4 flex flex-col gap-6 compact:gap-3">
           {/* Username */}
           <div>
-            <p className="text-sm text-slate-400 light:text-slate-700 mb-2 compact:mb-1 transition-all duration-300">
+            <p className="text-sm text-slate-400 light:text-slate-700 mb-2 compact:mb-1">
               Change Username
             </p>
 
@@ -255,13 +250,13 @@ export default function EditProfileModal({
               value={newUsername}
               onChange={(e) => setNewUsername(e.target.value)}
               placeholder={user.name}
-              className="w-full rounded-2xl compact:rounded-xl bg-slate-950 border border-slate-800 light:bg-white light:border-slate-300 light:focus:border-slate-400 p-4 compact:p-2 outline-none focus:border-slate-700 transition-all duration-300"
+              className="w-full rounded-2xl compact:rounded-xl bg-slate-950 border border-slate-800 light:bg-white light:border-slate-300 light:focus:border-slate-400 p-4 compact:p-2 outline-none focus:border-slate-700"
             />
           </div>
 
           {/* Password */}
           <div>
-            <p className="text-sm text-slate-400 light:text-slate-700 mb-2 compact:mb-1 transition-all duration-300">
+            <p className="text-sm text-slate-400 light:text-slate-700 mb-2 compact:mb-1">
               Change Password
             </p>
 
@@ -270,7 +265,7 @@ export default function EditProfileModal({
               value={newPassword}
               placeholder="•••••••••"
               onChange={(e) => setNewPassword(e.target.value)}
-              className="w-full rounded-2xl compact:rounded-xl bg-slate-950 border border-slate-800 light:bg-white light:border-slate-300 light:focus:border-slate-400 p-4 compact:p-2 outline-none focus:border-slate-700 transition-all duration-300"
+              className="w-full rounded-2xl compact:rounded-xl bg-slate-950 border border-slate-800 light:bg-white light:border-slate-300 light:focus:border-slate-400 p-4 compact:p-2 outline-none focus:border-slate-700"
             />
           </div>
 
@@ -284,16 +279,16 @@ export default function EditProfileModal({
               value={bio}
               onChange={(e) => setBio(e.target.value)}
               placeholder={user.bio}
-              className="w-full h-15 resize-none rounded-2xl compact:rounded-xl bg-slate-950 border border-slate-800 light:bg-white light:border-slate-300 light:focus:border-slate-400 p-4 compact:p-2 outline-none focus:border-slate-700 transition-all duration-300"
+              className="w-full h-15 resize-none rounded-2xl compact:rounded-xl bg-slate-950 border border-slate-800 light:bg-white light:border-slate-300 light:focus:border-slate-400 p-4 compact:p-2 outline-none focus:border-slate-700"
             ></textarea>
           </div>
 
           {/* Profile color */}
           <div>
-            <p className="text-sm text-slate-400 light:text-slate-700 mb-3 compact:mb-1.5 transition-all duration-300">
+            <p className="text-sm text-slate-400 light:text-slate-700 mb-3 compact:mb-1.5">
               Profile Color
             </p>
-            <div className="flex flex-wrap gap-3 compact:gap-1.5 justify-left transition-all duration-300">
+            <div className="flex flex-wrap gap-3 compact:gap-1.5 justify-left">
               {colors.map((buttonColor) => (
                 <button
                   key={buttonColor}
@@ -319,7 +314,7 @@ export default function EditProfileModal({
           </div>
 
           {/* Buttons */}
-          <div className="flex gap-3 pt-2 compact:gap-1.5 compact:pt-1 transition-all duration-300">
+          <div className="flex gap-3 pt-2 compact:gap-1.5 compact:pt-1">
             <button
               onClick={onClose}
               className="flex-1 py-4 compact:py-2 rounded-2xl compact:rounded-xl bg-slate-950 hover:bg-slate-800 light:bg-white light:border-slate-300 light:hover:bg-slate-200 border border-slate-700 transition-all duration-300 cursor-pointer"
@@ -339,7 +334,7 @@ export default function EditProfileModal({
                   "--hover-bg": `${color}70`,
                 } as React.CSSProperties
               }
-              className={`flex-1 py-4 compact:py-2 border border-(--border-color) rounded-2xl compact:rounded-xl font-semibold cursor-pointer transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] hover:bg-(--hover-bg) bg-(--bg) text-(--text) hover:text-(--hover-text)
+              className={`flex-1 py-4 compact:py-2 border border-(--border-color) rounded-2xl compact:rounded-xl font-semibold cursor-pointer transition-all duration-300 hover:bg-(--hover-bg) bg-(--bg) text-(--text) hover:text-(--hover-text)
                 ${
                   color === "#000000"
                     ? "text-white/75 bg-black/75 hover:text-white hover:bg-black"

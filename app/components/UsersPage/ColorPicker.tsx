@@ -1,6 +1,3 @@
-import React, { useState } from "react";
-import type { User } from "./users.types";
-
 type ColorPickerProps = {
   color: string;
   setColor: React.Dispatch<React.SetStateAction<string>>;
