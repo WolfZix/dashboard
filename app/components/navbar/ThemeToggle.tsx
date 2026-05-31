@@ -1,40 +1,14 @@
 import { Moon, Sun } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useTheme } from "../../context/ThemeContext";
 
 export default function ThemeToggle() {
   const [hovered, setHovered] = useState(false);
-  const [darkMode, setDarkModee] = useState(() => {
-    return localStorage.getItem("theme") !== "light";
-  });
-
-  useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.remove("light");
-      localStorage.setItem("theme", "dark");
-    } else {
-      document.documentElement.classList.add("light");
-      localStorage.setItem("theme", "light");
-    }
-    window.dispatchEvent(new Event("themeChanged"));
-  }, [darkMode]);
-
-  useEffect(() => {
-    function syncTheme() {
-      setDarkModee(localStorage.getItem("theme") !== "light");
-    }
-    window.addEventListener("themeChanged", syncTheme);
-    return () => {
-      window.removeEventListener("themeChanged", syncTheme);
-    };
-  }, []);
-
-  function changeMode() {
-    setDarkModee((prev) => !prev);
-  }
+  const { isLightMode, toggleTheme } = useTheme();
 
   return (
     <button
-      onClick={changeMode}
+      onClick={toggleTheme}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       className="
@@ -58,12 +32,12 @@ export default function ThemeToggle() {
       "
     >
       {hovered ? (
-        darkMode ? (
+        !isLightMode ? (
           <Sun size={20} />
         ) : (
           <Moon size={20} />
         )
-      ) : darkMode ? (
+      ) : !isLightMode ? (
         <Moon size={20} />
       ) : (
         <Sun size={20} />

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import type { User } from "../UsersPage/users.types";
+import { useTheme } from "../../context/ThemeContext";
 
 type SettingsAppearanceProps = {
   user: User | null;
@@ -10,10 +11,11 @@ export default function SettingsAppearance({
   user,
   setUser,
 }: SettingsAppearanceProps) {
-  const [theme, setTheme] = useState(localStorage.getItem("theme") || "dark");
   const [mode, setMode] = useState(() => {
     return localStorage.getItem("mode");
   });
+  const { isLightMode, setTheme } = useTheme();
+  const theme = isLightMode ? "light" : "dark";
   const [previewColor, setPreviewColor] = useState("#22c55e");
   const colors = [
     "#fb2c36", // red
@@ -40,32 +42,11 @@ export default function SettingsAppearance({
   }, [user]);
 
   useEffect(() => {
-    function syncTheme() {
-      setTheme(localStorage.getItem("theme") || "dark");
-    }
-    window.addEventListener("themeChanged", syncTheme);
-    return () => {
-      window.removeEventListener("themeChanged", syncTheme);
-    };
-  }, []);
-
-  useEffect(() => {
     const animations = localStorage.getItem("animations");
     if (animations === "false") {
       document.documentElement.classList.add("NoAnimations");
     }
   }, []);
-
-  function toggleTheme(newTheme: string) {
-    localStorage.setItem("theme", newTheme);
-    setTheme(newTheme);
-    if (newTheme === "dark") {
-      document.documentElement.classList.remove("light");
-    } else {
-      document.documentElement.classList.add("light");
-    }
-    window.dispatchEvent(new Event("themeChanged"));
-  }
 
   function handleUserColorChange(color: string) {
     setPreviewColor(color);
@@ -114,7 +95,7 @@ export default function SettingsAppearance({
           <p className="dashboard-section-label mb-3 compact:mb-1.5">Theme</p>
           <div className="flex gap-3 compact:gap-1.5">
             <button
-              onClick={() => toggleTheme("dark")}
+              onClick={() => setTheme("dark")}
               style={
                 {
                   "--border-light": `${previewColor}`,
@@ -141,7 +122,7 @@ export default function SettingsAppearance({
               </div>
             </button>
             <button
-              onClick={() => toggleTheme("light")}
+              onClick={() => setTheme("light")}
               style={
                 {
                   "--border-light": `${previewColor}`,
