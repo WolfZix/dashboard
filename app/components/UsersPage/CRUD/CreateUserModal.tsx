@@ -13,6 +13,7 @@ export default function CreateUserModal({
   const [name, setName] = useState(
     "User" + (JSON.parse(localStorage.getItem("users") || "[]").length + 1),
   );
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState<User["role"]>("User");
 
@@ -28,6 +29,7 @@ export default function CreateUserModal({
           0,
         ) + 1,
       name,
+      email,
       role,
       status: "Offline",
       joined: new Date().toISOString().split("T")[0],
@@ -50,7 +52,7 @@ export default function CreateUserModal({
       onClick={onClose}
     >
       <div
-        className="bg-slate-900 light:bg-white border border-slate-700 light:border-[#e2e8f0] rounded-2xl p-6 compact:rounded-xl compact:p-3 w-112.5"
+        className="dashboard-card rounded-2xl p-6 compact:rounded-xl compact:p-3 w-112.5"
         onClick={(e) => e.stopPropagation()}
       >
         <h1 className="text-2xl font-bold mb-6 compact:mb-3">Create User</h1>

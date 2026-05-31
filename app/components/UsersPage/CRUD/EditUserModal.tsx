@@ -57,7 +57,7 @@ export default function EditUserModal({
       onClick={onClose}
     >
       <div
-        className="bg-slate-900 light:bg-white border border-slate-700 light:border-[#e2e8f0] rounded-2xl p-6 compact:rounded-xl compact:p-3 w-112.5 transition-all duration-300"
+        className="dashboard-card rounded-2xl p-6 compact:rounded-xl compact:p-3 w-112.5"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex justify-between transition-all duration-300">

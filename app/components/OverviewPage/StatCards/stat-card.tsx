@@ -42,7 +42,7 @@ export default function StatCard({ title, value, change }: StatCardProps) {
       variants={cardVariants}
       transition={{ duration: 0.2 }}
       whileHover={canAnimate ? { scale: 1.02 } : undefined}
-      className="bg-slate-900 border border-slate-700 light:bg-[white] light:border-[#e2e8f0] light:hover:bg-[#f8fafc] light:hover:border-[#cbd5e1] rounded-2xl compact:rounded-xl p-5 compact:p-3 transition-all duration-300"
+      className="dashboard-card rounded-2xl compact:rounded-xl p-5 compact:p-3"
     >
       <p className="text-slate-400 light:text-[#64748b] text-sm transition-all duration-300">
         {title}

@@ -187,7 +187,7 @@ export default function ProfilePage() {
       </div>
       {/* Stats */}
       <div className="grid grid-cols-4 gap-3 compact:gap-1.5">
-        <div className="bg-slate-900 border-slate-800 light:bg-white light:border-slate-200 border rounded-3xl p-5 compact:rounded-2xl compact:p-2.5 transition-colors duration-300">
+        <div className="dashboard-card rounded-3xl p-5 compact:rounded-2xl compact:p-2.5">
           <h2
             style={
               {
@@ -213,7 +213,7 @@ export default function ProfilePage() {
           </h2>
           <p className="text-slate-400">Projects</p>
         </div>
-        <div className="bg-slate-900 border-slate-800 light:bg-white light:border-slate-200 border rounded-3xl p-5 compact:rounded-2xl compact:p-2.5 transition-colors duration-300">
+        <div className="dashboard-card rounded-3xl p-5 compact:rounded-2xl compact:p-2.5">
           <h2
             style={
               {
@@ -239,7 +239,7 @@ export default function ProfilePage() {
           </h2>
           <p className="text-slate-400">Reports</p>
         </div>
-        <div className="bg-slate-900 border-slate-800 light:bg-white light:border-slate-200 border rounded-3xl p-5 compact:rounded-2xl compact:p-2.5 transition-colors duration-300">
+        <div className="dashboard-card rounded-3xl p-5 compact:rounded-2xl compact:p-2.5">
           <h2
             style={
               {
@@ -265,7 +265,7 @@ export default function ProfilePage() {
           </h2>
           <p className="text-slate-400">Tasks</p>
         </div>
-        <div className="bg-slate-900 border-slate-800 light:bg-white light:border-slate-200 border rounded-3xl p-5 compact:rounded-2xl compact:p-2.5 transition-colors duration-300">
+        <div className="dashboard-card rounded-3xl p-5 compact:rounded-2xl compact:p-2.5">
           <h2
             style={
               {

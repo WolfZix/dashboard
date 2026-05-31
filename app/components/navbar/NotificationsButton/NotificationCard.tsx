@@ -1,5 +1,3 @@
-import { div } from "framer-motion/client";
-
 type NotificationCardProps = {
   notificationData: {
     from: string;
@@ -16,14 +14,10 @@ export default function NotificationCard({
   return (
     <div
       className="
+      dashboard-card
       p-4
       compact:p-2
       rounded-xl
-      border
-      bg-slate-900
-      border-slate-700
-      light:bg-white
-      light:border-[#e2e8f0]
       "
     >
       <div className="flex items-center justify-between mb-1 compact:mb-0.5">

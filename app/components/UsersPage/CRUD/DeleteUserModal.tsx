@@ -17,7 +17,7 @@ export default function DeleteuserModal({
       onClick={onClose}
     >
       <div
-        className="bg-slate-900 light:bg-white border border-slate-700 light:border-[#e2e8f0] rounded-2xl p-6 compact:p-3 compact:rounded-xl w-96 transition-all duration-300"
+        className="dashboard-card rounded-2xl p-6 compact:p-3 compact:rounded-xl w-96"
         onClick={(e) => e.stopPropagation()}
       >
         <h1 className="text-2xl font-bold mb-3 compact:mb-1.5">Delete User</h1>

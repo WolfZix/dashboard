@@ -88,7 +88,7 @@ export default function SettingsAccount({
   }
 
   return (
-    <div className="bg-slate-900 border border-slate-700 rounded-2xl p-6 light:bg-white light:border-[#e2e8f0] transition-all duration-300">
+    <div className="dashboard-card rounded-2xl p-6">
       <h2 className="text-2xl font-bold mb-6">Account</h2>
 
       <div className="mb-8">
