@@ -22,7 +22,6 @@ function DigitalClock() {
 
     let hours = time.getHours();
     const minutes = time.getMinutes();
-    const seconds = time.getSeconds();
 
     const meridiem = hours >= 12 ? "PM" : "AM";
 

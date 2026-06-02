@@ -12,7 +12,7 @@ type DashboardData = {
   }[];
 };
 
-type profileDropdownProps = {
+type ProfileDropdownProps = {
   userName: string;
   userPicture: string;
   userRole: string;
@@ -36,7 +36,7 @@ export default function ProfileDropdown({
   userTextColor,
   onClose,
   canAnimate,
-}: profileDropdownProps) {
+}: ProfileDropdownProps) {
   const [data, setData] = useState<DashboardData | null>(null);
   const displayName =
     userName.length > 10 ? shortenUserName(userName) : userName;
@@ -66,7 +66,7 @@ export default function ProfileDropdown({
     return () => {
       document.removeEventListener("click", handleClickOutside);
     };
-  }, []);
+  }, [onClose]);
 
   function clearLocalStorage(optionName: string) {
     if (optionName === "Log Out") {

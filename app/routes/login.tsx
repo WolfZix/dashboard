@@ -19,7 +19,7 @@ export default function LoginPage() {
     if (username) {
       navigate("/");
     }
-  }, []);
+  }, [navigate]);
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();

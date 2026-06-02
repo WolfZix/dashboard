@@ -11,8 +11,6 @@ export default function UsersPagination({
   setPage,
   pages,
 }: UsersPaginationProps) {
-  const isCompact = localStorage.getItem("mode") === "compact";
-
   return (
     <div className="usersPagination transition-all duration-300">
       <button

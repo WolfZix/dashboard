@@ -1,17 +1,10 @@
 import { BarChart3, LayoutDashboard, Users } from "lucide-react";
-import { Outlet, useLocation } from "react-router-dom";
-import { useState } from "react";
+import { Outlet } from "react-router-dom";
 
-import HomeLoading from "../components/OverviewPage/OverviewLoading";
-import UsersLoading from "../components/UsersPage/UsersLoading";
-import AnalyticsLoading from "../components/AnalyticsPage/AnalyticsLoading";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 
 export default function DashboardLayout() {
-  const location = useLocation();
-  const [loading, setLoading] = useState(false);
-
   const links = [
     {
       name: "Overview",
@@ -30,21 +23,13 @@ export default function DashboardLayout() {
     },
   ];
 
-  function LoadComponent() {
-    if (location.pathname === "") return <HomeLoading />;
-    if (location.pathname === "/users") return <UsersLoading />;
-    if (location.pathname === "/analytics") return <AnalyticsLoading />;
-    return <HomeLoading />;
-  }
-
   return (
     <div className="min-h-screen flex bg-slate-950 text-white light:bg-slate-100 light:text-[#0f172a] transition-all duration-300">
       <Sidebar links={links} />
-
       <main className="flex-1">
         <Navbar />
         <div className="flex-1 p-6 compact:p-3">
-          {loading ? <LoadComponent /> : <Outlet />}
+          <Outlet />
         </div>
       </main>
     </div>

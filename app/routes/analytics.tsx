@@ -1,9 +1,5 @@
+import AnalyticsPage from "../components/AnalyticsPage/AnalyticsPage";
+
 export default function Analytics() {
-  return (
-    <div>
-      Welcome to analytics page
-      <br />
-      PROJECT STILL IN PROGRESS
-    </div>
-  );
+  return <AnalyticsPage />;
 }

@@ -49,7 +49,7 @@ export default function Dropdown({ onClose }: DropdownProps) {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
+  }, [onClose]);
 
   return (
     <div

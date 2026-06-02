@@ -12,25 +12,28 @@ import EditUserModal from "../CRUD/EditUserModal";
 import DeleteuserModal from "../CRUD/DeleteUserModal";
 import CreateUserModal from "../CRUD/CreateUserModal";
 import Toast from "../Toast";
+import { useMode } from "../../../context/ModeContext";
 
 export default function UsersTable() {
   const [users, setUsers] = useState<User[]>([]);
   const [search, setSearch] = useState("");
-  const [page, setPage] = useState(0);
-  const isCompact = localStorage.getItem("mode") === "compact";
-  const PAGE_SIZE = isCompact ? 10 : 6;
-  const [sortBy, setSortBy] = useState<SortBy>("id");
-  const [sortOrder, setSortOrder] = useState<SortOrder>(null);
-  const [hasUserSorted, setHasUserSorted] = useState(false);
   const currentUsername = localStorage.getItem("username");
   const currentUser = users.find((user) => user.name === currentUsername);
   const currentUserRole = currentUser?.role || "User";
   const { canView, canEdit, canDelete } = getPermissions(currentUserRole);
 
-  const filteredUsers =
-    users.filter((user) =>
-      user.name.toLowerCase().includes(search.toLowerCase()),
-    ) || [];
+  const [page, setPage] = useState(0);
+  const [sortBy, setSortBy] = useState<SortBy>("id");
+  const [sortOrder, setSortOrder] = useState<SortOrder>(null);
+  const [hasUserSorted, setHasUserSorted] = useState(false);
+
+  const { mode } = useMode();
+  const isCompact = mode === "compact";
+  const PAGE_SIZE = isCompact ? 10 : 6;
+
+  const filteredUsers = users.filter((user) =>
+    user.name.toLowerCase().includes(search.toLowerCase()),
+  );
 
   const sortedUsers = sortUsers(filteredUsers, sortBy, sortOrder);
   const visibleUsers = sortedUsers.slice(
