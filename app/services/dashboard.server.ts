@@ -1,5 +1,5 @@
 import type { User } from "../components/UsersPage/users.types"
-import { UsersData } from "./dashboard.data"
+import { usersData } from "./dashboard.data"
 type DashboardData = {
     stats: {
         revenue: string;
@@ -25,7 +25,7 @@ type DashboardData = {
         path: string;
     }[];
 
-    UsersData: User[];
+    usersData: User[];
 };
 
 export async function getDashboardData(): Promise<DashboardData> {
@@ -278,6 +278,6 @@ export async function getDashboardData(): Promise<DashboardData> {
             { name: "Settings", icon: "settings", path: "/settings" },
             { name: "Log Out", icon: "logout", path: "login" },
         ],
-        UsersData,
+        usersData,
     } satisfies DashboardData;
 }

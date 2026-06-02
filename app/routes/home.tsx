@@ -1,31 +1,8 @@
 import { useEffect, useState } from "react";
-
-import HomeLoading from "../components/OverviewPage/OverviewLoading";
-import RecentActivities from "../components/OverviewPage/RecentActivities";
-import OverviewChart from "../components/OverviewPage/OverviewChart";
-import OverviewCards from "../components/OverviewPage/StatCards/OverviewCards";
-import DailyNews from "../components/OverviewPage/DailyNews/DailyNews";
-
 import { getDashboardData } from "../services/dashboard.server";
-
-type DashboardData = {
-  stats: {
-    revenue: string;
-    users: string;
-    orders: string;
-    conversion: string;
-  };
-
-  chart: {
-    name: string;
-    revenue: number;
-  }[];
-
-  activity: string[];
-
-  news: string[];
-  notifications: object[];
-};
+import HomeLoading from "../components/OverviewPage/OverviewLoading";
+import OverviewPage from "../components/OverviewPage/OverviewPage";
+import type { DashboardData } from "../services/dashboard.types";
 
 export default function Home() {
   const [data, setData] = useState<DashboardData | null>(null);
@@ -38,18 +15,5 @@ export default function Home() {
     loadData();
   }, []);
 
-  if (!data) {
-    return <HomeLoading />;
-  }
-
-  return (
-    <div className="space-y-6 compact:space-y-3 noAnimations:transition-none">
-      <OverviewCards stats={data.stats} />
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 compact:xl:grid-cols-4 compact:gap-2 noAnimations:transition-none">
-        <OverviewChart chart={data.chart} />
-        <RecentActivities activities={data.activity} />
-        <DailyNews news={data.news} />
-      </div>
-    </div>
-  );
+  return data ? <OverviewPage data={data} /> : <HomeLoading />;
 }

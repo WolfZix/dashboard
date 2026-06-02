@@ -4,7 +4,7 @@ import UsersLoading from "../components/UsersPage/UsersLoading";
 import { getDashboardData } from "../services/dashboard.server";
 
 type DashboardData = {
-  UsersData: {
+  usersData: {
     name: string;
     role: string;
     status: string;

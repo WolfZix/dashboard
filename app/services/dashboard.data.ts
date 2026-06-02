@@ -1,6 +1,6 @@
 import type { User } from "../components/UsersPage/users.types";
 
-export const UsersData: User[] = [
+export const usersData: User[] = [
     {
         id: 1, name: "WolfeZix", email: "patryk.domaszek41@gmail.com", password: "", role: "Admin", status: "Online", joined: "2026-05-05", bio: "🚀 Building cool dashboard stuff",
         projects: 12, reports: 31, tasks: 84, commits: 621, color: "#ad46ff", textColor: "#000000", activity: []

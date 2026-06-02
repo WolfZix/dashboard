@@ -25,7 +25,7 @@ export default function LoginPage() {
     e.preventDefault();
     if (!localStorage.getItem("users")) {
       const data = await getDashboardData();
-      localStorage.setItem("users", JSON.stringify(data.UsersData));
+      localStorage.setItem("users", JSON.stringify(data.usersData));
     }
     const users = JSON.parse(localStorage.getItem("users") || "[]");
     const foundUser = users.find(

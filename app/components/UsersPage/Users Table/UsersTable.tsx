@@ -76,8 +76,8 @@ export default function UsersTable() {
     }
     async function loadData() {
       const result = await getDashboardData();
-      setUsers(result.UsersData);
-      localStorage.setItem("users", JSON.stringify(result.UsersData));
+      setUsers(result.usersData);
+      localStorage.setItem("users", JSON.stringify(result.usersData));
     }
     loadData();
   }, []);

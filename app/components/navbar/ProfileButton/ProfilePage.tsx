@@ -29,8 +29,8 @@ export default function ProfilePage() {
     }
     async function loadData() {
       const result = await getDashboardData();
-      setUsers(result.UsersData);
-      localStorage.setItem("users", JSON.stringify(result.UsersData));
+      setUsers(result.usersData);
+      localStorage.setItem("users", JSON.stringify(result.usersData));
       setLoading(false);
     }
     loadData();
