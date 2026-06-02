@@ -156,7 +156,6 @@ export default function ProfileDropdown({
       <hr className="text-slate-500" />
       {data?.profileOptions.map((option) => {
         const isLogout = option.name === "Log Out";
-        console.log(option.path);
         const Icon = iconMap[option.icon as keyof typeof iconMap];
         return (
           <NavLink

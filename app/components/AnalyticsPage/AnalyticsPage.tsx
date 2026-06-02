@@ -1,12 +1,17 @@
-export default function AnalyticsPage() {
-  const levels = [
-    "bg-slate-800",
-    "bg-lime-500/20",
-    "bg-lime-500/40",
-    "bg-lime-500/70",
-    "bg-lime-500",
-  ];
+import MostUsedColors from "./MostUsedColors";
+import UserGrowthChart from "./UserGrowthChart";
 
+export default function AnalyticsPage() {
+  // MAIN LOGIC
+  // const levels = [
+  //   "bg-slate-800",
+  //   "bg-lime-500/20",
+  //   "bg-lime-500/40",
+  //   "bg-lime-500/70",
+  //   "bg-lime-500",
+  // ];
+
+  // FOR FUN - A pattern that spells WOLFEZIX (1 = active | 0 = inactive)
   const pattern = [
     "1101010110000000000000000000000000000000000000000000110101011",
     "1010101010010001001110010000111011110111110101000100101010101",
@@ -50,7 +55,9 @@ export default function AnalyticsPage() {
               <div
                 key={index}
                 className={`aspect-square rounded ${
-                  isActive ? "bg-lime-500" : "bg-slate-700"
+                  isActive
+                    ? "bg-lime-500 light:bg-lime-800"
+                    : "bg-slate-700 light:bg-slate-300"
                 }`}
               />
             );
@@ -75,15 +82,15 @@ export default function AnalyticsPage() {
           <h2 className="dashboard-title mb-4">User Growth</h2>
 
           <div className="h-full flex items-center justify-center dashboard-muted-text">
-            Growth Chart
+            <UserGrowthChart />
           </div>
         </div>
 
         <div className="dashboard-card rounded-2xl p-5 compact:p-3 h-96">
-          <h2 className="dashboard-title mb-4">Commits Trend</h2>
+          <h2 className="dashboard-title mb-4">Most Used Colors</h2>
 
-          <div className="h-full flex items-center justify-center dashboard-muted-text">
-            Commits Chart
+          <div className="h-[calc(100%-40px)]">
+            <MostUsedColors />
           </div>
         </div>
       </div>
