@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import type { User } from "../UsersPage/users.types";
 import { useTheme } from "../../context/ThemeContext";
 import { useAnimations } from "../../context/AnimationContext";
+import { useMode } from "../../context/ModeContext";
 
 type SettingsAppearanceProps = {
   user: User | null;
@@ -12,9 +13,6 @@ export default function SettingsAppearance({
   user,
   setUser,
 }: SettingsAppearanceProps) {
-  const [mode, setMode] = useState(() => {
-    return localStorage.getItem("mode");
-  });
   const { isLightMode, setTheme } = useTheme();
   const theme = isLightMode ? "light" : "dark";
   const [previewColor, setPreviewColor] = useState("#22c55e");
@@ -33,6 +31,7 @@ export default function SettingsAppearance({
   ];
 
   const { canAnimate, toggleAnimations } = useAnimations();
+  const { mode, setMode } = useMode();
 
   useEffect(() => {
     if (user?.color) {
@@ -48,17 +47,6 @@ export default function SettingsAppearance({
         detail: color,
       }),
     );
-  }
-
-  function toggleMode(density: string) {
-    localStorage.setItem("mode", density);
-    setMode(density);
-    if (density === "comfortable") {
-      document.documentElement.classList.remove("compact");
-    } else {
-      document.documentElement.classList.add("compact");
-    }
-    window.dispatchEvent(new Event("ModeChanged"));
   }
 
   return (
@@ -184,7 +172,7 @@ export default function SettingsAppearance({
                     mode === "comfortable" ? "#d1d5db" : "#d1d5db",
                 } as React.CSSProperties
               }
-              onClick={() => toggleMode("comfortable")}
+              onClick={() => setMode("comfortable")}
               className="
               dashboard-density-button
               text-(--text-dark)
@@ -210,7 +198,7 @@ export default function SettingsAppearance({
                   "--border-light": mode === "compact" ? "#d1d5db" : "#d1d5db",
                 } as React.CSSProperties
               }
-              onClick={() => toggleMode("compact")}
+              onClick={() => setMode("compact")}
               className="
               dashboard-density-button
               text-(--text-dark)

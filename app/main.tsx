@@ -14,6 +14,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import ProfilePage from "./components/navbar/ProfileButton/ProfilePage";
 import SettingsPage from "./components/SettingsPage/SettingsPage";
 import { AnimationProvider } from "./context/AnimationContext";
+import { ModeProvider } from "./context/ModeContext";
 
 const isGitHubPages = window.location.hostname.includes("github.io");
 const basename = isGitHubPages ? "/dashboard" : "/";
@@ -22,26 +23,28 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <AnimationProvider>
       <ThemeProvider>
-        <BrowserRouter basename={basename}>
-          <Routes>
-            <Route path="login" element={<Login />} />
+        <ModeProvider>
+          <BrowserRouter basename={basename}>
+            <Routes>
+              <Route path="login" element={<Login />} />
 
-            <Route
-              path="/"
-              element={
-                <ProtectedRoute>
-                  <Dashboard />
-                </ProtectedRoute>
-              }
-            >
-              <Route index element={<Home />} />
-              <Route path="users" element={<Users />} />
-              <Route path="analytics" element={<Analytics />} />
-              <Route path="profile/:username" element={<ProfilePage />} />
-              <Route path="settings" element={<SettingsPage />} />
-            </Route>
-          </Routes>
-        </BrowserRouter>
+              <Route
+                path="/"
+                element={
+                  <ProtectedRoute>
+                    <Dashboard />
+                  </ProtectedRoute>
+                }
+              >
+                <Route index element={<Home />} />
+                <Route path="users" element={<Users />} />
+                <Route path="analytics" element={<Analytics />} />
+                <Route path="profile/:username" element={<ProfilePage />} />
+                <Route path="settings" element={<SettingsPage />} />
+              </Route>
+            </Routes>
+          </BrowserRouter>
+        </ModeProvider>
       </ThemeProvider>
     </AnimationProvider>
   </React.StrictMode>,

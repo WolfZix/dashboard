@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import DigitalClock from "./DigitalClock";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useAnimations } from "../../../context/AnimationContext";
+import { useMode } from "../../../context/ModeContext";
 
 type DailyNewsProps = {
   news: string[];
@@ -14,7 +15,7 @@ export default function DailyNews({ news }: DailyNewsProps) {
     null,
   );
   const { canAnimate } = useAnimations();
-  const mode = localStorage.getItem("mode");
+  const { mode } = useMode();
   const isCompact = mode === "compact";
   const isComfort = mode === "comfortable";
   const showArrow = isComfort && !canAnimate;
