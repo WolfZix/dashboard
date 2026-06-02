@@ -13,33 +13,36 @@ import Login from "./routes/login";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ProfilePage from "./components/navbar/ProfileButton/ProfilePage";
 import SettingsPage from "./components/SettingsPage/SettingsPage";
+import { AnimationProvider } from "./context/AnimationContext";
 
 const isGitHubPages = window.location.hostname.includes("github.io");
 const basename = isGitHubPages ? "/dashboard" : "/";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <ThemeProvider>
-      <BrowserRouter basename={basename}>
-        <Routes>
-          <Route path="login" element={<Login />} />
+    <AnimationProvider>
+      <ThemeProvider>
+        <BrowserRouter basename={basename}>
+          <Routes>
+            <Route path="login" element={<Login />} />
 
-          <Route
-            path="/"
-            element={
-              <ProtectedRoute>
-                <Dashboard />
-              </ProtectedRoute>
-            }
-          >
-            <Route index element={<Home />} />
-            <Route path="users" element={<Users />} />
-            <Route path="analytics" element={<Analytics />} />
-            <Route path="profile/:username" element={<ProfilePage />} />
-            <Route path="settings" element={<SettingsPage />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </ThemeProvider>
+            <Route
+              path="/"
+              element={
+                <ProtectedRoute>
+                  <Dashboard />
+                </ProtectedRoute>
+              }
+            >
+              <Route index element={<Home />} />
+              <Route path="users" element={<Users />} />
+              <Route path="analytics" element={<Analytics />} />
+              <Route path="profile/:username" element={<ProfilePage />} />
+              <Route path="settings" element={<SettingsPage />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </ThemeProvider>
+    </AnimationProvider>
   </React.StrictMode>,
 );

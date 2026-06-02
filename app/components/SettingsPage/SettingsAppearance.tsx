@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import type { User } from "../UsersPage/users.types";
 import { useTheme } from "../../context/ThemeContext";
+import { useAnimations } from "../../context/AnimationContext";
 
 type SettingsAppearanceProps = {
   user: User | null;
@@ -31,22 +32,13 @@ export default function SettingsAppearance({
     "#62748e", // slate
   ];
 
-  const [animationsEnabled, setAnimationsEnabled] = useState(() => {
-    return localStorage.getItem("animations") !== "false";
-  });
+  const { canAnimate, toggleAnimations } = useAnimations();
 
   useEffect(() => {
     if (user?.color) {
       setPreviewColor(user.color);
     }
   }, [user]);
-
-  useEffect(() => {
-    const animations = localStorage.getItem("animations");
-    if (animations === "false") {
-      document.documentElement.classList.add("NoAnimations");
-    }
-  }, []);
 
   function handleUserColorChange(color: string) {
     setPreviewColor(color);
@@ -67,18 +59,6 @@ export default function SettingsAppearance({
       document.documentElement.classList.add("compact");
     }
     window.dispatchEvent(new Event("ModeChanged"));
-  }
-
-  function toggleAnimations() {
-    const newValue = !animationsEnabled;
-    setAnimationsEnabled(newValue);
-    localStorage.setItem("animations", newValue.toString());
-    window.dispatchEvent(new Event("animationsChanged"));
-    if (newValue) {
-      document.documentElement.classList.remove("NoAnimations");
-    } else {
-      document.documentElement.classList.add("NoAnimations");
-    }
   }
 
   return (
@@ -266,7 +246,7 @@ export default function SettingsAppearance({
               h-8
               rounded-full
               cursor-pointer
-              ${animationsEnabled ? "bg-lime-500" : "bg-gray-400"}
+              ${canAnimate ? "bg-lime-500" : "bg-gray-400"}
             `}
             >
               <div
@@ -280,7 +260,7 @@ export default function SettingsAppearance({
                 bg-white
                 transition-all
                 duration-300
-                ${animationsEnabled ? "translate-x-0" : "-translate-x-6"}
+                ${canAnimate ? "translate-x-0" : "-translate-x-6"}
               `}
               ></div>
             </button>

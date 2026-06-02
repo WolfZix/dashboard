@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import ProfileDropdown from "../ProfileButton/ProfileDropdown";
 import { AnimatePresence } from "framer-motion";
 import type { User } from "../../UsersPage/users.types";
+import { useAnimations } from "../../../context/AnimationContext";
 
 export default function UserProfile() {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
@@ -11,7 +12,7 @@ export default function UserProfile() {
   const currentUsersColor = currentUser?.color || "#22c55e";
   const currentUsersTextColor = currentUser?.textColor || "#000000";
   const currentUsersProfilePicture = currentUser?.avatar || "";
-  const [canAnimate, setCanAnimate] = useState(true);
+  const { canAnimate } = useAnimations();
 
   useEffect(() => {
     function loadCurrentUser() {
@@ -28,23 +29,9 @@ export default function UserProfile() {
       if (foundUser) setCurrentUser(foundUser);
     }
     loadCurrentUser();
-    setCanAnimate(localStorage.getItem("animations") === "true");
-    window.dispatchEvent(new Event("animationsChanged"));
     window.addEventListener("usersUpdated", loadCurrentUser);
     return () => {
       window.removeEventListener("usersUpdated", loadCurrentUser);
-    };
-  }, []);
-
-  useEffect(() => {
-    function syncAnimations() {
-      setCanAnimate(localStorage.getItem("animations") === "true");
-    }
-
-    window.addEventListener("animationsChanged", syncAnimations);
-
-    return () => {
-      window.removeEventListener("animationsChanged", syncAnimations);
     };
   }, []);
 

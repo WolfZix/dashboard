@@ -2,6 +2,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import DigitalClock from "./DigitalClock";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import { useAnimations } from "../../../context/AnimationContext";
 
 type DailyNewsProps = {
   news: string[];
@@ -12,9 +13,7 @@ export default function DailyNews({ news }: DailyNewsProps) {
   const [flashDirection, setFlashDirection] = useState<"left" | "right" | null>(
     null,
   );
-  const [canAnimate, setCanAnimate] = useState(
-    localStorage.getItem("animations") === "true",
-  );
+  const { canAnimate } = useAnimations();
   const mode = localStorage.getItem("mode");
   const isCompact = mode === "compact";
   const isComfort = mode === "comfortable";
@@ -42,18 +41,6 @@ export default function DailyNews({ news }: DailyNewsProps) {
 
     return () => clearTimeout(timeout);
   }, [flashDirection]);
-
-  useEffect(() => {
-    function syncAnimations() {
-      setCanAnimate(localStorage.getItem("animations") === "true");
-    }
-
-    window.addEventListener("animationsChanged", syncAnimations);
-
-    return () => {
-      window.removeEventListener("animationsChanged", syncAnimations);
-    };
-  }, []);
 
   function resetInterval() {
     if (!canAnimate) return;

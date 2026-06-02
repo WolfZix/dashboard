@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useAnimations } from "../../../context/AnimationContext";
 
 const cardVariants = {
   hidden: { opacity: 0, y: 10 },
@@ -21,19 +21,7 @@ export default function StatCard({ title, value, change }: StatCardProps) {
         ? "text-red-500"
         : "text-slate-400";
   const changeSymbol = numericChange > 0 ? "+" : "";
-  const [canAnimate, setCanAnimate] = useState(
-    localStorage.getItem("animations") === "true",
-  );
-
-  useEffect(() => {
-    function syncAnimations() {
-      setCanAnimate(localStorage.getItem("animations") === "true");
-    }
-    window.addEventListener("animationsChanged", syncAnimations);
-    return () => {
-      window.removeEventListener("animationsChanged", syncAnimations);
-    };
-  }, []);
+  const { canAnimate } = useAnimations();
 
   return (
     <motion.div

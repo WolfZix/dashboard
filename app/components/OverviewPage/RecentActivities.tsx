@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { useAnimations } from "../../context/AnimationContext";
 
 type RecentActivitiesProps = {
   activities: string[];
@@ -16,20 +17,7 @@ export default function RecentActivities({
     page * PAGE_SIZE,
     page * PAGE_SIZE + PAGE_SIZE,
   );
-  const [canAnimate, setCanAnimate] = useState(
-    localStorage.getItem("animations") === "true",
-  );
-
-  useEffect(() => {
-    const syncAnimations = () => {
-      setCanAnimate(localStorage.getItem("animations") === "true");
-    };
-
-    window.addEventListener("animationsChanged", syncAnimations);
-    return () => {
-      window.removeEventListener("animationsChanged", syncAnimations);
-    };
-  }, []);
+  const { canAnimate } = useAnimations();
 
   useEffect(() => {
     if (!canAnimate) return;
