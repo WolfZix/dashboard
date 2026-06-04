@@ -19,7 +19,7 @@ export default function SettingsAppearance({
   const { isLightMode, setTheme } = useTheme();
   const theme = isLightMode ? "light" : "dark";
   const { mode, setMode } = useMode();
-  const { canAnimate, toggleAnimations } = useAnimations();
+  const { canAnimate, setAnimations } = useAnimations();
   const { setUserColor } = useUserColor();
 
   const [originalUser, setOriginalUser] = useState<User | null>(null);
@@ -29,41 +29,10 @@ export default function SettingsAppearance({
   const originalModeRef = useRef(mode);
   const originalAnimationsRef = useRef(canAnimate);
 
-  const currentAnimationsRef = useRef(canAnimate);
-
-  useEffect(() => {
-    currentAnimationsRef.current = canAnimate;
-  }, [canAnimate]);
-
-  useEffect(() => {
-    savedRef.current = false;
-    return () => {
-      if (!savedRef.current) {
-        setUserColor(originalColorRef.current);
-        setTheme(originalThemeRef.current as "light" | "dark");
-        setMode(originalModeRef.current as "comfortable" | "compact");
-        if (currentAnimationsRef.current !== originalAnimationsRef.current) {
-          toggleAnimations();
-        }
-      }
-    };
-  }, []);
-
   const [previewColor, setPreviewColor] = useState(user?.color || "#22c55e");
   const [previewTheme, setPreviewTheme] = useState(theme);
   const [previewMode, setPreviewMode] = useState(mode);
   const [previewAnimations, setPreviewAnimations] = useState(canAnimate);
-
-  useEffect(() => {
-    if (user && !originalUser) {
-      originalColorRef.current = user.color;
-      setOriginalUser(structuredClone(user));
-      setPreviewColor(user.color);
-      setPreviewTheme(theme);
-      setPreviewMode(mode);
-      setPreviewAnimations(canAnimate);
-    }
-  }, [user, originalUser]);
 
   const hasChanges =
     previewColor !== originalUser?.color ||
@@ -85,6 +54,29 @@ export default function SettingsAppearance({
     "#62748e",
   ];
 
+  useEffect(() => {
+    savedRef.current = false;
+    return () => {
+      if (!savedRef.current) {
+        setUserColor(originalColorRef.current);
+        setTheme(originalThemeRef.current as "light" | "dark");
+        setMode(originalModeRef.current as "comfortable" | "compact");
+        setAnimations(originalAnimationsRef.current);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (user && !originalUser) {
+      originalColorRef.current = user.color;
+      setOriginalUser(structuredClone(user));
+      setPreviewColor(user.color);
+      setPreviewTheme(theme);
+      setPreviewMode(mode);
+      setPreviewAnimations(canAnimate);
+    }
+  }, [user, originalUser]);
+
   function handleUserColorChange(color: string) {
     setPreviewColor(color);
     setUserColor(color);
@@ -98,8 +90,9 @@ export default function SettingsAppearance({
     setMode(mode);
   }
   function handleAnimationsPreview() {
-    setPreviewAnimations((prev) => !prev);
-    toggleAnimations();
+    const newValue = !previewAnimations;
+    setPreviewAnimations(newValue);
+    setAnimations(newValue);
   }
 
   function handleSaveAppearance() {
@@ -158,7 +151,6 @@ export default function SettingsAppearance({
             >
               <div className="flex justify-between items-start">
                 <div className="text-lg font-semibold">Dark</div>
-                <div className="w-3 h-3 rounded-full bg-transparent border border-slate-400"></div>
               </div>
               <div className="flex gap-2 compact:gap-1">
                 <div className="w-8 h-8 rounded-lg bg-slate-950 border border-slate-600 light:border-slate-400 transition-all duration-300"></div>
@@ -187,7 +179,6 @@ export default function SettingsAppearance({
             >
               <div className="flex justify-between items-start">
                 <div className="text-lg font-semibold">Light</div>
-                <div className="w-3 h-3 rounded-full bg-transparent border border-slate-400"></div>
               </div>
               <div className="flex gap-2 compact:gap-1">
                 <div className="w-8 h-8 rounded-lg bg-white border border-slate-600 light:border-slate-400"></div>
