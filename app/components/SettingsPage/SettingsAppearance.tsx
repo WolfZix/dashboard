@@ -24,7 +24,7 @@ export default function SettingsAppearance({
 
   const [originalUser, setOriginalUser] = useState<User | null>(null);
 
-  const originalColorRef = useRef(user?.color ?? "#22c55e");
+  const originalColorRef = useRef(user?.color || "#22c55e");
   const originalThemeRef = useRef(theme);
   const originalModeRef = useRef(mode);
   const originalAnimationsRef = useRef(canAnimate);
@@ -49,7 +49,7 @@ export default function SettingsAppearance({
     };
   }, []);
 
-  const [previewColor, setPreviewColor] = useState("#22c55e");
+  const [previewColor, setPreviewColor] = useState(user?.color || "#22c55e");
   const [previewTheme, setPreviewTheme] = useState(theme);
   const [previewMode, setPreviewMode] = useState(mode);
   const [previewAnimations, setPreviewAnimations] = useState(canAnimate);
