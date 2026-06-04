@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
-import ProfileDropdown from "../ProfileButton/ProfileDropdown";
 import { AnimatePresence } from "framer-motion";
-import type { User } from "../../UsersPage/users.types";
+import ProfileDropdown from "../ProfileButton/ProfileDropdown";
 import { useAnimations } from "../../../context/AnimationContext";
+import { useUserColor } from "../../../context/UserColorContext";
+import type { User } from "../../UsersPage/users.types";
 
 export default function UserProfile() {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [open, setOpen] = useState(false);
+  const { userColor } = useUserColor();
   const currentUserLetter = currentUser?.name[0].toUpperCase();
   const currentUsersRole = currentUser?.role || "User";
-  const currentUsersColor = currentUser?.color || "#22c55e";
   const currentUsersTextColor = currentUser?.textColor || "#000000";
   const currentUsersProfilePicture = currentUser?.avatar || "";
   const { canAnimate } = useAnimations();
@@ -71,9 +72,9 @@ export default function UserProfile() {
       >
         <div
           style={{
-            backgroundColor: currentUsersColor,
+            backgroundColor: userColor,
             color: currentUsersTextColor,
-            borderColor: currentUsersColor,
+            borderColor: userColor,
           }}
           className={`
           h-10
@@ -107,7 +108,7 @@ export default function UserProfile() {
             userPicture={currentUsersProfilePicture}
             userRole={currentUsersRole}
             userLetter={currentUserLetter || "G"}
-            userColor={currentUsersColor}
+            userColor={userColor}
             userTextColor={currentUsersTextColor}
             canAnimate={canAnimate}
             onClose={() => setOpen(false)}

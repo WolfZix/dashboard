@@ -3,21 +3,28 @@ import type { User } from "../UsersPage/users.types";
 import { useTheme } from "../../context/ThemeContext";
 import { useAnimations } from "../../context/AnimationContext";
 import { useMode } from "../../context/ModeContext";
+import { useUserColor } from "../../context/UserColorContext";
 
 type SettingsAppearanceProps = {
   user: User | null;
+  setUser: React.Dispatch<React.SetStateAction<User | null>>;
 };
 
-export default function SettingsAppearance({ user }: SettingsAppearanceProps) {
+export default function SettingsAppearance({
+  user,
+  setUser,
+}: SettingsAppearanceProps) {
   const savedRef = useRef(false);
 
   const { isLightMode, setTheme } = useTheme();
   const theme = isLightMode ? "light" : "dark";
   const { mode, setMode } = useMode();
   const { canAnimate, toggleAnimations } = useAnimations();
+  const { setUserColor } = useUserColor();
 
   const [originalUser, setOriginalUser] = useState<User | null>(null);
 
+  const originalColorRef = useRef(user?.color ?? "#22c55e");
   const originalThemeRef = useRef(theme);
   const originalModeRef = useRef(mode);
   const originalAnimationsRef = useRef(canAnimate);
@@ -32,6 +39,7 @@ export default function SettingsAppearance({ user }: SettingsAppearanceProps) {
     savedRef.current = false;
     return () => {
       if (!savedRef.current) {
+        setUserColor(originalColorRef.current);
         setTheme(originalThemeRef.current as "light" | "dark");
         setMode(originalModeRef.current as "comfortable" | "compact");
         if (currentAnimationsRef.current !== originalAnimationsRef.current) {
@@ -48,6 +56,7 @@ export default function SettingsAppearance({ user }: SettingsAppearanceProps) {
 
   useEffect(() => {
     if (user && !originalUser) {
+      originalColorRef.current = user.color;
       setOriginalUser(structuredClone(user));
       setPreviewColor(user.color);
       setPreviewTheme(theme);
@@ -78,6 +87,7 @@ export default function SettingsAppearance({ user }: SettingsAppearanceProps) {
 
   function handleUserColorChange(color: string) {
     setPreviewColor(color);
+    setUserColor(color);
   }
   function handleThemePreview(theme: "light" | "dark") {
     setPreviewTheme(theme);
@@ -108,8 +118,10 @@ export default function SettingsAppearance({ user }: SettingsAppearanceProps) {
     originalThemeRef.current = theme;
     originalModeRef.current = mode;
     originalAnimationsRef.current = canAnimate;
+    originalColorRef.current = previewColor;
 
     localStorage.setItem("users", JSON.stringify(updatedUsers));
+    setUser(updatedUser);
     setOriginalUser(structuredClone(updatedUser));
     window.dispatchEvent(new CustomEvent("userColorChanged"));
   }
