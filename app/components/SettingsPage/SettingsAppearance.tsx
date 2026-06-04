@@ -293,7 +293,7 @@ export default function SettingsAppearance({
         </div>
 
         <div>
-          <div className="flex items-center justify-between">
+          <div className="flex items-end gap-5">
             <div>
               <h3 className="dashboard-section-title mb-0.5 compact:mb-0">
                 Animations
@@ -332,7 +332,7 @@ export default function SettingsAppearance({
         </div>
         <button
           onClick={handleSaveAppearance}
-          className={`dashboard-button-success 
+          className={`dashboard-button-success w-fit 
             ${!hasChanges ? "opacity-50 cursor-not-allowed hover:bg-green-800" : "hover:bg-green-600"}`}
           disabled={!hasChanges}
         >
