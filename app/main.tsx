@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "./context/ThemeContext";
+import { UserColorProvider } from "./context/UserColorContext";
 
 import "./main.css";
 
@@ -24,26 +25,28 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <AnimationProvider>
       <ThemeProvider>
         <ModeProvider>
-          <BrowserRouter basename={basename}>
-            <Routes>
-              <Route path="login" element={<Login />} />
+          <UserColorProvider>
+            <BrowserRouter basename={basename}>
+              <Routes>
+                <Route path="login" element={<Login />} />
 
-              <Route
-                path="/"
-                element={
-                  <ProtectedRoute>
-                    <Dashboard />
-                  </ProtectedRoute>
-                }
-              >
-                <Route index element={<Home />} />
-                <Route path="users" element={<Users />} />
-                <Route path="analytics" element={<Analytics />} />
-                <Route path="profile/:username" element={<ProfilePage />} />
-                <Route path="settings" element={<SettingsPage />} />
-              </Route>
-            </Routes>
-          </BrowserRouter>
+                <Route
+                  path="/"
+                  element={
+                    <ProtectedRoute>
+                      <Dashboard />
+                    </ProtectedRoute>
+                  }
+                >
+                  <Route index element={<Home />} />
+                  <Route path="users" element={<Users />} />
+                  <Route path="analytics" element={<Analytics />} />
+                  <Route path="profile/:username" element={<ProfilePage />} />
+                  <Route path="settings" element={<SettingsPage />} />
+                </Route>
+              </Routes>
+            </BrowserRouter>
+          </UserColorProvider>
         </ModeProvider>
       </ThemeProvider>
     </AnimationProvider>

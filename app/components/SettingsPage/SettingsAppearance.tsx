@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import type { User } from "../UsersPage/users.types";
 import { useTheme } from "../../context/ThemeContext";
 import { useAnimations } from "../../context/AnimationContext";
@@ -6,47 +6,112 @@ import { useMode } from "../../context/ModeContext";
 
 type SettingsAppearanceProps = {
   user: User | null;
-  setUser: React.Dispatch<React.SetStateAction<User | null>>;
 };
 
-export default function SettingsAppearance({
-  user,
-  setUser,
-}: SettingsAppearanceProps) {
+export default function SettingsAppearance({ user }: SettingsAppearanceProps) {
+  const savedRef = useRef(false);
+
   const { isLightMode, setTheme } = useTheme();
   const theme = isLightMode ? "light" : "dark";
-  const [previewColor, setPreviewColor] = useState("#22c55e");
-  const colors = [
-    "#fb2c36", // red
-    "#ff6900", // orange
-    "#f0b100", // amber
-    "#22c55e", // green
-    "#00b8db", // cyan
-    "#2b7fff", // blue
-    "#ad46ff", // purple
-    "#f6339a", // pink
-    "#000000", // black
-    "#ffffff", // white
-    "#62748e", // slate
-  ];
-
-  const { canAnimate, toggleAnimations } = useAnimations();
   const { mode, setMode } = useMode();
+  const { canAnimate, toggleAnimations } = useAnimations();
+
+  const [originalUser, setOriginalUser] = useState<User | null>(null);
+
+  const originalThemeRef = useRef(theme);
+  const originalModeRef = useRef(mode);
+  const originalAnimationsRef = useRef(canAnimate);
+
+  const currentAnimationsRef = useRef(canAnimate);
 
   useEffect(() => {
-    if (user?.color) {
+    currentAnimationsRef.current = canAnimate;
+  }, [canAnimate]);
+
+  useEffect(() => {
+    savedRef.current = false;
+    return () => {
+      if (!savedRef.current) {
+        setTheme(originalThemeRef.current as "light" | "dark");
+        setMode(originalModeRef.current as "comfortable" | "compact");
+        if (currentAnimationsRef.current !== originalAnimationsRef.current) {
+          toggleAnimations();
+        }
+      }
+    };
+  }, []);
+
+  const [previewColor, setPreviewColor] = useState("#22c55e");
+  const [previewTheme, setPreviewTheme] = useState(theme);
+  const [previewMode, setPreviewMode] = useState(mode);
+  const [previewAnimations, setPreviewAnimations] = useState(canAnimate);
+
+  useEffect(() => {
+    if (user && !originalUser) {
+      setOriginalUser(structuredClone(user));
       setPreviewColor(user.color);
+      setPreviewTheme(theme);
+      setPreviewMode(mode);
+      setPreviewAnimations(canAnimate);
     }
-  }, [user]);
+  }, [user, originalUser]);
+
+  const hasChanges =
+    previewColor !== originalUser?.color ||
+    previewTheme !== originalThemeRef.current ||
+    previewMode !== originalModeRef.current ||
+    previewAnimations !== originalAnimationsRef.current;
+
+  const colors = [
+    "#fb2c36",
+    "#ff6900",
+    "#f0b100",
+    "#22c55e",
+    "#00b8db",
+    "#2b7fff",
+    "#ad46ff",
+    "#f6339a",
+    "#000000",
+    "#ffffff",
+    "#62748e",
+  ];
 
   function handleUserColorChange(color: string) {
     setPreviewColor(color);
-    setUser((prev) => (prev ? { ...prev, color } : null));
-    window.dispatchEvent(
-      new CustomEvent("userColorChanged", {
-        detail: color,
-      }),
-    );
+  }
+  function handleThemePreview(theme: "light" | "dark") {
+    setPreviewTheme(theme);
+    setTheme(theme);
+  }
+  function handleModePreview(mode: "comfortable" | "compact") {
+    setPreviewMode(mode);
+    setMode(mode);
+  }
+  function handleAnimationsPreview() {
+    setPreviewAnimations((prev) => !prev);
+    toggleAnimations();
+  }
+
+  function handleSaveAppearance() {
+    if (!user) return;
+    const savedUsers = localStorage.getItem("users");
+
+    if (!savedUsers) return;
+    const users: User[] = JSON.parse(savedUsers);
+    const updatedUser = {
+      ...user,
+      color: previewColor,
+    };
+    const updatedUsers = users.map((u) => (u.id === user.id ? updatedUser : u));
+
+    savedRef.current = true;
+    originalThemeRef.current = theme;
+    originalModeRef.current = mode;
+    originalAnimationsRef.current = canAnimate;
+
+    localStorage.setItem("users", JSON.stringify(updatedUsers));
+    setOriginalUser(structuredClone(updatedUser));
+    window.dispatchEvent(new CustomEvent("userColorChanged"));
   }
 
   return (
@@ -63,7 +128,7 @@ export default function SettingsAppearance({
           <p className="dashboard-section-label mb-3 compact:mb-1.5">Theme</p>
           <div className="flex gap-3 compact:gap-1.5">
             <button
-              onClick={() => setTheme("dark")}
+              onClick={() => handleThemePreview("dark")}
               style={
                 {
                   "--border-light": `${previewColor}`,
@@ -73,7 +138,7 @@ export default function SettingsAppearance({
               }
               className={`dashboard-option-card
                 ${
-                  theme === "dark"
+                  previewTheme === "dark"
                     ? "shadow-(--boxShadow) border-(--border-dark) bg-slate-800 hover:bg-slate-700 light:border-(--border-light) light:bg-slate-200 light:hover:bg-slate-300"
                     : "border-slate-800 bg-slate-950 hover:bg-slate-800 light:border-slate-400 light:bg-slate-100 light:hover:bg-slate-200"
                 }
@@ -90,7 +155,7 @@ export default function SettingsAppearance({
               </div>
             </button>
             <button
-              onClick={() => setTheme("light")}
+              onClick={() => handleThemePreview("light")}
               style={
                 {
                   "--border-light": `${previewColor}`,
@@ -100,7 +165,7 @@ export default function SettingsAppearance({
               }
               className={`dashboard-option-card
                 ${
-                  theme === "light"
+                  previewTheme === "light"
                     ? previewColor !== "#ffffff"
                       ? "light:shadow-(--boxShadow-light) border-(--border-dark) bg-slate-800 hover:bg-slate-700 light:border-(--border-light) light:bg-slate-200 light:hover:bg-slate-300"
                       : "light:shadow-[0px_0px_20px_#00000025] light:border-black/25 bg-slate-800 hover:bg-slate-700 light:bg-slate-200 light:hover:bg-slate-300"
@@ -153,26 +218,28 @@ export default function SettingsAppearance({
           )}
         </div>
         <div>
-          <p className="dashboard-section-label mb-3 compact:mb-1.5">
+          <p className="dashboard-section-label mb-2 compact:mb-1">
             UI Density
           </p>
           <div className="flex gap-3 compact:gap-1.5">
             <button
               style={
                 {
-                  "--bg-dark": mode === "comfortable" ? "#1d293d" : "#020618",
-                  "--bg-light": mode === "comfortable" ? "#e2e8f0" : "f1f5f9",
+                  "--bg-dark":
+                    previewMode === "comfortable" ? "#1d293d" : "#020618",
+                  "--bg-light":
+                    previewMode === "comfortable" ? "#e2e8f0" : "f1f5f9",
                   "--text-dark":
-                    mode === "comfortable" ? "#ffffff" : "#ffffff50",
+                    previewMode === "comfortable" ? "#ffffff" : "#ffffff50",
                   "--text-light":
-                    mode === "comfortable" ? "#000000" : "#00000075",
+                    previewMode === "comfortable" ? "#000000" : "#00000075",
                   "--border-dark":
-                    mode === "comfortable" ? "#45556c" : "#45556c50",
+                    previewMode === "comfortable" ? "#45556c" : "#45556c50",
                   "--border-light":
-                    mode === "comfortable" ? "#d1d5db" : "#d1d5db",
+                    previewMode === "comfortable" ? "#d1d5db" : "#d1d5db",
                 } as React.CSSProperties
               }
-              onClick={() => setMode("comfortable")}
+              onClick={() => handleModePreview("comfortable")}
               className="
               dashboard-density-button
               text-(--text-dark)
@@ -190,15 +257,21 @@ export default function SettingsAppearance({
             <button
               style={
                 {
-                  "--bg-dark": mode === "compact" ? "#1d293d" : "#020618",
-                  "--bg-light": mode === "compact" ? "#e2e8f0" : "f1f5f9",
-                  "--text-dark": mode === "compact" ? "#ffffff" : "#ffffff50",
-                  "--text-light": mode === "compact" ? "#000000" : "#00000075",
-                  "--border-dark": mode === "compact" ? "#45556c" : "#45556c50",
-                  "--border-light": mode === "compact" ? "#d1d5db" : "#d1d5db",
+                  "--bg-dark":
+                    previewMode === "compact" ? "#1d293d" : "#020618",
+                  "--bg-light":
+                    previewMode === "compact" ? "#e2e8f0" : "f1f5f9",
+                  "--text-dark":
+                    previewMode === "compact" ? "#ffffff" : "#ffffff50",
+                  "--text-light":
+                    previewMode === "compact" ? "#000000" : "#00000075",
+                  "--border-dark":
+                    previewMode === "compact" ? "#45556c" : "#45556c50",
+                  "--border-light":
+                    previewMode === "compact" ? "#d1d5db" : "#d1d5db",
                 } as React.CSSProperties
               }
-              onClick={() => setMode("compact")}
+              onClick={() => handleModePreview("compact")}
               className="
               dashboard-density-button
               text-(--text-dark)
@@ -219,15 +292,15 @@ export default function SettingsAppearance({
         <div>
           <div className="flex items-center justify-between">
             <div>
-              <h3 className="dashboard-section-title mb-1 compact:mb-0.5">
+              <h3 className="dashboard-section-title mb-0.5 compact:mb-0">
                 Animations
               </h3>
-              <p className="dashboard-section-label mb-3">
+              <p className="dashboard-section-label">
                 Enable smooth transitions and effects.
               </p>
             </div>
             <button
-              onClick={toggleAnimations}
+              onClick={handleAnimationsPreview}
               className={`
               relative
               w-14
@@ -254,6 +327,14 @@ export default function SettingsAppearance({
             </button>
           </div>
         </div>
+        <button
+          onClick={handleSaveAppearance}
+          className={`dashboard-button-success 
+            ${!hasChanges ? "opacity-50 cursor-not-allowed hover:bg-green-800" : "hover:bg-green-600"}`}
+          disabled={!hasChanges}
+        >
+          Save Changes
+        </button>
       </div>
     </div>
   );

@@ -50,9 +50,7 @@ export default function SettingsPage() {
         setActiveTab={setActiveTab}
       />
       <div className="flex-1 flex flex-col gap-6 compact:gap-3">
-        {activeTab === "Appearance" && (
-          <SettingsAppearance user={user} setUser={setUser} />
-        )}
+        {activeTab === "Appearance" && <SettingsAppearance user={user} />}
         {activeTab === "Account" && (
           <SettingsAccount user={user} setUser={setUser} />
         )}
