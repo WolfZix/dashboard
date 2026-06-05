@@ -4,6 +4,7 @@ export default function RolesOverview() {
   const users = localStorage.getItem("users")
     ? (JSON.parse(localStorage.getItem("users")!) as User[])
     : [];
+
   const roleCount = users.reduce(
     (acc, user) => {
       acc[user.role] = (acc[user.role] || 0) + 1;
@@ -11,12 +12,21 @@ export default function RolesOverview() {
     },
     {} as Record<string, number>,
   );
+
+  const roleOrder: Record<string, number> = {
+    Admin: 1,
+    Moderator: 2,
+    Premium: 3,
+    User: 4,
+  };
+
   const roleData = Object.entries(roleCount)
     .map(([role, count]) => ({
       role,
       count,
     }))
-    .sort((a, b) => b.count - a.count);
+    .sort((a, b) => roleOrder[a.role] - roleOrder[b.role]);
+
   return (
     <>
       {roleData.map((role) => (
