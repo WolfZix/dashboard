@@ -14,18 +14,26 @@ const UserColorContext = createContext<UserColorContextType | undefined>(
 export function UserColorProvider({ children }: { children: ReactNode }) {
   const [userColor, setUserColor] = useState("#22c55e");
   useEffect(() => {
-    const storedUsername = localStorage.getItem("username");
-    if (!storedUsername) return;
+    function loadUserColor() {
+      const storedUsername = localStorage.getItem("username");
+      if (!storedUsername) return;
 
-    const savedUsers = localStorage.getItem("users");
-    if (!savedUsers) return;
+      const savedUsers = localStorage.getItem("users");
+      if (!savedUsers) return;
 
-    const users: User[] = JSON.parse(savedUsers);
-    const foundUser = users.find(
-      (user) => user.name.toLowerCase() === storedUsername.toLowerCase(),
-    );
+      const users: User[] = JSON.parse(savedUsers);
+      const foundUser = users.find(
+        (user) => user.name.toLowerCase() === storedUsername.toLowerCase(),
+      );
 
-    if (foundUser?.color) setUserColor(foundUser.color);
+      if (foundUser?.color) setUserColor(foundUser.color);
+    }
+
+    loadUserColor();
+    window.addEventListener("usersUpdated", loadUserColor);
+    return () => {
+      window.removeEventListener("usersUpdated", loadUserColor);
+    };
   }, []);
 
   return (
