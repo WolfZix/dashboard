@@ -214,6 +214,32 @@ export default function SettingsAppearance({
     setCurrentUser(updatedUser);
     setOriginalUser(structuredClone(updatedUser));
   }
+  // RESTORE TO DEFAULT OPTIONS FUNCTION //
+  function handleRestoreDefaultOptions() {
+    setPreviewTheme("dark");
+    setPreviewMode("comfortable");
+    setPreviewAnimations(true);
+    setPreviewColor("#22c55e");
+    setPreviewAvatar("");
+    setPreviewBanner("");
+    setPreviewTextColor("#000000");
+
+    setTheme("dark");
+    setMode("comfortable");
+    setAnimations(true);
+    setPreviewTextColor("#000000");
+    setCurrentUser((prev) =>
+      prev
+        ? {
+            ...prev,
+            color: "#22c55e",
+            avatar: "",
+            banner: "",
+            textColor: "#000000",
+          }
+        : null,
+    );
+  }
 
   return (
     <div className="dashboard-card rounded-4xl compact:rounded-2xl p-6 compact:p-3">
@@ -245,7 +271,16 @@ export default function SettingsAppearance({
                 className="w-40 h-40 rounded-full object-cover border border-(--border-color-dark) light:border-(--border-color-light) transition-all duration-300"
               />
             ) : (
-              <div className="w-40 h-40 rounded-full flex items-center justify-center text-5xl font-bold dashboard-stat-box">
+              <div
+                style={
+                  {
+                    "--background-color": previewColor || "#22c55e",
+                    "--text-color":
+                      previewColor === "#000000" ? "#FFFFFF" : "#000000",
+                  } as React.CSSProperties
+                }
+                className="w-40 h-40 rounded-full flex items-center justify-center text-5xl font-bold bg-(--background-color) text-(--text-color)"
+              >
                 {user?.name?.[0]?.toUpperCase()}
               </div>
             )}
@@ -521,14 +556,22 @@ export default function SettingsAppearance({
             </button>
           </div>
         </div>
-        <button
-          onClick={handleSaveAppearance}
-          className={`dashboard-button-success w-fit 
+        <div className="flex gap-2">
+          <button
+            onClick={handleSaveAppearance}
+            className={`dashboard-button-success w-fit 
             ${!hasChanges ? "opacity-50 cursor-not-allowed hover:bg-green-800" : "hover:bg-green-600"}`}
-          disabled={!hasChanges}
-        >
-          Save Changes
-        </button>
+            disabled={!hasChanges}
+          >
+            Save Changes
+          </button>
+          <button
+            onClick={handleRestoreDefaultOptions}
+            className="dashboard-button-secondary w-fit"
+          >
+            Restore Defaults
+          </button>
+        </div>
       </div>
     </div>
   );
