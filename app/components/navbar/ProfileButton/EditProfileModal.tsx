@@ -16,7 +16,7 @@ export default function EditProfileModal({
   const [newUsername, setNewUsername] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [color, setColor] = useState(user.color);
-  const [bio, setBio] = useState("");
+  const [bio, setBio] = useState(user.bio);
   const [avatar, setAvatar] = useState(user.avatar || "");
   const [banner, setBanner] = useState(user.banner || "");
 
@@ -25,7 +25,7 @@ export default function EditProfileModal({
     if (newUsername && newUsername !== user.name) {
       changedFields.push("username");
     }
-    if (bio !== user.bio && bio !== "") {
+    if (bio !== user.bio) {
       changedFields.push("bio");
     }
     if (color !== user.color) {

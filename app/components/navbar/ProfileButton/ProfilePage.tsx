@@ -149,17 +149,19 @@ export default function ProfilePage() {
                   {user?.role}
                 </div>
               </div>
-              <p
-                style={
-                  {
-                    "--bg": `${user.color}50`,
-                  } as React.CSSProperties
-                }
-                className="bg-(--bg) backdrop-blur-xs rounded-full w-fit px-3 py-1 text-white light:text-shadow-[0_0_5px_rgb(0,0,0)] mb-2 compact:mb-1"
-              >
-                {user?.bio}
-              </p>
-              <p className="text-sm text-slate-300 light:text-slate-500 light:text-shadow-[0_0_5px_rgb(0,0,0)]">
+              {user.bio && (
+                <p
+                  style={
+                    {
+                      "--bg": `${user.color}50`,
+                    } as React.CSSProperties
+                  }
+                  className="bg-(--bg) backdrop-blur-xs rounded-full w-fit px-3 py-1 text-white light:text-shadow-[0_0_5px_rgb(0,0,0)] mb-2 compact:mb-1"
+                >
+                  {user?.bio}
+                </p>
+              )}
+              <p className="text-sm text-slate-500 light:text-shadow-[0_0_5px_rgb(0,0,0)]">
                 Joined: {user?.joined}
               </p>
             </div>
