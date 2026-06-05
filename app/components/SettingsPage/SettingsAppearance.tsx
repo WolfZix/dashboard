@@ -23,16 +23,22 @@ export default function SettingsAppearance({
   const [originalUser, setOriginalUser] = useState<User | null>(null);
 
   const originalColorRef = useRef(user?.color || "#22c55e");
+  const originalAvatarRef = useRef(user?.avatar || "");
+  const originalBannerRef = useRef(user?.banner || "");
   const originalThemeRef = useRef(theme);
   const originalModeRef = useRef(mode);
   const originalAnimationsRef = useRef(canAnimate);
 
+  const [previewAvatar, setPreviewAvatar] = useState(user?.avatar || "");
+  const [previewBanner, setPreviewBanner] = useState(user?.banner || "");
   const [previewColor, setPreviewColor] = useState(user?.color || "#22c55e");
   const [previewTheme, setPreviewTheme] = useState(theme);
   const [previewMode, setPreviewMode] = useState(mode);
   const [previewAnimations, setPreviewAnimations] = useState(canAnimate);
 
   const hasChanges =
+    previewAvatar !== originalUser?.avatar ||
+    previewBanner !== originalUser?.banner ||
     previewColor !== originalUser?.color ||
     previewTheme !== originalThemeRef.current ||
     previewMode !== originalModeRef.current ||
@@ -64,6 +70,8 @@ export default function SettingsAppearance({
             ? {
                 ...prev,
                 color: originalColorRef.current,
+                avatar: originalAvatarRef.current,
+                banner: originalBannerRef.current,
               }
             : null,
         );
@@ -74,14 +82,76 @@ export default function SettingsAppearance({
   useEffect(() => {
     if (user && !originalUser) {
       originalColorRef.current = user.color;
+      originalAvatarRef.current = user.avatar || "";
+      originalBannerRef.current = user.banner || "";
       setOriginalUser(structuredClone(user));
       setPreviewColor(user.color);
+      setPreviewAvatar(user.avatar || "");
+      setPreviewBanner(user.banner || "");
       setPreviewTheme(theme);
       setPreviewMode(mode);
       setPreviewAnimations(canAnimate);
     }
   }, [user, originalUser]);
 
+  function handleAvatarChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      const result = reader.result as string;
+      setPreviewAvatar(result);
+      setCurrentUser((prev) =>
+        prev
+          ? {
+              ...prev,
+              avatar: result,
+            }
+          : null,
+      );
+    };
+    reader.readAsDataURL(file);
+  }
+  function handleRemoveAvatar() {
+    setPreviewAvatar("");
+    setCurrentUser((prev) =>
+      prev
+        ? {
+            ...prev,
+            avatar: "",
+          }
+        : null,
+    );
+  }
+  function handleBannerChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      const result = reader.result as string;
+      setPreviewBanner(result);
+      setCurrentUser((prev) =>
+        prev
+          ? {
+              ...prev,
+              banner: result,
+            }
+          : null,
+      );
+    };
+    reader.readAsDataURL(file);
+  }
+  function handleRemoveBanner() {
+    setPreviewBanner("");
+    setCurrentUser((prev) =>
+      prev
+        ? {
+            ...prev,
+            banner: "",
+          }
+        : null,
+    );
+  }
   function handleUserColorChange(color: string) {
     setPreviewColor(color);
     setCurrentUser((prev) =>
@@ -106,7 +176,7 @@ export default function SettingsAppearance({
     setPreviewAnimations(newValue);
     setAnimations(newValue);
   }
-
+  // SAVE CHANGES FUNCTION //
   function handleSaveAppearance() {
     if (!user) return;
     const savedUsers = localStorage.getItem("users");
@@ -116,6 +186,8 @@ export default function SettingsAppearance({
     const updatedUser = {
       ...user,
       color: previewColor,
+      avatar: previewAvatar,
+      banner: previewBanner,
     };
     const updatedUsers = users.map((u) => (u.id === user.id ? updatedUser : u));
 
@@ -124,6 +196,8 @@ export default function SettingsAppearance({
     originalModeRef.current = previewMode;
     originalAnimationsRef.current = previewAnimations;
     originalColorRef.current = previewColor;
+    originalAvatarRef.current = previewAvatar;
+    originalBannerRef.current = previewBanner;
 
     localStorage.setItem("users", JSON.stringify(updatedUsers));
     setCurrentUser(updatedUser);
@@ -140,6 +214,87 @@ export default function SettingsAppearance({
       </div>
 
       <div className="flex flex-col gap-8 compact:gap-4">
+        <div className="flex flex-col">
+          <p className="dashboard-section-label mb-3 compact:mb-1.5">
+            Profile Picture
+          </p>
+          <div className="flex items-end gap-2">
+            {previewAvatar ? (
+              <img
+                src={previewAvatar}
+                className="w-40 h-40 rounded-full object-cover"
+              />
+            ) : (
+              <div
+                style={
+                  {
+                    backgroundColor: previewColor || "#22c55e",
+                    color: user?.textColor || "#000000",
+                  } as React.CSSProperties
+                }
+                className="w-40 h-40 rounded-full flex items-center justify-center text-5xl font-bold dashboard-stat-box"
+              >
+                {user?.name?.[0]?.toUpperCase()}
+              </div>
+            )}
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleAvatarChange}
+              className="hidden"
+              id="avatar-upload"
+            />
+            <label
+              htmlFor="avatar-upload"
+              className="dashboard-button-secondary cursor-pointer"
+            >
+              Edit Avatar
+            </label>
+            <button
+              onClick={handleRemoveAvatar}
+              className="dashboard-button-danger cursor-pointer"
+            >
+              Remove Avatar
+            </button>
+          </div>
+        </div>
+        <div className="flex flex-col">
+          <p className="dashboard-section-label mb-3 compact:mb-1.5">
+            Profile Banner
+          </p>
+          <img src={previewBanner} className="w-full h-40 object-cover" />
+        </div>
+        <div>
+          <p className="dashboard-section-label mb-3 compact:mb-1.5">
+            Accent Color
+          </p>
+          {!user && <div className="min-h-7"></div>}
+          {user && (
+            <div className="flex flex-wrap gap-3 compact:gap-1.5">
+              {colors.map((buttonColor) => (
+                <button
+                  key={buttonColor}
+                  onClick={() => handleUserColorChange(buttonColor)}
+                  style={{ "--bg": buttonColor } as React.CSSProperties}
+                  className={`dashboard-color-picker bg-(--bg)
+                    ${
+                      previewColor === buttonColor
+                        ? buttonColor === "#ffffff"
+                          ? `scale-105 border-white dark:shadow-[inset_0_0_0_2px_rgb(0,0,0)] light:border-black light:shadow-[inset_0_0_0_1px_rgb(0,0,0)]`
+                          : buttonColor === "#000000"
+                            ? `scale-105 border-white light:border-black light:shadow-[inset_0_0_0_2px_rgb(255,255,255)] dark:shadow-[inset_0_0_0_1px_rgb(255,255,255)]`
+                            : `scale-110 border-white light:border-black light:shadow-[inset_0_0_0_1px_rgb(0,0,0)] dark:shadow-[inset_0_0_0_1px_rgb(255,255,255)]`
+                        : buttonColor === "#ffffff"
+                          ? `border-transparent light:border-black light:scale-105 hover:scale-105`
+                          : buttonColor === "#000000"
+                            ? `dark:border-white light:border-black scale-105 hover:scale-110`
+                            : `border-transparent hover:scale-105`
+                    }`}
+                ></button>
+              ))}
+            </div>
+          )}
+        </div>
         <div>
           <p className="dashboard-section-label mb-3 compact:mb-1.5">Theme</p>
           <div className="flex gap-3 compact:gap-1.5">
@@ -198,38 +353,6 @@ export default function SettingsAppearance({
               </div>
             </button>
           </div>
-        </div>
-
-        <div>
-          <p className="dashboard-section-label mb-3 compact:mb-1.5">
-            Accent Color
-          </p>
-          {!user && <div className="min-h-7"></div>}
-          {user && (
-            <div className="flex flex-wrap gap-3 compact:gap-1.5">
-              {colors.map((buttonColor) => (
-                <button
-                  key={buttonColor}
-                  onClick={() => handleUserColorChange(buttonColor)}
-                  style={{ "--bg": buttonColor } as React.CSSProperties}
-                  className={`dashboard-color-picker bg-(--bg)
-                    ${
-                      previewColor === buttonColor
-                        ? buttonColor === "#ffffff"
-                          ? `scale-105 border-white dark:shadow-[inset_0_0_0_2px_rgb(0,0,0)] light:border-black light:shadow-[inset_0_0_0_1px_rgb(0,0,0)]`
-                          : buttonColor === "#000000"
-                            ? `scale-105 border-white light:border-black light:shadow-[inset_0_0_0_2px_rgb(255,255,255)] dark:shadow-[inset_0_0_0_1px_rgb(255,255,255)]`
-                            : `scale-110 border-white light:border-black light:shadow-[inset_0_0_0_1px_rgb(0,0,0)] dark:shadow-[inset_0_0_0_1px_rgb(255,255,255)]`
-                        : buttonColor === "#ffffff"
-                          ? `border-transparent light:border-black light:scale-105 hover:scale-105`
-                          : buttonColor === "#000000"
-                            ? `dark:border-white light:border-black scale-105 hover:scale-110`
-                            : `border-transparent hover:scale-105`
-                    }`}
-                ></button>
-              ))}
-            </div>
-          )}
         </div>
         <div>
           <p className="dashboard-section-label mb-2 compact:mb-1">
