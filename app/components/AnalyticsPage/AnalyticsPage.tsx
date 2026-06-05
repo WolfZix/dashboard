@@ -1,6 +1,7 @@
 import MostUsedColors from "./MostUsedColors";
 import UserGrowthChart from "./UserGrowthChart";
 import RolesOverview from "./RolesOverview";
+import TopUsers from "./TopUsers";
 
 export default function AnalyticsPage() {
   // MAIN LOGIC
@@ -102,21 +103,7 @@ export default function AnalyticsPage() {
           <h2 className="dashboard-title mb-4">Top Users</h2>
 
           <div className="space-y-3">
-            {[1, 2, 3, 4, 5].map((user) => (
-              <div
-                key={user}
-                className="dashboard-stat-box flex items-center justify-between"
-              >
-                <div>
-                  <p className="dashboard-title">User {user}</p>
-                  <p className="dashboard-subtitle">
-                    {250 - user * 15} commits
-                  </p>
-                </div>
-
-                <span className="font-semibold text-lime-500">#{user}</span>
-              </div>
-            ))}
+            <TopUsers />
           </div>
         </div>
 
