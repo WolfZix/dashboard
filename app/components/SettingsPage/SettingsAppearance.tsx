@@ -23,6 +23,7 @@ export default function SettingsAppearance({
   const [originalUser, setOriginalUser] = useState<User | null>(null);
 
   const originalColorRef = useRef(user?.color || "#22c55e");
+  const originalTextColorRef = useRef(user?.textColor || "#000000");
   const originalAvatarRef = useRef(user?.avatar || "");
   const originalBannerRef = useRef(user?.banner || "");
   const originalThemeRef = useRef(theme);
@@ -32,6 +33,9 @@ export default function SettingsAppearance({
   const [previewAvatar, setPreviewAvatar] = useState(user?.avatar || "");
   const [previewBanner, setPreviewBanner] = useState(user?.banner || "");
   const [previewColor, setPreviewColor] = useState(user?.color || "#22c55e");
+  const [previewTextColor, setPreviewTextColor] = useState(
+    user?.textColor || "#000000",
+  );
   const [previewTheme, setPreviewTheme] = useState(theme);
   const [previewMode, setPreviewMode] = useState(mode);
   const [previewAnimations, setPreviewAnimations] = useState(canAnimate);
@@ -40,6 +44,7 @@ export default function SettingsAppearance({
     previewAvatar !== originalUser?.avatar ||
     previewBanner !== originalUser?.banner ||
     previewColor !== originalUser?.color ||
+    previewTextColor !== originalUser?.textColor ||
     previewTheme !== originalThemeRef.current ||
     previewMode !== originalModeRef.current ||
     previewAnimations !== originalAnimationsRef.current;
@@ -70,6 +75,7 @@ export default function SettingsAppearance({
             ? {
                 ...prev,
                 color: originalColorRef.current,
+                textColor: originalTextColorRef.current,
                 avatar: originalAvatarRef.current,
                 banner: originalBannerRef.current,
               }
@@ -82,10 +88,12 @@ export default function SettingsAppearance({
   useEffect(() => {
     if (user && !originalUser) {
       originalColorRef.current = user.color;
+      originalTextColorRef.current = user.textColor || "#000000";
       originalAvatarRef.current = user.avatar || "";
       originalBannerRef.current = user.banner || "";
       setOriginalUser(structuredClone(user));
       setPreviewColor(user.color);
+      setPreviewTextColor(user.textColor);
       setPreviewAvatar(user.avatar || "");
       setPreviewBanner(user.banner || "");
       setPreviewTheme(theme);
@@ -154,11 +162,14 @@ export default function SettingsAppearance({
   }
   function handleUserColorChange(color: string) {
     setPreviewColor(color);
+    const textColor = color === "#000000" ? "#FFFFFF" : "#000000";
+    setPreviewTextColor(textColor);
     setCurrentUser((prev) =>
       prev
         ? {
             ...prev,
             color,
+            textColor,
           }
         : null,
     );
@@ -218,51 +229,97 @@ export default function SettingsAppearance({
           <p className="dashboard-section-label mb-3 compact:mb-1.5">
             Profile Picture
           </p>
-          <div className="flex items-end gap-2">
+          <div className="flex flex-col w-fit items-center gap-5">
             {previewAvatar ? (
               <img
-                src={previewAvatar}
-                className="w-40 h-40 rounded-full object-cover"
-              />
-            ) : (
-              <div
                 style={
                   {
                     backgroundColor: previewColor || "#22c55e",
                     color: user?.textColor || "#000000",
+                    boxShadow: `0 0 20px ${previewColor}25`,
+                    "--border-color-dark": `${previewColor}35`,
+                    "--border-color-light": `${previewColor}`,
                   } as React.CSSProperties
                 }
-                className="w-40 h-40 rounded-full flex items-center justify-center text-5xl font-bold dashboard-stat-box"
-              >
+                src={previewAvatar}
+                className="w-40 h-40 rounded-full object-cover border border-(--border-color-dark) light:border-(--border-color-light) transition-all duration-300"
+              />
+            ) : (
+              <div className="w-40 h-40 rounded-full flex items-center justify-center text-5xl font-bold dashboard-stat-box">
                 {user?.name?.[0]?.toUpperCase()}
               </div>
             )}
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleAvatarChange}
-              className="hidden"
-              id="avatar-upload"
-            />
-            <label
-              htmlFor="avatar-upload"
-              className="dashboard-button-secondary cursor-pointer"
-            >
-              Edit Avatar
-            </label>
-            <button
-              onClick={handleRemoveAvatar}
-              className="dashboard-button-danger cursor-pointer"
-            >
-              Remove Avatar
-            </button>
+            <div className="flex gap-2">
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleAvatarChange}
+                className="hidden"
+                id="avatar-upload"
+              />
+              <label
+                htmlFor="avatar-upload"
+                className="dashboard-button-secondary cursor-pointer"
+              >
+                Edit Avatar
+              </label>
+              <button
+                onClick={handleRemoveAvatar}
+                className="dashboard-button-danger cursor-pointer"
+              >
+                Remove Avatar
+              </button>
+            </div>
           </div>
         </div>
         <div className="flex flex-col">
           <p className="dashboard-section-label mb-3 compact:mb-1.5">
             Profile Banner
           </p>
-          <img src={previewBanner} className="w-full h-40 object-cover" />
+          <div
+            style={
+              {
+                "--boxShadow": `0 0 20px ${previewColor}20`,
+                "--boxShadow-light": `0 0 20px ${previewColor}75`,
+              } as React.CSSProperties
+            }
+            className="w-full h-55 rounded-3xl compact:rounded-lg bg-linear-to-br from-slate-950 to-slate-800 relative overflow-hidden mb-5 compact:mb-2.5 shadow-(--boxShadow) light:shadow-(--boxShadow-light) transition-all duration-300"
+          >
+            {previewBanner ? (
+              <>
+                <img
+                  src={previewBanner}
+                  className="w-full h-full object-cover relative"
+                />
+                <div className="absolute inset-0 bg-black/85 light:bg-transparent transition-all duration-300"></div>
+              </>
+            ) : (
+              <div className="dashboard-stat-box w-full h-55">
+                <div className="absolute inset-0 bg-black/85 light:bg-transparent transition-all duration-300"></div>
+              </div>
+            )}
+          </div>
+          <div className="flex gap-2">
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleBannerChange}
+              className="hidden"
+              id="banner-upload"
+            />
+            <label
+              htmlFor="banner-upload"
+              className="dashboard-button-secondary cursor-pointer"
+            >
+              Edit Banner
+            </label>
+            <button
+              onClick={handleRemoveBanner}
+              className="dashboard-button-danger cursor-pointer"
+            >
+              Remove Banner
+            </button>
+          </div>
         </div>
         <div>
           <p className="dashboard-section-label mb-3 compact:mb-1.5">
