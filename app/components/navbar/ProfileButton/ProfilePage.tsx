@@ -109,11 +109,10 @@ export default function ProfilePage() {
                 {
                   backgroundColor: "black",
                   boxShadow: `0 0 20px ${user.color}25`,
-                  "--border-color-dark": `${user.color}35`,
-                  "--border-color-light": `${user.color}`,
+                  "--border-color": `${user.color}`,
                 } as React.CSSProperties
               }
-              className="relative rounded-full border transition-all duration-300 border-(--border-color-dark) light:border-(--border-color-light)"
+              className="relative rounded-full border transition-all duration-300 border-(--border-color)"
             >
               <div
                 style={{ backgroundColor: user.color }}
@@ -140,7 +139,7 @@ export default function ProfilePage() {
                       "--text-light": `${user.color}`,
                     } as React.CSSProperties
                   }
-                  className={`text-5xl font-bold text-(--text-dark) light:text-(--text-light) opacity-75 light:opacity-100`}
+                  className={`text-5xl font-bold transition-all duration-300 text-(--text-dark) light:text-(--text-light) opacity-75 light:opacity-100 text-shadow-none light:text-shadow-[0_0_5px_rgb(0,0,0)]`}
                 >
                   {user?.name}
                 </h1>
@@ -150,8 +149,19 @@ export default function ProfilePage() {
                   {user?.role}
                 </div>
               </div>
-              <p className="text-slate-300 mb-2 compact:mb-1">{user?.bio}</p>
-              <p className="text-sm text-slate-500">{user?.joined}</p>
+              <p
+                style={
+                  {
+                    "--bg": `${user.color}50`,
+                  } as React.CSSProperties
+                }
+                className="bg-(--bg) backdrop-blur-xs rounded-full w-fit px-3 py-1 text-white light:text-shadow-[0_0_5px_rgb(0,0,0)] mb-2 compact:mb-1"
+              >
+                {user?.bio}
+              </p>
+              <p className="text-sm text-slate-300 light:text-slate-500 light:text-shadow-[0_0_5px_rgb(0,0,0)]">
+                Joined: {user?.joined}
+              </p>
             </div>
           </div>
           {/* Right */}
@@ -162,20 +172,18 @@ export default function ProfilePage() {
                 {
                   boxShadow: `0px 0px 20px ${user.color}50`,
                   "--border-color": `${user.color}90`,
-                  "--text": `${user.color}`,
-                  "--hover-text": `${user.color !== "#ffffff" ? "#ffffff" : "#000000"}`,
                   "--bg": `${user.color}50`,
                   "--hover-bg": `${user.color}70`,
                 } as React.CSSProperties
               }
-              className={`px-6 py-3 rounded-2xl compact:px-3 compact:py-1.5 compact:rounded-xl transition-all duration-300 border border-(--border-color) backdrop-blur-md cursor-pointer hover:scale-[1.02] active:scale-[0.98]
-                ${
-                  user.color === "#ffffff"
-                    ? "text-black light:bg-white light:hover:bg-white/80 light:opacity-100 bg-white opacity-75 hover:opacity-100"
-                    : user.color === "#000000"
-                      ? "text-white/75 bg-black transition-all duration-300 border-white hover:text-white hover:bg-white/5"
-                      : "hover:bg-(--hover-bg) bg-(--bg) text-(--text) hover:text-(--hover-text)"
-                }`}
+              className={`
+              dashboard-button-edit-profile
+              border-(--border-color)
+              bg-(--bg)
+              hover:bg-(--hover-bg)
+              hover:text-white
+              ${user.color === "#000000" ? "text-shadow-none light:text-shadow-none" : "text-shadow-none light:text-shadow-[0_0_5px_rgb(0,0,0)]"}
+              `}
             >
               Edit Profile
             </button>
@@ -335,9 +343,8 @@ export default function ProfilePage() {
           </div>
         </div>
       </div>
-      {/* ZROBIĆ LIGHT MODE DLA TOAST */}
       {toast && (
-        <div className="fixed bottom-5 right-5 z-999 overflow-hidden rounded-2xl compact:rounded-xl border border-slate-700 bg-slate-900 shadow-2xl min-w-80 transition-all duration-300">
+        <div className="fixed bottom-5 right-5 z-999 overflow-hidden rounded-2xl compact:rounded-xl border border-slate-700 light:border-slate-400 bg-slate-900 light:bg-slate-200 shadow-2xl min-w-80 transition-all duration-300">
           {/* Progress bar */}
           <div className="absolute bottom-0 left-0 h-1 bg-lime-400 animate-[toast_2s_linear_forwards] transition-all duration-300"></div>
 

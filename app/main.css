@@ -293,6 +293,22 @@
       bg-red-600
       hover:bg-red-500;
   }
+  .dashboard-button-edit-profile {
+    @apply px-6
+    py-3
+    rounded-2xl
+    compact:px-3
+    compact:py-1.5
+    compact:rounded-xl
+    transition-all
+    duration-300
+    border
+    text-white/70
+    backdrop-blur-xs
+    cursor-pointer
+    hover:scale-[1.02]
+    active:scale-[0.98];
+  }
 }
 
 #root {

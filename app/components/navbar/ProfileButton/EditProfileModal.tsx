@@ -25,7 +25,7 @@ export default function EditProfileModal({
     if (newUsername && newUsername !== user.name) {
       changedFields.push("username");
     }
-    if (bio !== user.bio) {
+    if (bio !== user.bio && bio !== "") {
       changedFields.push("bio");
     }
     if (color !== user.color) {
@@ -155,7 +155,9 @@ export default function EditProfileModal({
           ) : null}
 
           {/* Overlay */}
-          <div className={`absolute inset-0 bg-black/85`}></div>
+          <div
+            className={`absolute inset-0 bg-black/85 light:bg-transparent`}
+          ></div>
 
           {/* Close button */}
           <button
@@ -220,7 +222,12 @@ export default function EditProfileModal({
                   style={{
                     color: `${color}`,
                   }}
-                  className="text-4xl font-bold transition-all duration-300"
+                  className="
+                    text-4xl
+                    font-bold
+                    transition-all
+                    duration-300
+                    text-shadow-none light:text-shadow-[0_0_5px_rgb(0,0,0)]"
                 >
                   {user.name}
                 </div>
@@ -232,7 +239,9 @@ export default function EditProfileModal({
                 </div>
               </div>
 
-              <p className="text-sm text-slate-300">Joined: {user.joined}</p>
+              <p className="text-sm text-slate-300 light:text-shadow-[0_0_5px_rgb(0,0,0)]">
+                Joined: {user.joined}
+              </p>
             </div>
           </div>
         </div>
