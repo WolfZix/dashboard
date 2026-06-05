@@ -3,16 +3,15 @@ import type { User } from "../UsersPage/users.types";
 import { useTheme } from "../../context/ThemeContext";
 import { useAnimations } from "../../context/AnimationContext";
 import { useMode } from "../../context/ModeContext";
-import { useUserColor } from "../../context/UserColorContext";
 
 type SettingsAppearanceProps = {
   user: User | null;
-  setUser: React.Dispatch<React.SetStateAction<User | null>>;
+  setCurrentUser: React.Dispatch<React.SetStateAction<User | null>>;
 };
 
 export default function SettingsAppearance({
   user,
-  setUser,
+  setCurrentUser,
 }: SettingsAppearanceProps) {
   const savedRef = useRef(false);
 
@@ -20,7 +19,6 @@ export default function SettingsAppearance({
   const theme = isLightMode ? "light" : "dark";
   const { mode, setMode } = useMode();
   const { canAnimate, setAnimations } = useAnimations();
-  const { setUserColor } = useUserColor();
 
   const [originalUser, setOriginalUser] = useState<User | null>(null);
 
@@ -58,10 +56,17 @@ export default function SettingsAppearance({
     savedRef.current = false;
     return () => {
       if (!savedRef.current) {
-        setUserColor(originalColorRef.current);
         setTheme(originalThemeRef.current as "light" | "dark");
         setMode(originalModeRef.current as "comfortable" | "compact");
         setAnimations(originalAnimationsRef.current);
+        setCurrentUser((prev) =>
+          prev
+            ? {
+                ...prev,
+                color: originalColorRef.current,
+              }
+            : null,
+        );
       }
     };
   }, []);
@@ -79,7 +84,14 @@ export default function SettingsAppearance({
 
   function handleUserColorChange(color: string) {
     setPreviewColor(color);
-    setUserColor(color);
+    setCurrentUser((prev) =>
+      prev
+        ? {
+            ...prev,
+            color,
+          }
+        : null,
+    );
   }
   function handleThemePreview(theme: "light" | "dark") {
     setPreviewTheme(theme);
@@ -108,15 +120,14 @@ export default function SettingsAppearance({
     const updatedUsers = users.map((u) => (u.id === user.id ? updatedUser : u));
 
     savedRef.current = true;
-    originalThemeRef.current = theme;
-    originalModeRef.current = mode;
-    originalAnimationsRef.current = canAnimate;
+    originalThemeRef.current = previewTheme;
+    originalModeRef.current = previewMode;
+    originalAnimationsRef.current = previewAnimations;
     originalColorRef.current = previewColor;
 
     localStorage.setItem("users", JSON.stringify(updatedUsers));
-    setUser(updatedUser);
+    setCurrentUser(updatedUser);
     setOriginalUser(structuredClone(updatedUser));
-    window.dispatchEvent(new CustomEvent("userColorChanged"));
   }
 
   return (

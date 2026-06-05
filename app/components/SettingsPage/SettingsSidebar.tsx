@@ -1,4 +1,4 @@
-import { useUserColor } from "../../context/UserColorContext";
+import { useUser } from "../../context/UserContext";
 
 type SidebarOptions = {
   name: string;
@@ -16,7 +16,8 @@ export default function SettingsSidebar({
   activeTab,
   setActiveTab,
 }: SettingsSidebarProps) {
-  const { userColor } = useUserColor();
+  const { currentUser } = useUser();
+  const currentUserColor = currentUser?.color || "#22c55e";
 
   return (
     <div className="w-72 h-fit rounded-4xl pt-6 compact:rounded-2xl compact:pt-3">
@@ -43,7 +44,7 @@ export default function SettingsSidebar({
               {activeTab === option.name && (
                 <div
                   style={{
-                    backgroundColor: userColor,
+                    backgroundColor: currentUserColor,
                   }}
                   className={`absolute -left-1.5 rounded-4xl compact:rounded-2xl w-0.75 h-6`}
                 ></div>

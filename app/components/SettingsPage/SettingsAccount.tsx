@@ -3,12 +3,12 @@ import type { User } from "../UsersPage/users.types";
 
 type SettingsAccountProps = {
   user: User | null;
-  setUser: React.Dispatch<React.SetStateAction<User | null>>;
+  setCurrentUser: React.Dispatch<React.SetStateAction<User | null>>;
 };
 
 export default function SettingsAccount({
   user,
-  setUser,
+  setCurrentUser,
 }: SettingsAccountProps) {
   const [username, setUsername] = useState(user?.name || "User");
   const [email, setEmail] = useState(user?.email || "");
@@ -56,7 +56,7 @@ export default function SettingsAccount({
         bio,
         password: newPassword ? newPassword : user.password,
       };
-      setUser(updateUser);
+      setCurrentUser(updateUser);
       const users: User[] = JSON.parse(localStorage.getItem("users") || "[]");
       const updatedUsers = users.map((u) =>
         u.id === user.id ? updateUser : u,

@@ -6,9 +6,10 @@ import SettingsNotifications from "./SettingsNotifications";
 import SettingsSidebar from "./SettingsSidebar";
 import { useEffect, useState } from "react";
 import type { User } from "../UsersPage/users.types";
+import { useUser } from "../../context/UserContext";
 
 export default function SettingsPage() {
-  const [user, setUser] = useState<User | null>(null);
+  const { currentUser, setCurrentUser } = useUser();
   useEffect(() => {
     const storedUsername = localStorage.getItem("username");
     if (!storedUsername) return;
@@ -18,7 +19,7 @@ export default function SettingsPage() {
     const foundUser = users.find(
       (u) => u.name.toLowerCase() === storedUsername.toLowerCase(),
     );
-    if (foundUser) setUser(foundUser);
+    if (foundUser) setCurrentUser(foundUser);
   }, []);
   const [activeTab, setActiveTab] = useState("Appearance");
   const options = [
@@ -40,7 +41,7 @@ export default function SettingsPage() {
     },
   ];
 
-  if (!user) return <div>Loading...</div>;
+  if (!currentUser) return <div>Loading...</div>;
 
   return (
     <div className="flex gap-6 compact:gap-3 h-full">
@@ -51,10 +52,13 @@ export default function SettingsPage() {
       />
       <div className="flex-1 flex flex-col gap-6 compact:gap-3">
         {activeTab === "Appearance" && (
-          <SettingsAppearance user={user} setUser={setUser} />
+          <SettingsAppearance
+            user={currentUser}
+            setCurrentUser={setCurrentUser}
+          />
         )}
         {activeTab === "Account" && (
-          <SettingsAccount user={user} setUser={setUser} />
+          <SettingsAccount user={currentUser} setCurrentUser={setCurrentUser} />
         )}
         {activeTab === "Privacy" && <SettingsPrivacy />}
         {activeTab === "Notifications" && <SettingsNotifications />}
