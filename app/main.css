@@ -5,15 +5,14 @@
 @custom-variant noAnimations (&:where(.noAnimations, .noAnimations *));
 
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
-    "Noto Color Emoji";
+  --font-sans:
+    "Inter", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 @layer components {
   .dashboard-card {
-    @apply
-      bg-slate-900
+    @apply bg-slate-900
       border
       border-slate-700
       light:bg-white
@@ -27,8 +26,7 @@
     @apply font-bold light:text-[#0f172a] text-2xl;
   }
   .dashboard-title {
-    @apply
-      font-semibold
+    @apply font-semibold
       select-none
       light:text-[#0f172a];
   }
@@ -36,8 +34,7 @@
     @apply text-slate-400 light:text-[#64748b] text-sm;
   }
   .dashboard-icon-button {
-    @apply
-      w-8
+    @apply w-8
       h-8
       flex
       items-center
@@ -52,8 +49,7 @@
       cursor-pointer;
   }
   .dashboard-news-arrow {
-    @apply
-      absolute
+    @apply absolute
       top-0
       bottom-0
       z-10
@@ -81,8 +77,7 @@
     @apply text-slate-400 light:text-slate-600;
   }
   .dashboard-pagination-dot {
-    @apply
-      h-2.5
+    @apply h-2.5
       w-7
       cursor-pointer
       rounded-full
@@ -90,8 +85,7 @@
       duration-300;
   }
   .dashboard-input {
-    @apply
-      w-full
+    @apply w-full
       px-4
       py-3
       rounded-xl
@@ -104,26 +98,23 @@
       focus:border-lime-500;
   }
   .dashboard-stat-box {
-    @apply
-    bg-slate-800
+    @apply bg-slate-800
     light:bg-slate-100
     rounded-xl
     p-4
     border
-    border-slate-800;
+    border-slate-800
+    light:border-slate-300;
   }
   .dashboard-stat-label {
-  @apply
-    text-sm
+    @apply text-sm
     text-slate-400;
   }
   .dashboard-stat-value {
-    @apply
-      font-semibold;
+    @apply font-semibold;
   }
   .dashboard-button {
-    @apply
-      px-5
+    @apply px-5
       py-3
       rounded-xl
       transition-all
@@ -131,8 +122,7 @@
       cursor-pointer;
   }
   .dashboard-button-secondary {
-    @apply
-      px-5
+    @apply px-5
       py-3
       rounded-xl
       transition-all
@@ -144,27 +134,23 @@
       light:hover:bg-slate-300;
   }
   .dashboard-section-title {
-    @apply
-      text-lg
+    @apply text-lg
       font-semibold
       mb-4;
   }
   .dashboard-label {
-    @apply
-      block
+    @apply block
       text-sm
       text-slate-400
       mb-2;
   }
   .dashboard-section-label {
-    @apply
-      text-sm
+    @apply text-sm
       text-slate-400
       light:text-slate-600;
   }
   .dashboard-option-card {
-    @apply
-      flex-1
+    @apply flex-1
       h-28
       compact:h-22
       rounded-3xl
@@ -180,8 +166,7 @@
       cursor-pointer;
   }
   .dashboard-density-button {
-    @apply
-      flex-1
+    @apply flex-1
       py-4
       compact:py-2
       rounded-2xl
@@ -193,8 +178,7 @@
       cursor-pointer;
   }
   .dashboard-color-picker {
-    @apply
-      w-7
+    @apply w-7
       h-7
       rounded-full
       border
@@ -206,8 +190,7 @@
     @apply border-slate-800 light:border-[#e2e8f0];
   }
   .dashboard-sidebar-link {
-    @apply
-      flex
+    @apply flex
       items-center
       gap-3
       px-4
@@ -221,8 +204,7 @@
       duration-300;
   }
   .dashboard-sidebar-link-inactive {
-    @apply
-      text-slate-400
+    @apply text-slate-400
       hover:bg-slate-800
       hover:text-white
       light:text-slate-500
@@ -231,15 +213,13 @@
   }
 
   .dashboard-sidebar-link-active {
-    @apply
-      bg-slate-700
+    @apply bg-slate-700
       text-white
       light:bg-[#f1f5f9]
       light:text-slate-950;
   }
   .dashboard-modal-overlay {
-    @apply
-      fixed
+    @apply fixed
       inset-0
       bg-black/50
       flex
@@ -248,8 +228,7 @@
       z-999;
   }
   .dashboard-user-badge {
-    @apply
-      text-white
+    @apply text-white
       font-normal
       text-xs
       px-2
@@ -261,8 +240,7 @@
       select-none;
   }
   .dashboard-avatar-edit-button {
-    @apply
-      absolute
+    @apply absolute
       -bottom-1
       -right-1
       w-7
@@ -287,8 +265,7 @@
       shadow-lg;
   }
   .dashboard-button-success {
-    @apply
-      px-5
+    @apply px-5
       py-3
       compact:px-3
       compact:py-2
@@ -302,14 +279,12 @@
       light:hover:bg-green-500;
   }
   .dashboard-form-label {
-    @apply
-      text-slate-400
+    @apply text-slate-400
       mb-1
       compact:mb-0.5;
   }
   .dashboard-button-danger {
-    @apply
-      px-5
+    @apply px-5
       py-3
       rounded-xl
       transition-all
@@ -334,8 +309,7 @@
 
 html,
 body {
-  @apply
-    bg-slate-100
+  @apply bg-slate-100
     dark:bg-slate-900;
 
   margin: 0;
@@ -356,11 +330,9 @@ input:-webkit-autofill:hover {
 
   -webkit-text-fill-color: #cbd5e1 !important;
 
-  -webkit-box-shadow:
-    0 0 0px 1000px #0f172a inset !important;
+  -webkit-box-shadow: 0 0 0px 1000px #0f172a inset !important;
 
-  box-shadow:
-    0 0 0px 1000px #0f172a inset !important;
+  box-shadow: 0 0 0px 1000px #0f172a inset !important;
 
   caret-color: #cbd5e1 !important;
   color: white !important;
@@ -369,15 +341,12 @@ input:-webkit-autofill:hover {
 
 .light input:-webkit-autofill,
 .light input:-webkit-autofill:active,
-.light input:-webkit-autofill:focus
-.light input:-webkit-autofill:hover {
+.light input:-webkit-autofill:focus .light input:-webkit-autofill:hover {
   -webkit-text-fill-color: black !important;
 
-  -webkit-box-shadow:
-    0 0 0px 1000px white inset !important;
+  -webkit-box-shadow: 0 0 0px 1000px white inset !important;
 
-  box-shadow:
-    0 0 0px 1000px white inset !important;
+  box-shadow: 0 0 0px 1000px white inset !important;
 
   caret-color: #000000 !important;
   color: rgb(0, 0, 0) !important;

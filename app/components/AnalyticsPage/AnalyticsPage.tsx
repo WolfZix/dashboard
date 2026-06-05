@@ -49,8 +49,6 @@ export default function AnalyticsPage() {
 
   return (
     <div className="space-y-6 compact:space-y-3">
-      <h1 className="dashboard-heading">Analytics</h1>
-
       {/* Activity Heatmap */}
       <div className="dashboard-card rounded-2xl p-5 compact:p-3">
         <h2 className="dashboard-title mb-4">Activity Heatmap</h2>
