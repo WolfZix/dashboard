@@ -2,6 +2,10 @@ import MostUsedColors from "./MostUsedColors";
 import UserGrowthChart from "./UserGrowthChart";
 import RolesOverview from "./RolesOverview";
 import TopUsers from "./TopUsers";
+import UserStatusDistribution from "./UserStatusDistribution";
+import { useEffect, useState } from "react";
+import { getDashboardData } from "../../services/dashboard.server";
+import type { User } from "../UsersPage/users.types";
 
 export default function AnalyticsPage() {
   // MAIN LOGIC
@@ -23,6 +27,25 @@ export default function AnalyticsPage() {
     "1010101010010001001110011110100011110111110101000100101010101",
     "1101010110000000000000000000000000000000000000000000110101011",
   ];
+
+  const [users, setUsers] = useState<User[]>([]);
+
+  useEffect(() => {
+    async function loadUsers() {
+      const savedUsers = localStorage.getItem("users");
+
+      if (savedUsers) {
+        setUsers(JSON.parse(savedUsers));
+        return;
+      }
+
+      const result = await getDashboardData();
+      setUsers(result.usersData);
+      localStorage.setItem("users", JSON.stringify(result.usersData));
+    }
+
+    loadUsers();
+  }, []);
 
   return (
     <div className="space-y-6 compact:space-y-3">
@@ -84,7 +107,7 @@ export default function AnalyticsPage() {
           <h2 className="dashboard-title mb-4">User Growth</h2>
 
           <div className="h-full flex items-center justify-center dashboard-muted-text">
-            <UserGrowthChart />
+            <UserGrowthChart users={users} />
           </div>
         </div>
 
@@ -92,7 +115,7 @@ export default function AnalyticsPage() {
           <h2 className="dashboard-title mb-4">Most Used Colors</h2>
 
           <div className="h-[calc(100%-40px)]">
-            <MostUsedColors />
+            <MostUsedColors users={users} />
           </div>
         </div>
       </div>
@@ -103,7 +126,7 @@ export default function AnalyticsPage() {
           <h2 className="dashboard-title mb-4">Top Users</h2>
 
           <div className="space-y-3">
-            <TopUsers />
+            <TopUsers users={users} />
           </div>
         </div>
 
@@ -111,7 +134,7 @@ export default function AnalyticsPage() {
           <h2 className="dashboard-title mb-4">Roles Overview</h2>
 
           <div className="space-y-3">
-            <RolesOverview />
+            <RolesOverview users={users} />
           </div>
         </div>
       </div>
@@ -121,49 +144,7 @@ export default function AnalyticsPage() {
         <h2 className="dashboard-title mb-6">User Status Distribution</h2>
 
         <div className="space-y-4">
-          <div>
-            <div className="flex justify-between mb-1">
-              <span className="dashboard-text">Online</span>
-              <span className="text-lime-500">128</span>
-            </div>
-
-            <div className="w-full h-3 rounded-full bg-slate-800 light:bg-slate-200">
-              <div className="w-[70%] h-full rounded-full bg-lime-500" />
-            </div>
-          </div>
-
-          <div>
-            <div className="flex justify-between mb-1">
-              <span className="dashboard-text">Away</span>
-              <span className="text-yellow-500">52</span>
-            </div>
-
-            <div className="w-full h-3 rounded-full bg-slate-800 light:bg-slate-200">
-              <div className="w-[35%] h-full rounded-full bg-yellow-500" />
-            </div>
-          </div>
-
-          <div>
-            <div className="flex justify-between mb-1">
-              <span className="dashboard-text">Busy</span>
-              <span className="text-red-500">24</span>
-            </div>
-
-            <div className="w-full h-3 rounded-full bg-slate-800 light:bg-slate-200">
-              <div className="w-[20%] h-full rounded-full bg-red-500" />
-            </div>
-          </div>
-
-          <div>
-            <div className="flex justify-between mb-1">
-              <span className="dashboard-text">Offline</span>
-              <span className="dashboard-muted-text">317</span>
-            </div>
-
-            <div className="w-full h-3 rounded-full bg-slate-800 light:bg-slate-200">
-              <div className="w-[90%] h-full rounded-full bg-slate-500" />
-            </div>
-          </div>
+          <UserStatusDistribution users={users} />
         </div>
       </div>
     </div>

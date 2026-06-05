@@ -1,10 +1,10 @@
 import type { User } from "../UsersPage/users.types";
 
-export default function RolesOverview() {
-  const users = localStorage.getItem("users")
-    ? (JSON.parse(localStorage.getItem("users")!) as User[])
-    : [];
+type RolesOverviewProps = {
+  users: User[];
+};
 
+export default function RolesOverview({ users }: RolesOverviewProps) {
   const roleCount = users.reduce(
     (acc, user) => {
       acc[user.role] = (acc[user.role] || 0) + 1;

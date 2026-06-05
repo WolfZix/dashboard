@@ -1,28 +1,11 @@
-import { useState, useEffect } from "react";
-import type { User } from "../UsersPage/users.types";
-import { getDashboardData } from "../../services/dashboard.server";
 import { Trophy } from "lucide-react";
+import type { User } from "../UsersPage/users.types";
 
-export default function TopUsers() {
-  const [users, setUsers] = useState<User[]>([]);
+type TopUsersProps = {
+  users: User[];
+};
 
-  useEffect(() => {
-    async function loadUsers() {
-      const savedUsers = localStorage.getItem("users");
-
-      if (savedUsers) {
-        setUsers(JSON.parse(savedUsers));
-        return;
-      }
-
-      const result = await getDashboardData();
-      setUsers(result.usersData);
-      localStorage.setItem("users", JSON.stringify(result.usersData));
-    }
-
-    loadUsers();
-  }, []);
-
+export default function TopUsers({ users }: TopUsersProps) {
   const topUsers = [...users].sort((a, b) => b.commits - a.commits).slice(0, 5);
   const medalColors = ["#EECC00", "#90a1b9", "#CC4400"];
   const podiumStyles = [

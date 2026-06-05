@@ -8,8 +8,13 @@ import {
   YAxis,
 } from "recharts";
 import { useState, useEffect } from "react";
+import type { User } from "../UsersPage/users.types";
 
-export default function UserGrowthChart() {
+type UserGrowthChartProps = {
+  users: User[];
+};
+
+export default function UserGrowthChart({ users }: UserGrowthChartProps) {
   const chartData = [
     { month: "Jan", users: 13 },
     { month: "Feb", users: 17 },
