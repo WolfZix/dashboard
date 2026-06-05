@@ -2,11 +2,11 @@ import type { User } from "../UsersPage/users.types";
 import { useEffect, useState } from "react";
 import { Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 
-const users = localStorage.getItem("users")
-  ? (JSON.parse(localStorage.getItem("users")!) as User[])
-  : [];
-
 export default function MostUsedColors() {
+  const users = localStorage.getItem("users")
+    ? (JSON.parse(localStorage.getItem("users")!) as User[])
+    : [];
+
   const [isLightMode, setIsLightMode] = useState(
     document.documentElement.classList.contains("light"),
   );

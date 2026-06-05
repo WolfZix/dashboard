@@ -1,5 +1,6 @@
 import MostUsedColors from "./MostUsedColors";
 import UserGrowthChart from "./UserGrowthChart";
+import RolesOverview from "./RolesOverview";
 
 export default function AnalyticsPage() {
   // MAIN LOGIC
@@ -123,25 +124,7 @@ export default function AnalyticsPage() {
           <h2 className="dashboard-title mb-4">Roles Overview</h2>
 
           <div className="space-y-3">
-            <div className="dashboard-stat-box flex justify-between items-center">
-              <span>Admins</span>
-              <span className="font-semibold">4</span>
-            </div>
-
-            <div className="dashboard-stat-box flex justify-between items-center">
-              <span>Moderators</span>
-              <span className="font-semibold">12</span>
-            </div>
-
-            <div className="dashboard-stat-box flex justify-between items-center">
-              <span>Premium</span>
-              <span className="font-semibold">58</span>
-            </div>
-
-            <div className="dashboard-stat-box flex justify-between items-center">
-              <span>Users</span>
-              <span className="font-semibold">247</span>
-            </div>
+            <RolesOverview />
           </div>
         </div>
       </div>
