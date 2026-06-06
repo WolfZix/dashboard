@@ -286,6 +286,8 @@
   .dashboard-button-danger {
     @apply px-5
       py-3
+      compact:px-3
+      compact:py-2
       rounded-xl
       transition-all
       duration-300
