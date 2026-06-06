@@ -1,5 +1,5 @@
 import { Bell, Brush, LucideUnlock, UserRound } from "lucide-react";
-import SettingsAppearance from "./SettingsAppearance";
+import SettingsAppearance from "./Appearance/SettingsAppearance";
 import SettingsAccount from "./SettingsAccount";
 import SettingsPrivacy from "./SettingsPrivacy";
 import SettingsNotifications from "./SettingsNotifications";
