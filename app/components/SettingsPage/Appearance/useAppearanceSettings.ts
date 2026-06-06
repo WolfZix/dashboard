@@ -19,6 +19,20 @@ const DEFAULT_APPEARANCE = {
   banner: "",
 };
 
+const PROFILE_COLORS = [
+  "#fb2c36",
+  "#ff6900",
+  "#f0b100",
+  "#22c55e",
+  "#00b8db",
+  "#2b7fff",
+  "#ad46ff",
+  "#f6339a",
+  "#000000",
+  "#ffffff",
+  "#62748e",
+];
+
 export default function useAppearanceSettings({
   user,
   setCurrentUser,
@@ -58,20 +72,6 @@ export default function useAppearanceSettings({
     previewTheme !== originalThemeRef.current ||
     previewMode !== originalModeRef.current ||
     previewAnimations !== originalAnimationsRef.current;
-
-  const colors = [
-    "#fb2c36",
-    "#ff6900",
-    "#f0b100",
-    "#22c55e",
-    "#00b8db",
-    "#2b7fff",
-    "#ad46ff",
-    "#f6339a",
-    "#000000",
-    "#ffffff",
-    "#62748e",
-  ];
 
   useEffect(() => {
     savedRef.current = false;
@@ -262,7 +262,7 @@ export default function useAppearanceSettings({
     previewAnimations,
 
     hasChanges,
-    colors,
+    colors: PROFILE_COLORS,
     canAnimate,
 
     handleAvatarChange,
