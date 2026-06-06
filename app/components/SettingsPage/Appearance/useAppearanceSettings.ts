@@ -9,6 +9,16 @@ type UseAppearanceSettingsProps = {
   setCurrentUser: React.Dispatch<React.SetStateAction<User | null>>;
 };
 
+const DEFAULT_APPEARANCE = {
+  theme: "dark" as const,
+  mode: "comfortable" as const,
+  animations: true,
+  color: "#22c55e",
+  textColor: "#000000",
+  avatar: "",
+  banner: "",
+};
+
 export default function useAppearanceSettings({
   user,
   setCurrentUser,
@@ -93,7 +103,7 @@ export default function useAppearanceSettings({
       originalBannerRef.current = user.banner || "";
       setOriginalUser(structuredClone(user));
       setPreviewColor(user.color);
-      setPreviewTextColor(user.textColor);
+      setPreviewTextColor(user.textColor || "#000000");
       setPreviewAvatar(user.avatar || "");
       setPreviewBanner(user.banner || "");
       setPreviewTheme(theme);
@@ -208,6 +218,7 @@ export default function useAppearanceSettings({
     originalModeRef.current = previewMode;
     originalAnimationsRef.current = previewAnimations;
     originalColorRef.current = previewColor;
+    originalTextColorRef.current = previewTextColor;
     originalAvatarRef.current = previewAvatar;
     originalBannerRef.current = previewBanner;
 
@@ -217,25 +228,26 @@ export default function useAppearanceSettings({
   }
   // RESTORE TO DEFAULT OPTIONS FUNCTION //
   function handleRestoreDefaultOptions() {
-    setPreviewTheme("dark");
-    setPreviewMode("comfortable");
-    setPreviewAnimations(true);
-    setPreviewColor("#22c55e");
-    setPreviewAvatar("");
-    setPreviewBanner("");
-    setPreviewTextColor("#000000");
+    setPreviewTheme(DEFAULT_APPEARANCE.theme);
+    setPreviewMode(DEFAULT_APPEARANCE.mode);
+    setPreviewAnimations(DEFAULT_APPEARANCE.animations);
+    setPreviewColor(DEFAULT_APPEARANCE.color);
+    setPreviewTextColor(DEFAULT_APPEARANCE.textColor);
+    setPreviewAvatar(DEFAULT_APPEARANCE.avatar);
+    setPreviewBanner(DEFAULT_APPEARANCE.banner);
 
-    setTheme("dark");
-    setMode("comfortable");
-    setAnimations(true);
+    setTheme(DEFAULT_APPEARANCE.theme);
+    setMode(DEFAULT_APPEARANCE.mode);
+    setAnimations(DEFAULT_APPEARANCE.animations);
+
     setCurrentUser((prev) =>
       prev
         ? {
             ...prev,
-            color: "#22c55e",
-            avatar: "",
-            banner: "",
-            textColor: "#000000",
+            color: DEFAULT_APPEARANCE.color,
+            textColor: DEFAULT_APPEARANCE.textColor,
+            avatar: DEFAULT_APPEARANCE.avatar,
+            banner: DEFAULT_APPEARANCE.banner,
           }
         : null,
     );
