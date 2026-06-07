@@ -1,8 +1,9 @@
 export default function OverviewMessage() {
   return (
     <>
-      <h1 className="text-3xl font-bold">Overview 📈</h1>
-      <p> Welcome back, here’s what’s happening.</p>
+      <h1 className="text-3xl font-bold tracking-tight light:text-slate-950 transition-all duration-300">
+        Overview 📈
+      </h1>
     </>
   );
 }

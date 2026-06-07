@@ -9,6 +9,7 @@ type DashboardData = {
     name: string;
     icon: string;
     path: string;
+    shortcut: string;
   }[];
 };
 
@@ -62,9 +63,14 @@ export default function ProfileDropdown({
         onClose();
       }
     }
+    function handleEscape(e: KeyboardEvent) {
+      if (e.key === "Escape") onClose();
+    }
     document.addEventListener("click", handleClickOutside);
+    document.addEventListener("keydown", handleEscape);
     return () => {
       document.removeEventListener("click", handleClickOutside);
+      document.removeEventListener("keydown", handleEscape);
     };
   }, [onClose]);
 
@@ -180,7 +186,7 @@ export default function ProfileDropdown({
         cursor-pointer
         hover:bg-slate-700
         light:hover:bg-slate-200
-
+        group
         ${
           isLogout
             ? "text-red-300 hover:text-red-500"
@@ -190,7 +196,27 @@ export default function ProfileDropdown({
           >
             <div className="flex items-center gap-3">
               <Icon size={18} />
-              <div>{option.name}</div>
+              <div className="flex w-full justify-between text-slate-600">
+                <p
+                  className={
+                    isLogout
+                      ? "text-red-300 group-hover:text-red-500"
+                      : "text-slate-400 group-hover:text-white light:group-hover:text-slate-900"
+                  }
+                >
+                  {option.name}
+                </p>
+
+                <p
+                  className={
+                    isLogout
+                      ? "text-red-300/40 group-hover:text-red-400"
+                      : "text-slate-600 group-hover:text-slate-400"
+                  }
+                >
+                  {option.shortcut}
+                </p>
+              </div>
             </div>
           </NavLink>
         );

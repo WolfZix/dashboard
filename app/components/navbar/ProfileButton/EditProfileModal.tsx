@@ -1,6 +1,6 @@
 import { X } from "lucide-react";
 import type { User } from "../../UsersPage/users.types";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 type EditProfileModalProps = {
   user: User;
@@ -89,6 +89,16 @@ export default function EditProfileModal({
     onSave(updateUser);
     onClose();
   }
+
+  useEffect(() => {
+    function handleEscape(e: KeyboardEvent) {
+      if (e.key === "Escape") onClose();
+    }
+    document.addEventListener("keydown", handleEscape);
+    return () => {
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, [onClose]);
 
   function handleAvatarUpload(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];

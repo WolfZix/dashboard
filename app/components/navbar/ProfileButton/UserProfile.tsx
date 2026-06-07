@@ -1,9 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import ProfileDropdown from "../ProfileButton/ProfileDropdown";
 import { useAnimations } from "../../../context/AnimationContext";
 import { useUser } from "../../../context/UserContext";
-import type { User } from "../../UsersPage/users.types";
 
 export default function UserProfile() {
   const [open, setOpen] = useState(false);

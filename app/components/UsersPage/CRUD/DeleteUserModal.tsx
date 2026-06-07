@@ -1,4 +1,5 @@
 import type { User } from "../users.types";
+import { useEffect } from "react";
 
 type DeleteUserModalProps = {
   user: User;
@@ -11,6 +12,15 @@ export default function DeleteuserModal({
   onClose,
   onDelete,
 }: DeleteUserModalProps) {
+  useEffect(() => {
+    function handleEscape(e: KeyboardEvent) {
+      if (e.key === "Escape") onClose();
+    }
+    document.addEventListener("keydown", handleEscape);
+    return () => {
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, [onClose]);
   return (
     <div className="dashboard-modal-overlay" onClick={onClose}>
       <div

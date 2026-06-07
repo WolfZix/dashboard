@@ -9,16 +9,19 @@ export default function DashboardLayout() {
     {
       name: "Overview",
       path: "/",
+      shortcut: "Alt+1",
       icon: LayoutDashboard,
     },
     {
       name: "Users",
       path: "/users",
+      shortcut: "Alt+2",
       icon: Users,
     },
     {
       name: "Analytics",
       path: "/analytics",
+      shortcut: "Alt+3",
       icon: BarChart3,
     },
   ];

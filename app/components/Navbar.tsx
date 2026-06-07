@@ -2,10 +2,6 @@ import NotificationsButton from "./navbar/NotificationsButton/NotificationsButto
 import OnlineStatus from "./navbar/OnlineStatus";
 import ThemeToggle from "./navbar/ThemeToggle";
 import UserProfile from "./navbar/ProfileButton/UserProfile";
-import OverviewMessage from "./OverviewPage/OverviewMessage";
-import UsersMessage from "./UsersPage/UsersMessage";
-import AnalyticsMessage from "./AnalyticsPage/AnalyticsMessage";
-import ProfileMessage from "./UsersPage/ProfileMessage";
 import { useLocation } from "react-router-dom";
 
 export default function Navbar() {
@@ -17,9 +13,10 @@ export default function Navbar() {
         py-4
         compact:py-2
         compact:px-3
+        h-16
         border-b border-slate-800
         bg-slate-900
-        flex items-center justify-between
+        flex items-center justify-end
         light:bg-[rgba(255,255,255,0.7)]
         light:border-[#e2e8f0]
         light:text-[#0f172a]
@@ -27,13 +24,6 @@ export default function Navbar() {
         duration-300
       "
     >
-      <div>
-        {location.pathname === "/" && <OverviewMessage />}
-        {location.pathname === "/users" && <UsersMessage />}
-        {location.pathname === "/analytics" && <AnalyticsMessage />}
-        {location.pathname === "/profile/:username" && <ProfileMessage />}
-      </div>
-
       <div className="flex items-center gap-4 compact:gap-2">
         <OnlineStatus />
         <ThemeToggle />

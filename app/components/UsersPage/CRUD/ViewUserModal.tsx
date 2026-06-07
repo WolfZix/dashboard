@@ -1,5 +1,6 @@
 import { X } from "lucide-react";
 import type { User } from "../users.types";
+import { useEffect } from "react";
 
 type UserModalProps = {
   user: User;
@@ -20,6 +21,16 @@ export default function UserModal({ user, onClose }: UserModalProps) {
     Premium: "bg-purple-800",
     User: "bg-slate-800",
   };
+
+  useEffect(() => {
+    function handleEscape(e: KeyboardEvent) {
+      if (e.key === "Escape") onClose();
+    }
+    document.addEventListener("keydown", handleEscape);
+    return () => {
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, [onClose]);
 
   return (
     <div className="dashboard-modal-overlay" onClick={onClose}>
