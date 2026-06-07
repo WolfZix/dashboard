@@ -10,7 +10,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import ProfilePage from "./components/navbar/ProfileButton/ProfilePage";
 import SettingsPage from "./components/SettingsPage/SettingsPage";
 
-import DevShortcuts from "./components/DevShortcuts";
+import Shortcuts from "./components/Shortcuts";
 
 export default function App() {
   const isGitHubPages = window.location.hostname.includes("github.io");
@@ -18,7 +18,7 @@ export default function App() {
 
   return (
     <BrowserRouter basename={basename}>
-      <DevShortcuts />
+      <Shortcuts />
       <Routes>
         <Route path="login" element={<Login />} />
 
