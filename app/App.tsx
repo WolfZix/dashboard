@@ -20,6 +20,10 @@ export default function App() {
 
   return (
     <BrowserRouter basename={basename}>
+      <div className="absolute justify-self-center rounded-lg w-fit text-center z-0 px-3 py-1 border border-white light:border-black bg-black/25 text-white light:text-black text-xs">
+        !! FOR DEV PURPOSES ONLY (TEMPORARY) !! <br />
+        (ANIMATIONS) ALT + C | (THEME) ALT + V | (MODE) ALT + B
+      </div>
       <Routes>
         <Route path="login" element={<Login />} />
 
