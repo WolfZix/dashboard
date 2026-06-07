@@ -11,7 +11,12 @@ export default function useDevShortcuts() {
   const navigate = useNavigate();
   const currentUsername = localStorage.getItem("username");
 
+  const isGitHubPages = window.location.hostname.includes("github.io");
+  const basename = isGitHubPages ? "/dashboard" : "/";
+
   useEffect(() => {
+    console.log(location.pathname);
+    console.log("basename: ", basename);
     function handleKeyDown(e: KeyboardEvent) {
       if (location.pathname.endsWith(`/login`)) {
         if (e.altKey && e.key === "t") toggleTheme();
