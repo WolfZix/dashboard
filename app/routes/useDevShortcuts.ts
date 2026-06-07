@@ -9,10 +9,12 @@ export default function useDevShortcuts() {
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
       if (e.altKey && e.key === "t") {
+        console.log("Alt + T");
         toggleTheme();
       }
 
       if (e.altKey && e.key === "m") {
+        console.log("Alt + M");
         setMode(mode === "comfortable" ? "compact" : "comfortable");
       }
     }
