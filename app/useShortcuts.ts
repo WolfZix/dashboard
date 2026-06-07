@@ -2,13 +2,14 @@ import { useEffect } from "react";
 import { useTheme } from "./context/ThemeContext";
 import { useMode } from "./context/ModeContext";
 import { useAnimations } from "./context/AnimationContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export default function useDevShortcuts() {
   const { toggleTheme } = useTheme();
   const { mode, setMode } = useMode();
   const { toggleAnimations } = useAnimations();
   const navigate = useNavigate();
+  const location = useLocation();
   const currentUsername = localStorage.getItem("username");
 
   const isGitHubPages = window.location.hostname.includes("github.io");
@@ -32,7 +33,7 @@ export default function useDevShortcuts() {
       if (e.altKey && e.key === "2") navigate("/users");
       if (e.altKey && e.key === "3") navigate("/analytics");
       if (e.altKey && e.key === "l") {
-        navigate("login");
+        navigate("/login");
         localStorage.removeItem("username");
       }
     }
