@@ -88,13 +88,15 @@ export default function SettingsAccount({
   }
 
   return (
-    <div className="dashboard-card rounded-2xl p-6">
-      <h2 className="dashboard-heading mb-6">Account</h2>
+    <div className="dashboard-card rounded-2xl p-6 compact:p-3">
+      <h2 className="dashboard-heading mb-6 compact:mb-3 transition-all duration-300">
+        Account
+      </h2>
 
-      <div className="mb-8">
+      <div className="mb-8 compact:mb-4">
         <h3 className="dashboard-section-title">Profile Information</h3>
 
-        <div className="space-y-4">
+        <div>
           <div>
             <label className="dashboard-label">Username</label>
             <input
@@ -103,7 +105,7 @@ export default function SettingsAccount({
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               style={{ "--border-color": user?.color } as React.CSSProperties}
-              className={`dashboard-input text-gray-400 focus:text-white border-t-(--border-color)`}
+              className={`dashboard-input mb-4 compact:mb-2 text-gray-400 focus:text-white border-t-(--border-color)`}
             />
           </div>
 
@@ -115,7 +117,7 @@ export default function SettingsAccount({
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               style={{ "--border-color": user?.color } as React.CSSProperties}
-              className="dashboard-input text-gray-400 focus:text-white border-t-(--border-color)"
+              className="dashboard-input mb-4 compact:mb-2 text-gray-400 focus:text-white border-t-(--border-color)"
             />
           </div>
 
@@ -125,7 +127,7 @@ export default function SettingsAccount({
               rows={4}
               placeholder={user?.bio || "Tell us about yourself..."}
               style={{ "--border-color": user?.color } as React.CSSProperties}
-              className="dashboard-input text-gray-400 focus:text-white border-t-(--border-color) resize-none"
+              className="dashboard-input mb-4 compact:mb-2 text-gray-400 focus:text-white border-t-(--border-color) resize-none"
               value={bio}
               onChange={(e) => setBio(e.target.value)}
             />
@@ -133,10 +135,10 @@ export default function SettingsAccount({
         </div>
       </div>
 
-      <div className="mb-8">
+      <div className="mb-8 compact:mb-4">
         <h3 className="dashboard-section-title">Security</h3>
 
-        <div className="space-y-4">
+        <div>
           <input
             type="password"
             placeholder="Current password"
@@ -148,7 +150,7 @@ export default function SettingsAccount({
               }
             }}
             style={{ "--border-color": user?.color } as React.CSSProperties}
-            className="dashboard-input focus:text-white border-t-(--border-color)"
+            className="dashboard-input mb-4 compact:mb-2 focus:text-white border-t-(--border-color)"
           />
 
           <input
@@ -162,7 +164,7 @@ export default function SettingsAccount({
               }
             }}
             style={{ "--border-color": user?.color } as React.CSSProperties}
-            className="dashboard-input focus:text-white border-t-(--border-color)"
+            className="dashboard-input mb-4 compact:mb-2 focus:text-white border-t-(--border-color)"
           />
 
           <input
@@ -176,15 +178,15 @@ export default function SettingsAccount({
               }
             }}
             style={{ "--border-color": user?.color } as React.CSSProperties}
-            className="dashboard-input focus:text-white border-t-(--border-color)"
+            className="dashboard-input mb-4 compact:mb-2 focus:text-white border-t-(--border-color)"
           />
         </div>
       </div>
 
-      <div className="mb-8">
+      <div className="mb-8 compact:mb-4">
         <h3 className="dashboard-section-title">Statistics</h3>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 gap-4 compact:gap-2">
           <div
             style={{ "--border-color": user?.color } as React.CSSProperties}
             className="dashboard-stat-box border-t-(--border-color)"
@@ -219,7 +221,7 @@ export default function SettingsAccount({
         </div>
       </div>
 
-      <div className="flex gap-3 mb-8">
+      <div className="flex gap-3 mb-8 compact:gap-1.5 compact:mb-4">
         <button
           onClick={saveChanges}
           disabled={!hasChanges}
@@ -237,9 +239,11 @@ export default function SettingsAccount({
         </button>
       </div>
 
-      <div className="border border-red-500/30 rounded-2xl p-5">
-        <h3 className="text-red-400 font-semibold mb-2">Danger Zone</h3>
-        <p className="dashboard-subtitle mb-4">
+      <div className="border border-red-500/30 rounded-2xl p-5 compact:p-2.5">
+        <h3 className="text-red-400 font-semibold mb-2 compact:mb-1">
+          Danger Zone
+        </h3>
+        <p className="dashboard-subtitle mb-4 compact:mb-2">
           Deleting your account is permanent and cannot be undone.
         </p>
         <button className="dashboard-button bg-red-600 hover:bg-red-500">

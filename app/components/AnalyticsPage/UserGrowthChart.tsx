@@ -9,6 +9,7 @@ import {
 } from "recharts";
 import { useState, useEffect } from "react";
 import type { User } from "../UsersPage/users.types";
+import { easeIn } from "framer-motion";
 
 type UserGrowthChartProps = {
   users: User[];
@@ -61,6 +62,7 @@ export default function UserGrowthChart({ users }: UserGrowthChartProps) {
           stroke={chartGrid}
           strokeDasharray="10"
           vertical={false}
+          className=" transition-all duration-300"
         />
 
         <XAxis

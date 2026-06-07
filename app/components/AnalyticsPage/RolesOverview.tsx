@@ -32,7 +32,7 @@ export default function RolesOverview({ users }: RolesOverviewProps) {
       {roleData.map((role) => (
         <div
           key={role.role}
-          className="dashboard-stat-box flex justify-between items-center"
+          className="dashboard-stat-box my-3 compact:my-1.5 flex justify-between items-center transition-all duration-300"
         >
           <span>{role.role}</span>
           <span className="font-semibold">{role.count}</span>

@@ -19,10 +19,10 @@ export default function TopUsers({ users }: TopUsersProps) {
       {topUsers.map((user, index) => (
         <div
           key={user.id}
-          className={`dashboard-stat-box flex items-center justify-between ${podiumStyles[index] || ""}`}
+          className={`dashboard-stat-box my-3 compact:my-1.5 flex items-center justify-between transition-all duration-300 ${podiumStyles[index] || ""}`}
         >
           <div>
-            <p className="dashboard-title flex gap-2">
+            <p className="dashboard-title flex gap-2 transition-all duration-300">
               {user.name}
               {index < 3 && (
                 <Trophy size={16} style={{ color: medalColors[index] }} />
@@ -32,7 +32,7 @@ export default function TopUsers({ users }: TopUsersProps) {
           </div>
 
           <span
-            className={`font-semibold ${
+            className={`font-semibold transition-all duration-300 ${
               index === 0
                 ? "text-yellow-500"
                 : index === 1

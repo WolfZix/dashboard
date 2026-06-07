@@ -138,7 +138,7 @@ export default function EditProfileModal({
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-999 p-6 compact:p-3 overflow-y-auto">
-      <div className="w-140 max-w-full rounded-[28px] compact:rounded-[14px] bg-slate-900 light:bg-slate-200 border border-slate-800 overflow-hidden shadow-2xl my-auto">
+      <div className="w-140 max-w-full rounded-[28px] compact:rounded-[14px] bg-slate-900 light:bg-slate-200 border border-slate-800 overflow-hidden shadow-2xl my-auto transition-all duration-300">
         {/* Header */}
         <div
           style={{
@@ -156,7 +156,7 @@ export default function EditProfileModal({
 
           {/* Overlay */}
           <div
-            className={`absolute inset-0 bg-black/85 light:bg-transparent`}
+            className={`absolute inset-0 bg-black/85 light:bg-transparent transition-all duration-300`}
           ></div>
 
           {/* Close button */}
@@ -259,7 +259,7 @@ export default function EditProfileModal({
               value={newUsername}
               onChange={(e) => setNewUsername(e.target.value)}
               placeholder={user.name}
-              className="w-full rounded-2xl compact:rounded-xl bg-slate-950 border border-slate-800 light:bg-white light:border-slate-300 light:focus:border-slate-400 p-4 compact:p-2 outline-none focus:border-slate-700"
+              className="dashboard-input"
             />
           </div>
 
@@ -274,7 +274,7 @@ export default function EditProfileModal({
               value={newPassword}
               placeholder="•••••••••"
               onChange={(e) => setNewPassword(e.target.value)}
-              className="w-full rounded-2xl compact:rounded-xl bg-slate-950 border border-slate-800 light:bg-white light:border-slate-300 light:focus:border-slate-400 p-4 compact:p-2 outline-none focus:border-slate-700"
+              className="dashboard-input"
             />
           </div>
 
@@ -284,12 +284,13 @@ export default function EditProfileModal({
               Bio
             </p>
 
-            <textarea
+            <input
+              type="text"
               value={bio}
               onChange={(e) => setBio(e.target.value)}
               placeholder={user.bio}
-              className="w-full h-15 resize-none rounded-2xl compact:rounded-xl bg-slate-950 border border-slate-800 light:bg-white light:border-slate-300 light:focus:border-slate-400 p-4 compact:p-2 outline-none focus:border-slate-700"
-            ></textarea>
+              className="dashboard-input"
+            ></input>
           </div>
 
           {/* Profile color */}

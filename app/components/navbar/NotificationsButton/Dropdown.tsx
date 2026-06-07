@@ -71,6 +71,8 @@ export default function Dropdown({ onClose }: DropdownProps) {
         light:border-[#e2e8f0]
         shadow-2xl
         z-50
+        transition-colors
+        duration-300
       "
     >
       <div className="p-4 compact:p-2 border-b border-slate-700 light:border-[#e2e8f0]">

@@ -197,6 +197,8 @@ export default function DailyNews({ news }: DailyNewsProps) {
             overflow-hidden
             border-y-2
             dashboard-border
+            transition-all
+            duration-300
             "
           >
             <AnimatePresence mode="wait">
@@ -229,7 +231,7 @@ export default function DailyNews({ news }: DailyNewsProps) {
                 transition={
                   canAnimate
                     ? {
-                        duration: 0.2,
+                        duration: 0.3,
                         ease: "easeInOut",
                       }
                     : undefined
@@ -244,6 +246,8 @@ export default function DailyNews({ news }: DailyNewsProps) {
                 text-base
                 dashboard-text
                 select-none
+                transition-all
+                duration-300
                 "
               >
                 {news[page]}

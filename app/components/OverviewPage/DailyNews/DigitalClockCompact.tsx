@@ -39,7 +39,7 @@ function DigitalClock() {
 
   return (
     <div className="clock-container">
-      <div className="clock">
+      <div className="clock transition-all duration-300">
         <span>{formatTime()}</span>
       </div>
     </div>

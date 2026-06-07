@@ -95,7 +95,9 @@
       outline-none
       light:bg-slate-100
       light:border-slate-300
-      focus:border-lime-500;
+      focus:border-lime-500
+      transition-all
+      duration-300;
   }
   .dashboard-stat-box {
     @apply bg-slate-800
@@ -104,7 +106,9 @@
     p-4
     border
     border-slate-800
-    light:border-slate-300;
+    light:border-slate-300
+    transition-all
+    duration-300;
   }
   .dashboard-stat-label {
     @apply text-sm

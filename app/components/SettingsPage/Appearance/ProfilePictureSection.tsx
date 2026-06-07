@@ -20,7 +20,7 @@ export default function ProfilePictureSection({
       <p className="dashboard-section-label mb-3 compact:mb-1.5">
         Profile Picture
       </p>
-      <div className="flex flex-col w-fit items-center gap-5">
+      <div className="flex flex-col w-fit items-center gap-5 compact:gap-2.5">
         {previewAvatar ? (
           <img
             style={
@@ -49,7 +49,7 @@ export default function ProfilePictureSection({
             {user?.name?.[0]?.toUpperCase()}
           </div>
         )}
-        <div className="flex gap-2">
+        <div className="flex gap-2 compact:gap-1">
           <input
             type="file"
             accept="image/*"

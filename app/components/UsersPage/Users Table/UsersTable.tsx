@@ -102,7 +102,7 @@ export default function UsersTable() {
         <UsersSearch search={search} setSearch={setSearch} />
         <button
           onClick={() => setCreateUserOpen(true)}
-          className="px-5 py-3 compact:px-3 compact:py-1.5 h-fit rounded-xl compact:rounded-lg bg-green-700 hover:bg-green-600 transition-all duration-300 cursor-pointer"
+          className="dashboard-button-success"
         >
           Add User
         </button>

@@ -10,10 +10,10 @@ export default function useDevShortcuts() {
 
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
-      if (e.altKey && e.key === "v") toggleTheme();
-      if (e.altKey && e.key === "b")
+      if (e.ctrlKey && e.key === "v") toggleTheme();
+      if (e.ctrlKey && e.key === "b")
         setMode(mode === "comfortable" ? "compact" : "comfortable");
-      if (e.altKey && e.key === "c") toggleAnimations();
+      if (e.ctrlKey && e.key === "c") toggleAnimations();
     }
 
     window.addEventListener("keydown", handleKeyDown);

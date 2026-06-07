@@ -178,7 +178,6 @@ export default function ProfileDropdown({
         compact:py-1
         compact:px-1.5
         cursor-pointer
-        transition-colors
         hover:bg-slate-700
         light:hover:bg-slate-200
 

@@ -43,15 +43,17 @@ export default function UserStatusDistribution({
           users.length > 0 ? (item.count / users.length) * 100 : 0;
 
         return (
-          <div key={item.status}>
-            <div className="flex justify-between mb-1">
-              <span className="dashboard-text">{item.status}</span>
+          <div key={item.status} className="my-3 compact:my-1.5">
+            <div className="flex justify-between mb-2 compact:mb-1">
+              <span className="dashboard-text transition-all duration-300">
+                {item.status}
+              </span>
               <span>{item.count}</span>
             </div>
 
-            <div className="w-full h-3 rounded-full bg-slate-800 light:bg-slate-200">
+            <div className="w-full h-3 rounded-full bg-slate-800 light:bg-slate-200 transition-all duration-300">
               <div
-                className={`h-full rounded-full ${statusColors[item.status]}`}
+                className={`h-full rounded-full transition-all duration-300 ${statusColors[item.status]}`}
                 style={{ width: `${percentage}%` }}
               />
             </div>
