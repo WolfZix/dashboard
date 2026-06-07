@@ -52,19 +52,22 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-950 light:bg-[#f1f5f9] transition-none">
-      <div className="w-full relative max-w-md bg-slate-900 light:bg-white p-8 rounded-2xl shadow-lg border border-slate-600 light:border-[#e2e8f0]">
-        <h1 className="text-3xl font-bold mb-2 text-white light:text-[#0f172a]">
+    <div className="min-h-screen flex items-center justify-center bg-slate-950 light:bg-[#f1f5f9] transition-all duration-300">
+      <div className="w-full relative max-w-md bg-slate-900 light:bg-white p-8 rounded-2xl shadow-lg border border-slate-600 light:border-[#e2e8f0] transition-all duration-300">
+        <h1 className="text-3xl font-bold mb-2 text-white light:text-[#0f172a] transition-all duration-300">
           Welcome back
         </h1>
-        <p className="text-slate-400 light:text-[#475569] mb-6">
+        <p className="text-slate-400 light:text-[#475569] mb-6 transition-all duration-300">
           Sign in to your dashboard
         </p>
         <div className="absolute right-0 top-0 mt-8 mr-8 w-10 h-10 text-white light:text-[#0f172a]">
           <ThemeToggle />
         </div>
 
-        <form className="space-y-4 light:text-[#0f172a]" onSubmit={handleLogin}>
+        <form
+          className="space-y-4 light:text-[#0f172a] transition-all duration-300"
+          onSubmit={handleLogin}
+        >
           <input
             name="username"
             type="text"
@@ -87,6 +90,8 @@ export default function LoginPage() {
             focus:outline-none
             focus:ring-2
             focus:ring-slate-500
+            transition-all
+            duration-300
             "
           />
 
@@ -111,6 +116,8 @@ export default function LoginPage() {
             focus:outline-none
             focus:ring-2
             focus:ring-slate-500
+            transition-all
+            duration-300
             "
           />
 
@@ -130,6 +137,8 @@ export default function LoginPage() {
             hover:bg-slate-800
             light:hover:bg-slate-200
             cursor-pointer
+            transition-all
+            duration-300
             "
           >
             Sign in

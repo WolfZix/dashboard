@@ -13,15 +13,23 @@ export default function useDevShortcuts() {
 
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
+      if (location.pathname === "/login") {
+        if (e.altKey && e.key === "t") toggleTheme();
+        return;
+      }
       if (e.altKey && e.key === "t") toggleTheme();
       if (e.altKey && e.key === "m")
         setMode(mode === "comfortable" ? "compact" : "comfortable");
       if (e.altKey && e.key === "a") toggleAnimations();
-      if (e.altKey && e.key === "s") navigate("settings");
-      if (e.altKey && e.key === "p") navigate(`profile/${currentUsername}`);
+      if (e.altKey && e.key === "s") navigate("/settings");
+      if (e.altKey && e.key === "p") navigate(`/profile/${currentUsername}`);
       if (e.altKey && e.key === "1") navigate("/");
-      if (e.altKey && e.key === "2") navigate("users");
-      if (e.altKey && e.key === "3") navigate("analytics");
+      if (e.altKey && e.key === "2") navigate("/users");
+      if (e.altKey && e.key === "3") navigate("/analytics");
+      if (e.altKey && e.key === "l") {
+        navigate("login");
+        localStorage.removeItem("username");
+      }
     }
 
     window.addEventListener("keydown", handleKeyDown);
@@ -29,5 +37,12 @@ export default function useDevShortcuts() {
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [toggleTheme, setMode, mode, navigate]);
+  }, [
+    location.pathname,
+    toggleTheme,
+    setMode,
+    mode,
+    toggleAnimations,
+    navigate,
+  ]);
 }
