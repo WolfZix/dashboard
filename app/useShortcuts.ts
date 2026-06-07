@@ -33,8 +33,8 @@ export default function useDevShortcuts() {
       if (e.altKey && e.key === "2") navigate("/users");
       if (e.altKey && e.key === "3") navigate("/analytics");
       if (e.altKey && e.key === "l") {
-        navigate("/login");
         localStorage.removeItem("username");
+        navigate("/login");
       }
     }
 
