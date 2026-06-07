@@ -13,7 +13,7 @@ export default function useDevShortcuts() {
 
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
-      if (location.pathname === `/login`) {
+      if (location.pathname.endsWith(`/login`)) {
         if (e.altKey && e.key === "t") toggleTheme();
         return;
       }
