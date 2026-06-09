@@ -76,8 +76,18 @@ export default function ProfileDropdown({
 
   function clearLocalStorage(optionName: string) {
     if (optionName === "Log Out") {
+      if (userName === "Guest") {
+        const users = JSON.parse(localStorage.getItem("users") || "[]");
+        const updatedUsers = users.filter(
+          (u: { id: number | "Guest" }) => u.id !== "Guest",
+        );
+        localStorage.setItem("users", JSON.stringify(updatedUsers));
+        localStorage.removeItem("username");
+        localStorage.removeItem("animations");
+        localStorage.removeItem("mode");
+        localStorage.removeItem("theme");
+      }
       localStorage.removeItem("username");
-      localStorage.removeItem("password");
     }
     onClose();
   }

@@ -16,8 +16,6 @@ export default function useDevShortcuts() {
   const basename = isGitHubPages ? "/dashboard" : "/";
 
   useEffect(() => {
-    console.log(location.pathname);
-    console.log("basename: ", basename);
     function handleKeyDown(e: KeyboardEvent) {
       if (location.pathname.endsWith(`/login`)) {
         if (e.altKey && e.key === "t") toggleTheme();

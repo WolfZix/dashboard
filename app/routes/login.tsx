@@ -7,11 +7,41 @@ import type { User } from "../components/UsersPage/users.types";
 export default function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [time, setTime] = useState(new Date());
   const navigate = useNavigate();
   const [toast, setToast] = useState<{
     type: "success" | "error";
     message: string;
   } | null>(null);
+  const isGuest = false;
+
+  const days = time.getDate();
+  const months = time.getMonth() + 1;
+  const years = time.getFullYear();
+
+  function padZero(number: number) {
+    return number < 10 ? `0${number}` : `${number}`;
+  }
+
+  const date = `${padZero(years)}-${padZero(months)}-${days}`;
+
+  const guestUser = {
+    id: "Guest",
+    name: "Guest",
+    email: "Guest@gmail.com",
+    password: "",
+    role: "Guest",
+    status: "Online",
+    joined: date,
+    bio: "",
+    projects: 0,
+    reports: 0,
+    tasks: 0,
+    commits: 0,
+    color: "#22c55e",
+    textColor: "#000000",
+    activity: [],
+  };
 
   useEffect(() => {
     const username = localStorage.getItem("username");
@@ -45,7 +75,25 @@ export default function LoginPage() {
       }, 2000);
       return;
     }
+
     localStorage.setItem("username", foundUser.name);
+    localStorage.setItem("mode", "comfortable");
+    window.dispatchEvent(new Event("usersUpdated"));
+    navigate("/");
+  }
+
+  async function handleGuestLogin() {
+    if (!localStorage.getItem("users")) {
+      const data = await getDashboardData();
+      localStorage.setItem("users", JSON.stringify(data.usersData));
+    }
+    const users = JSON.parse(localStorage.getItem("users") || "[]");
+    const guestExists = users.some((u: User) => u.name === "Guest");
+    if (!guestExists) {
+      users.push(guestUser);
+      localStorage.setItem("users", JSON.stringify(users));
+    }
+    localStorage.setItem("username", "Guest");
     localStorage.setItem("mode", "comfortable");
     window.dispatchEvent(new Event("usersUpdated"));
     navigate("/");
@@ -55,10 +103,10 @@ export default function LoginPage() {
     <div className="min-h-screen flex items-center justify-center bg-slate-950 light:bg-[#f1f5f9] transition-all duration-300">
       <div className="w-full relative max-w-md bg-slate-900 light:bg-white p-8 rounded-2xl shadow-lg border border-slate-600 light:border-[#e2e8f0] transition-all duration-300">
         <h1 className="text-3xl font-bold mb-2 text-white light:text-[#0f172a] transition-all duration-300">
-          Welcome back
+          Welcome!
         </h1>
         <p className="text-slate-400 light:text-[#475569] mb-6 transition-all duration-300">
-          Sign in to your dashboard
+          Sign in to see your dashboard
         </p>
         <div className="absolute right-0 top-0 mt-8 mr-8 w-10 h-10 text-white light:text-[#0f172a]">
           <ThemeToggle />
@@ -143,7 +191,67 @@ export default function LoginPage() {
           >
             Sign in
           </button>
+          <button
+            type="button"
+            onClick={handleGuestLogin}
+            className="w-full
+            bg-slate-900
+            light:bg-white
+            border-2
+            border-slate-600
+            light:border-slate-400
+            text-white
+            light:text-[#0f172a]
+            py-3
+            rounded-xl
+            font-medium
+            hover:bg-slate-800
+            light:hover:bg-slate-200
+            cursor-pointer
+            transition-all
+            duration-300
+            "
+          >
+            Continue as Guest
+          </button>
         </form>
+      </div>
+      <div className="absolute left-0 w-60 h-full bg-black/15 text-slate-500 py-4 flex flex-col space-y-5 border-r border-slate-900">
+        <p className="pl-2 text-lg text-slate-400">
+          <b>For testing purposes only</b>
+        </p>
+        <hr className="text-slate-900" />
+        <p className="pl-2">
+          <b>Admin login:</b>
+          <br />
+          username: WolfeZix
+          <br />
+          password: (leave empty)
+        </p>
+        <hr className="my-3 text-slate-900" />
+        <p className="pl-2">
+          <b>Moderator login:</b>
+          <br />
+          username: NovaByte
+          <br />
+          password: (leave empty)
+        </p>
+        <hr className="my-3 text-slate-900" />
+        <p className="pl-2">
+          <b>Premium login:</b>
+          <br />
+          username: PixelCrafter
+          <br />
+          password: (leave empty)
+        </p>
+        <hr className="my-3 text-slate-900" />
+        <p className="pl-2">
+          <b>User login:</b>
+          <br />
+          username: ShadowSync
+          <br />
+          password: (leave empty)
+        </p>
       </div>
       {toast && (
         <div className="fixed bottom-5 right-5 z-999 overflow-hidden rounded-2xl compact:rounded-xl border border-slate-700 bg-slate-900 shadow-2xl min-w-80 transition-all duration-300">
