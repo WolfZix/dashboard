@@ -7,14 +7,14 @@ import type { User } from "../components/UsersPage/users.types";
 export default function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [time, setTime] = useState(new Date());
   const navigate = useNavigate();
+
   const [toast, setToast] = useState<{
     type: "success" | "error";
     message: string;
   } | null>(null);
-  const isGuest = false;
 
+  const time = new Date();
   const days = time.getDate();
   const months = time.getMonth() + 1;
   const years = time.getFullYear();

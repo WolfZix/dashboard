@@ -1,4 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useUser } from "./context/UserContext";
+import { Navigate } from "react-router-dom";
 
 import Dashboard from "./routes/dashboard";
 import Home from "./routes/home";
@@ -15,6 +17,7 @@ import Shortcuts from "./components/Shortcuts";
 export default function App() {
   const isGitHubPages = window.location.hostname.includes("github.io");
   const basename = isGitHubPages ? "/dashboard" : "/";
+  const { currentUser } = useUser();
 
   return (
     <BrowserRouter basename={basename}>
@@ -32,7 +35,20 @@ export default function App() {
         >
           <Route index element={<Home />} />
           <Route path="users" element={<Users />} />
-          <Route path="analytics" element={<Analytics />} />
+          <Route
+            path="analytics"
+            element={
+              currentUser === null ? null : [
+                  "Admin",
+                  "Moderator",
+                  "Premium",
+                ].includes(currentUser.role) ? (
+                <Analytics />
+              ) : (
+                <Navigate to="/" replace />
+              )
+            }
+          />
           <Route path="profile/:username" element={<ProfilePage />} />
           <Route path="settings" element={<SettingsPage />} />
         </Route>

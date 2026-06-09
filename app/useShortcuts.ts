@@ -3,6 +3,7 @@ import { useTheme } from "./context/ThemeContext";
 import { useMode } from "./context/ModeContext";
 import { useAnimations } from "./context/AnimationContext";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useUser } from "./context/UserContext";
 
 export default function useDevShortcuts() {
   const { toggleTheme } = useTheme();
@@ -11,9 +12,7 @@ export default function useDevShortcuts() {
   const navigate = useNavigate();
   const location = useLocation();
   const currentUsername = localStorage.getItem("username");
-
-  const isGitHubPages = window.location.hostname.includes("github.io");
-  const basename = isGitHubPages ? "/dashboard" : "/";
+  const { currentUser } = useUser();
 
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
@@ -29,7 +28,13 @@ export default function useDevShortcuts() {
       if (e.altKey && e.key === "p") navigate(`/profile/${currentUsername}`);
       if (e.altKey && e.key === "1") navigate("/");
       if (e.altKey && e.key === "2") navigate("/users");
-      if (e.altKey && e.key === "3") navigate("/analytics");
+      if (
+        e.altKey &&
+        e.key === "3" &&
+        currentUser?.role !== "User" &&
+        currentUser?.role !== "Guest"
+      )
+        navigate("/analytics");
       if (e.altKey && e.key === "l") {
         localStorage.removeItem("username");
         navigate("/login");

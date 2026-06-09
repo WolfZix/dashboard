@@ -14,10 +14,20 @@ type SidebarProps = {
     shortcut: string;
     icon: LucideIcon;
   }[];
+  userRole?: string;
 };
 
-export default function Sidebar({ links }: SidebarProps) {
+export default function Sidebar({ links, userRole }: SidebarProps) {
   const location = useLocation();
+  const visibleLinks = links.filter((link) => {
+    if (
+      link.name === "Analytics" &&
+      (userRole === "User" || userRole === "Guest")
+    ) {
+      return false;
+    }
+    return true;
+  });
   return (
     <aside className="w-64 compact:w-55 light:bg-[white] bg-slate-900 border-r dashboard-sidebar-border flex flex-col justify-between transition-all duration-300">
       <div>
@@ -29,9 +39,8 @@ export default function Sidebar({ links }: SidebarProps) {
           </div>
         </div>
         <nav className="p-4 space-y-1 compact:p-2">
-          {links.map((link) => {
+          {visibleLinks.map((link) => {
             const Icon = link.icon;
-
             return (
               <NavLink key={link.path} to={link.path}>
                 {({ isActive }) => (

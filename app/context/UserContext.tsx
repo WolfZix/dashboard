@@ -14,10 +14,6 @@ export function UserProvider({ children }: { children: ReactNode }) {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   function reloadCurrentUser() {
     const storedUsername = localStorage.getItem("username");
-    if (!storedUsername) {
-      setCurrentUser(null);
-      return;
-    }
     const savedUsers = localStorage.getItem("users");
     if (!savedUsers) {
       setCurrentUser(null);
@@ -25,7 +21,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
     }
     const users: User[] = JSON.parse(savedUsers);
     const foundUser = users.find(
-      (user) => user.name.toLowerCase() === storedUsername.toLowerCase(),
+      (user) => user.name.toLowerCase() === storedUsername?.toLowerCase(),
     );
     setCurrentUser(foundUser || null);
   }
