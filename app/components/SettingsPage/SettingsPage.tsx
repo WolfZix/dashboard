@@ -7,11 +7,12 @@ import SettingsSidebar from "./SettingsSidebar";
 import { useEffect, useState } from "react";
 import type { User } from "../UsersPage/users.types";
 import { useUser } from "../../context/UserContext";
+import { getUsername } from "../../services/authService";
 
 export default function SettingsPage() {
   const { currentUser, setCurrentUser } = useUser();
   useEffect(() => {
-    const storedUsername = localStorage.getItem("username");
+    const storedUsername = getUsername();
     if (!storedUsername) return;
     const savedUsers = localStorage.getItem("users");
     if (!savedUsers) return;

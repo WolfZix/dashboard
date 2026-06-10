@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import type { ReactNode } from "react";
 import { getUsers } from "../services/userService";
 import type { User } from "../components/UsersPage/users.types";
+import { getUsername } from "../services/authService";
 
 type UserContextType = {
   currentUser: User | null;
@@ -14,7 +15,7 @@ const UserContext = createContext<UserContextType | null>(null);
 export function UserProvider({ children }: { children: ReactNode }) {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   function reloadCurrentUser() {
-    const storedUsername = localStorage.getItem("username");
+    const storedUsername = getUsername();
     const users = getUsers();
     if (users.length === 0) {
       setCurrentUser(null);

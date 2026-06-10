@@ -4,6 +4,7 @@ import { getDashboardData } from "../../../services/dashboard.server";
 import { Settings, LucideUser, LucideLogOut } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import { saveUsers, getUsers } from "../../../services/userService";
+import { removeUsername } from "../../../services/authService";
 
 type DashboardData = {
   profileOptions: {
@@ -83,12 +84,12 @@ export default function ProfileDropdown({
           (u: { id: number | "Guest" }) => u.id !== "Guest",
         );
         saveUsers(updatedUsers);
-        localStorage.removeItem("username");
+        removeUsername();
         localStorage.removeItem("animations");
         localStorage.removeItem("mode");
         localStorage.removeItem("theme");
       }
-      localStorage.removeItem("username");
+      removeUsername();
     }
     onClose();
   }

@@ -4,6 +4,7 @@ import { useMode } from "./context/ModeContext";
 import { useAnimations } from "./context/AnimationContext";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useUser } from "./context/UserContext";
+import { getUsername, removeUsername } from "./services/authService";
 
 export default function useDevShortcuts() {
   const { toggleTheme } = useTheme();
@@ -11,7 +12,7 @@ export default function useDevShortcuts() {
   const { toggleAnimations } = useAnimations();
   const navigate = useNavigate();
   const location = useLocation();
-  const currentUsername = localStorage.getItem("username");
+  const currentUsername = getUsername();
   const { currentUser } = useUser();
 
   useEffect(() => {
@@ -36,7 +37,7 @@ export default function useDevShortcuts() {
       )
         navigate("/analytics");
       if (e.altKey && e.key === "l") {
-        localStorage.removeItem("username");
+        removeUsername();
         navigate("/login");
       }
     }

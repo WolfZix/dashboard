@@ -6,6 +6,7 @@ import { getDashboardData } from "../../../services/dashboard.server";
 import { useNavigate } from "react-router-dom";
 import { formatTimeAgo } from "./profile.helpers";
 import { saveUsers, getUsers } from "../../../services/userService";
+import { setUsername } from "../../../services/authService";
 
 export default function ProfilePage() {
   const navigate = useNavigate();
@@ -383,7 +384,7 @@ export default function ProfilePage() {
             });
             saveUsers(updatedUsers);
             if (updatedUser.name !== user.name) {
-              localStorage.setItem("username", updatedUser.name);
+              setUsername(updatedUser.name);
               navigate(`/profile/${updatedUser.name}`);
             }
             window.dispatchEvent(new Event("usersUpdated"));

@@ -14,11 +14,12 @@ import CreateUserModal from "../CRUD/CreateUserModal";
 import Toast from "../Toast";
 import { useMode } from "../../../context/ModeContext";
 import { saveUsers, getUsers } from "../../../services/userService";
+import { getUsername } from "../../../services/authService";
 
 export default function UsersTable() {
   const users = getUsers();
   const [search, setSearch] = useState("");
-  const currentUsername = localStorage.getItem("username");
+  const currentUsername = getUsername();
   const currentUser = users.find((user) => user.name === currentUsername);
   const currentUserRole = currentUser?.role || "User";
   const { canView, canEdit, canDelete } = getPermissions(currentUserRole);

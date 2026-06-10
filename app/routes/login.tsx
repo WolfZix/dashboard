@@ -4,9 +4,10 @@ import ThemeToggle from "../components/navbar/ThemeToggle";
 import { getDashboardData } from "../services/dashboard.server";
 import type { User } from "../components/UsersPage/users.types";
 import { saveUsers, getUsers } from "../services/userService";
+import { getUsername, setUsername } from "../services/authService";
 
 export default function LoginPage() {
-  const [username, setUsername] = useState("");
+  const [currentUsername, setCurrentUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
@@ -45,7 +46,7 @@ export default function LoginPage() {
   };
 
   useEffect(() => {
-    const username = localStorage.getItem("username");
+    const username = getUsername();
 
     if (username) {
       navigate("/");
@@ -61,7 +62,7 @@ export default function LoginPage() {
       users = getUsers();
     }
     const foundUser = users.find(
-      (u: User) => u.name.toLowerCase() === username.toLowerCase(),
+      (u: User) => u.name.toLowerCase() === currentUsername.toLowerCase(),
     );
     if (!foundUser) {
       setToast({ type: "error", message: "User does not exist" });
@@ -78,7 +79,7 @@ export default function LoginPage() {
       return;
     }
 
-    localStorage.setItem("username", foundUser.name);
+    setUsername(foundUser.name);
     localStorage.setItem("mode", "comfortable");
     window.dispatchEvent(new Event("usersUpdated"));
     navigate("/");
@@ -125,8 +126,8 @@ export default function LoginPage() {
             name="username"
             type="text"
             placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            value={currentUsername}
+            onChange={(e) => setCurrentUsername(e.target.value)}
             spellCheck={false}
             className="
             w-full
