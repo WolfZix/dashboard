@@ -66,7 +66,6 @@ export default function SettingsAccount({
     }
     setCurrentUser(updatedUser);
     updateUser(updatedUser);
-    window.dispatchEvent(new Event("usersUpdated"));
     setToast({ type: "success", message: "Saved changes" });
     toastTimeoutRef.current = setTimeout(() => {
       setToast(null);

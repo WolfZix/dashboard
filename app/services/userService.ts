@@ -28,15 +28,18 @@ export function updateUser(updatedUser: User) {
     user.id === updatedUser.id ? updatedUser : user,
   );
   saveUsers(updatedUsers);
+  window.dispatchEvent(new Event("usersUpdated"));
 }
 
 export function deleteUser(userId: number | "Guest") {
   const users = getUsers();
   const updatedUsers = users.filter((user) => user.id !== userId);
   saveUsers(updatedUsers);
+  window.dispatchEvent(new Event("usersUpdated"));
 }
 
 export function createUser(newUser: User) {
   const users = getUsers();
   saveUsers([...users, newUser]);
+  window.dispatchEvent(new Event("usersUpdated"));
 }

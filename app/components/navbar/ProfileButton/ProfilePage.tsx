@@ -1,5 +1,4 @@
 import { useParams } from "react-router-dom";
-import type { User } from "../../UsersPage/users.types";
 import EditProfileModal from "./EditProfileModal";
 import { useEffect, useState } from "react";
 import { getDashboardData } from "../../../services/dashboard.server";
@@ -9,6 +8,7 @@ import {
   saveUsers,
   getUsers,
   getUserByName,
+  updateUser,
 } from "../../../services/userService";
 import { setUsername } from "../../../services/authService";
 
@@ -378,18 +378,11 @@ export default function ProfilePage() {
           user={user}
           onClose={() => setEditProfileOpen(false)}
           onSave={(updatedUser) => {
-            const updatedUsers = users.map((u) => {
-              if (u.id === updatedUser.id) {
-                return updatedUser;
-              }
-              return u;
-            });
-            saveUsers(updatedUsers);
+            updateUser(updatedUser);
             if (updatedUser.name !== user.name) {
               setUsername(updatedUser.name);
               navigate(`/profile/${updatedUser.name}`);
             }
-            window.dispatchEvent(new Event("usersUpdated"));
             setToast({ type: "success", message: "User updated successfully" });
             setTimeout(() => {
               setToast(null);

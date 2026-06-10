@@ -3,7 +3,12 @@ import { useNavigate } from "react-router-dom";
 import ThemeToggle from "../components/navbar/ThemeToggle";
 import { getDashboardData } from "../services/dashboard.server";
 import type { User } from "../components/UsersPage/users.types";
-import { saveUsers, getUsers, getUserByName } from "../services/userService";
+import {
+  saveUsers,
+  getUsers,
+  getUserByName,
+  createUser,
+} from "../services/userService";
 import { getUsername, setUsername } from "../services/authService";
 
 export default function LoginPage() {
@@ -84,22 +89,18 @@ export default function LoginPage() {
   }
 
   async function handleGuestLogin() {
-    const users = getUsers();
-    if (!getUsers()) {
-      const users = getUsers();
-      if (users.length === 0) {
-        const data = await getDashboardData();
-        saveUsers(data.usersData);
-      }
+    let users = getUsers();
+    if (users.length === 0) {
+      const data = await getDashboardData();
+      saveUsers(data.usersData);
+      users = getUsers();
     }
     const guestExists = users.some((u: User) => u.name === "Guest");
     if (!guestExists) {
-      users.push(guestUser);
-      saveUsers(users);
+      createUser(guestUser);
     }
     localStorage.setItem("username", "Guest");
     localStorage.setItem("mode", "comfortable");
-    window.dispatchEvent(new Event("usersUpdated"));
     navigate("/");
   }
 

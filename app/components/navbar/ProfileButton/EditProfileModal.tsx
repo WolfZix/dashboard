@@ -37,9 +37,8 @@ export default function EditProfileModal({
     if (banner !== (user.banner || "")) {
       changedFields.push("banner");
     }
-    if (newPassword && newPassword !== localStorage.getItem("password")) {
+    if (newPassword && newPassword !== user.password) {
       changedFields.push("password");
-      localStorage.setItem("password", newPassword);
     }
     if (changedFields.length === 0) {
       onClose();
@@ -79,6 +78,7 @@ export default function EditProfileModal({
     const updateUser = {
       ...user,
       name: newUsername || user.name,
+      password: newPassword || user.password,
       bio,
       color,
       avatar,
