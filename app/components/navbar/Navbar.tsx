@@ -1,7 +1,7 @@
-import NotificationsButton from "./navbar/NotificationsButton/NotificationsButton";
-import OnlineStatus from "./navbar/OnlineStatus";
-import ThemeToggle from "./navbar/ThemeToggle";
-import UserProfile from "./navbar/ProfileButton/UserProfile";
+import NotificationsButton from "./NotificationsButton/NotificationsButton";
+import OnlineStatus from "./OnlineStatus";
+import ThemeToggle from "./ThemeToggle";
+import UserProfile from "./ProfileButton/UserProfile";
 import { useLocation } from "react-router-dom";
 
 export default function Navbar() {

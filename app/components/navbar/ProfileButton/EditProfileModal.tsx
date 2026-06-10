@@ -75,7 +75,7 @@ export default function EditProfileModal({
       };
     }
 
-    const updateUser = {
+    const updatedUser = {
       ...user,
       name: newUsername || user.name,
       password: newPassword || user.password,
@@ -86,7 +86,7 @@ export default function EditProfileModal({
       activity: [newActivity, ...(user.activity || [])],
     };
 
-    onSave(updateUser);
+    onSave(updatedUser);
     onClose();
   }
 
