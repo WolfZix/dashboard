@@ -3,7 +3,7 @@ A modern dashboard application built with React, TypeScript and TailwindCSS.
 
 ---
 
-![Dashboard Preview](./screenshots/dashboard-preview.png)
+![Dashboard Preview](./screenshots/analytics-preview.png)
 
 ---
 
@@ -23,6 +23,8 @@ Dashboard App is a frontend-focused project designed to simulate a modern admini
 - Role-based permissions
 - User profiles
 - Appearance settings
+- Account settings
+- Export profile data into JSON file
 - Dark / Light theme
 - Compact / Comfortable mode
 - Analytics dashboard
@@ -78,7 +80,8 @@ User management with search, sorting and pagination.
 
 ### Analytics
 Charts and user statistics.
-![Analytics Preview](./screenshots/analytics-preview.png)
+![Analytics Preview pt1](./screenshots/analytics-preview-1.png)
+![Analytics Preview pt2](./screenshots/analytics-preview-2.png)
 
 ### Profile
 User profile customization and activity tracking.
@@ -86,7 +89,10 @@ User profile customization and activity tracking.
 
 ### Settings
 Account, appearance, privacy and notification settings.
-![Settings Preview](./screenshots/settings-preview.png)
+![Appearance Settings Preview pt1](./screenshots/settings-preview-1.png)
+![Appearance Settings Preview pt2](./screenshots/settings-preview-2.png)
+![Account Settings Preview pt1](./screenshots/settings-preview-3.png)
+![Account Settings Preview pt2](./screenshots/settings-preview-4.png)
 
 ---
 
