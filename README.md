@@ -88,7 +88,7 @@ User profile customization and activity tracking.
 ![Profile Preview](./screenshots/profile-preview.png)
 
 ### Settings
-Account, appearance, privacy and notification settings.
+Appearance and account settings.
 ![Appearance Settings Preview pt1](./screenshots/settings-preview-1.png)
 ![Appearance Settings Preview pt2](./screenshots/settings-preview-2.png)
 ![Account Settings Preview pt1](./screenshots/settings-preview-3.png)
