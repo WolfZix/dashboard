@@ -1,41 +1,28 @@
 import { useParams } from "react-router-dom";
 import EditProfileModal from "./EditProfileModal";
 import { useEffect, useState } from "react";
-import { getDashboardData } from "../../../services/dashboard.server";
 import { useNavigate } from "react-router-dom";
 import { formatTimeAgo } from "./profile.helpers";
-import {
-  saveUsers,
-  getUsers,
-  getUserByName,
-  updateUser,
-} from "../../../services/userService";
 import { setUsername } from "../../../services/authService";
+import { useUsers } from "../../../context/UsersContext";
+import { updateUser } from "../../../services/userService";
 
 export default function ProfilePage() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const { username } = useParams();
+  const { users } = useUsers();
   const [toast, setToast] = useState<{
     type: "success" | "error";
     message: string;
   } | null>(null);
-  const user = username ? getUserByName(username) : null;
+  const user =
+    users.find((u) => u.name.toLowerCase() === username?.toLowerCase()) || null;
   const [editProfileOpen, setEditProfileOpen] = useState(false);
 
   useEffect(() => {
-    const users = getUsers();
-    if (users.length > 0) {
-      setLoading(false);
-      return;
-    }
-    async function loadData() {
-      const result = await getDashboardData();
-      saveUsers(result.usersData);
-      setLoading(false);
-    }
-    loadData();
-  }, []);
+    if (users.length > 0) setLoading(false);
+  }, [users]);
 
   function getRoleColor(role: string) {
     return role === "Admin"
