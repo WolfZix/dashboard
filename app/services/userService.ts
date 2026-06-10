@@ -10,14 +10,14 @@ export function saveUsers(users: User[]): void {
   localStorage.setItem("users", JSON.stringify(users));
 }
 
-export function getUserByName(username: string) {
+export function getUserByName(username: string): User | undefined {
   const users = getUsers();
   return users.find(
     (user) => user.name.toLowerCase() === username.toLowerCase(),
   );
 }
 
-export function getUserById(id: number | "Guest") {
+export function getUserById(id: number | "Guest"): User | undefined {
   const users = getUsers();
   return users.find((user) => user.id === id);
 }
@@ -40,6 +40,19 @@ export function deleteUser(userId: number | "Guest") {
 
 export function createUser(newUser: User) {
   const users = getUsers();
+  const alreadyExists = users.some(
+    (user) => user.name.toLowerCase() === newUser.name.toLowerCase(),
+  );
+  if (alreadyExists) return false;
   saveUsers([...users, newUser]);
   window.dispatchEvent(new Event("usersUpdated"));
+  return true;
+}
+
+export function userExists(username: string): boolean {
+  return getUserByName(username) !== undefined;
+}
+
+export function userExistsById(id: number | "Guest"): boolean {
+  return getUserById(id) !== undefined;
 }

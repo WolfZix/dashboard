@@ -183,7 +183,14 @@ export default function UsersTable() {
         <CreateUserModal
           onClose={() => setCreateUserOpen(false)}
           onCreate={(newUser) => {
-            createUser(newUser);
+            const success = createUser(newUser);
+            if (!success) {
+              setToast({ type: "error", message: "User already exists" });
+              setTimeout(() => {
+                setToast(null);
+              }, 2000);
+              return;
+            }
             showToast("User created successfully");
           }}
         />
