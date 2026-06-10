@@ -17,8 +17,11 @@ import {
   saveUsers,
   getUsers,
   getUserByName,
+  createUser,
+  updateUser,
+  deleteUser as deleteUserById,
 } from "../../../services/userService";
-import { getUsername } from "../../../services/authService";
+import { getUsername, setUsername } from "../../../services/authService";
 
 export default function UsersTable() {
   const users = getUsers();
@@ -28,6 +31,8 @@ export default function UsersTable() {
     ? getUserByName(currentUsername)
     : undefined;
   const currentUserRole = currentUser?.role || "User";
+  console.log({ currentUsername, currentUser, currentUserRole });
+
   const { canView, canEdit, canDelete } = getPermissions(currentUserRole);
 
   const [page, setPage] = useState(0);
@@ -150,13 +155,15 @@ export default function UsersTable() {
           user={editUser!}
           onClose={() => setEditUser(null)}
           onSave={(updatedUser) => {
-            const updatedUsers = users.map((u) => {
-              if (u.id === updatedUser.id) {
-                return updatedUser;
-              }
-              return u;
-            });
-            saveUsers(updatedUsers);
+            const currentUsername = getUsername();
+            if (
+              currentUsername &&
+              editUser &&
+              editUser.name === currentUsername
+            ) {
+              setUsername(updatedUser.name);
+            }
+            updateUser(updatedUser);
             showToast("User updated successfully");
           }}
         />
@@ -166,8 +173,7 @@ export default function UsersTable() {
           user={deleteUser}
           onClose={() => setDeleteUser(null)}
           onDelete={() => {
-            const updatedUsers = users.filter((u) => u.id !== deleteUser.id);
-            saveUsers(updatedUsers);
+            deleteUserById(deleteUser.id);
             setDeleteUser(null);
             showToast("User deleted successfully");
           }}
@@ -177,8 +183,7 @@ export default function UsersTable() {
         <CreateUserModal
           onClose={() => setCreateUserOpen(false)}
           onCreate={(newUser) => {
-            const updatedUsers = [...users, newUser];
-            saveUsers(updatedUsers);
+            createUser(newUser);
             showToast("User created successfully");
           }}
         />

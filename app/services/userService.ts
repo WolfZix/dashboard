@@ -16,3 +16,27 @@ export function getUserByName(username: string) {
     (user) => user.name.toLowerCase() === username.toLowerCase(),
   );
 }
+
+export function getUserById(id: number | "Guest") {
+  const users = getUsers();
+  return users.find((user) => user.id === id);
+}
+
+export function updateUser(updatedUser: User) {
+  const users = getUsers();
+  const updatedUsers = users.map((user) =>
+    user.id === updatedUser.id ? updatedUser : user,
+  );
+  saveUsers(updatedUsers);
+}
+
+export function deleteUser(userId: number | "Guest") {
+  const users = getUsers();
+  const updatedUsers = users.filter((user) => user.id !== userId);
+  saveUsers(updatedUsers);
+}
+
+export function createUser(newUser: User) {
+  const users = getUsers();
+  saveUsers([...users, newUser]);
+}

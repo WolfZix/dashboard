@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import type { User } from "../UsersPage/users.types";
-import { saveUsers, getUsers } from "../../services/userService";
 import { setUsername as setLoggedUsername } from "../../services/authService";
+import { updateUser } from "../../services/userService";
 
 type SettingsAccountProps = {
   user: User | null;
@@ -54,7 +54,7 @@ export default function SettingsAccount({
       setNewPassword("");
       setConfirmPassword("");
     }
-    const updateUser: User = {
+    const updatedUser: User = {
       ...user,
       name: username,
       email,
@@ -62,12 +62,10 @@ export default function SettingsAccount({
       password: newPassword ? newPassword : user.password,
     };
     if (updateUser.name !== user.name) {
-      setLoggedUsername(updateUser.name);
+      setLoggedUsername(updatedUser.name);
     }
-    setCurrentUser(updateUser);
-    const users: User[] = getUsers();
-    const updatedUsers = users.map((u) => (u.id === user.id ? updateUser : u));
-    saveUsers(updatedUsers);
+    setCurrentUser(updatedUser);
+    updateUser(updatedUser);
     window.dispatchEvent(new Event("usersUpdated"));
     setToast({ type: "success", message: "Saved changes" });
     toastTimeoutRef.current = setTimeout(() => {

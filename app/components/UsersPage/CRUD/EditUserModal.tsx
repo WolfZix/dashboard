@@ -34,6 +34,7 @@ export default function EditUserModal({
     Moderator: ["Premium", "User"],
     Premium: [],
     User: [],
+    Guest: [],
   };
 
   const canEditUser =
