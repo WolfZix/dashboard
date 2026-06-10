@@ -30,7 +30,7 @@ export default function LoginPage() {
     return number < 10 ? `0${number}` : `${number}`;
   }
 
-  const date = `${padZero(years)}-${padZero(months)}-${days}`;
+  const date = `${years}-${padZero(months)}-${padZero(days)}`;
 
   const guestUser: User = {
     id: "Guest",
@@ -99,7 +99,7 @@ export default function LoginPage() {
     if (!guestExists) {
       createUser(guestUser);
     }
-    localStorage.setItem("username", "Guest");
+    setUsername("Guest");
     localStorage.setItem("mode", "comfortable");
     navigate("/");
   }

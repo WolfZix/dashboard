@@ -1,18 +1,29 @@
 import { useState, useEffect } from "react";
 import type { User } from "../users.types";
+import { getUsers } from "../../../services/userService";
 
 type CreateUserModalProps = {
   onClose: () => void;
   onCreate: (newUser: User) => void;
 };
 
+function getNextUserId() {
+  const users = getUsers();
+  return (
+    Math.max(
+      ...users
+        .filter((u) => typeof u.id === "number")
+        .map((u) => u.id as number),
+      0,
+    ) + 1
+  );
+}
+
 export default function CreateUserModal({
   onClose,
   onCreate,
 }: CreateUserModalProps) {
-  const [name, setName] = useState(
-    "User" + (JSON.parse(localStorage.getItem("users") || "[]").length + 1),
-  );
+  const [name, setName] = useState(`User${getUsers().length + 1}`);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState<User["role"]>("User");
