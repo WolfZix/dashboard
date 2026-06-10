@@ -13,18 +13,12 @@ import DeleteuserModal from "../CRUD/DeleteUserModal";
 import CreateUserModal from "../CRUD/CreateUserModal";
 import Toast from "../Toast";
 import { useMode } from "../../../context/ModeContext";
-import {
-  saveUsers,
-  getUsers,
-  getUserByName,
-  createUser,
-  updateUser,
-  deleteUser as deleteUserById,
-} from "../../../services/userService";
+import { getUserByName } from "../../../services/userService";
 import { getUsername, setUsername } from "../../../services/authService";
+import { useUsers } from "../../../context/UsersContext";
 
 export default function UsersTable() {
-  const users = getUsers();
+  const { users, createUser, updateUser, deleteUser: removeUser } = useUsers();
   const [search, setSearch] = useState("");
   const currentUsername = getUsername();
   const currentUser = currentUsername
@@ -80,18 +74,6 @@ export default function UsersTable() {
       setSortOrder("asc");
     }
   }
-
-  useEffect(() => {
-    const users = getUsers();
-    if (users.length > 0) {
-      return;
-    }
-    async function loadData() {
-      const result = await getDashboardData();
-      saveUsers(result.usersData);
-    }
-    loadData();
-  }, []);
 
   useEffect(() => {
     setPage(0);
@@ -173,7 +155,7 @@ export default function UsersTable() {
           user={deleteUser}
           onClose={() => setDeleteUser(null)}
           onDelete={() => {
-            deleteUserById(deleteUser.id);
+            removeUser(deleteUser.id);
             setDeleteUser(null);
             showToast("User deleted successfully");
           }}
