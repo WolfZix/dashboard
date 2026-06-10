@@ -3,7 +3,7 @@ A modern dashboard application built with React, TypeScript and TailwindCSS.
 
 ---
 
-![Dashboard Preview](./screenshots/analytics-preview.png)
+![Dashboard Preview](./screenshots/analytics-preview-1.png)
 
 ---
 
