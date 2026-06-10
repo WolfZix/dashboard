@@ -3,7 +3,7 @@ import type { User } from "../../UsersPage/users.types";
 import { useTheme } from "../../../context/ThemeContext";
 import { useMode } from "../../../context/ModeContext";
 import { useAnimations } from "../../../context/AnimationContext";
-import { saveUsers, getUsers } from "../../../services/userService";
+import { updateUser } from "../../../services/userService";
 
 type UseAppearanceSettingsProps = {
   user: User | null;
@@ -201,10 +201,6 @@ export default function useAppearanceSettings({
   // SAVE CHANGES FUNCTION //
   function handleSaveAppearance() {
     if (!user) return;
-    const savedUsers = localStorage.getItem("users");
-
-    if (!savedUsers) return;
-    const users: User[] = JSON.parse(savedUsers);
     const updatedUser = {
       ...user,
       color: previewColor,
@@ -212,7 +208,6 @@ export default function useAppearanceSettings({
       avatar: previewAvatar,
       banner: previewBanner,
     };
-    const updatedUsers = users.map((u) => (u.id === user.id ? updatedUser : u));
 
     savedRef.current = true;
     originalThemeRef.current = previewTheme;
@@ -223,7 +218,7 @@ export default function useAppearanceSettings({
     originalAvatarRef.current = previewAvatar;
     originalBannerRef.current = previewBanner;
 
-    saveUsers(updatedUsers);
+    updateUser(updatedUser);
     setCurrentUser(updatedUser);
     setOriginalUser(structuredClone(updatedUser));
   }

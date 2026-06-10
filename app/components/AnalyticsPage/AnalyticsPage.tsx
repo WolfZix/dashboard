@@ -3,11 +3,10 @@ import UserGrowthChart from "./UserGrowthChart";
 import RolesOverview from "./RolesOverview";
 import TopUsers from "./TopUsers";
 import UserStatusDistribution from "./UserStatusDistribution";
-import { useEffect } from "react";
-import { getDashboardData } from "../../services/dashboard.server";
-import { saveUsers, getUsers } from "../../services/userService";
+import { useUsers } from "../../context/UsersContext";
 
 export default function AnalyticsPage() {
+  const { users } = useUsers();
   // MAIN LOGIC
   // const levels = [
   //   "bg-slate-800",
@@ -27,21 +26,6 @@ export default function AnalyticsPage() {
     "1010101010010001011110111100111001110010001011110100101010101",
     "1101010110000000000000000000000000000000000000000000110101011",
   ];
-
-  useEffect(() => {
-    async function loadUsers() {
-      const users = getUsers();
-
-      if (users.length > 0) {
-        return;
-      }
-
-      const result = await getDashboardData();
-      saveUsers(result.usersData);
-    }
-
-    loadUsers();
-  }, []);
 
   return (
     <div>
@@ -105,7 +89,7 @@ export default function AnalyticsPage() {
           </h2>
 
           <div className="h-full flex items-center justify-center dashboard-muted-text transition-all duration-300">
-            <UserGrowthChart users={getUsers()} />
+            <UserGrowthChart users={users} />
           </div>
         </div>
 
@@ -115,7 +99,7 @@ export default function AnalyticsPage() {
           </h2>
 
           <div className="h-[calc(100%-40px)]">
-            <MostUsedColors users={getUsers()} />
+            <MostUsedColors users={users} />
           </div>
         </div>
       </div>
@@ -128,7 +112,7 @@ export default function AnalyticsPage() {
           </h2>
 
           <div>
-            <TopUsers users={getUsers()} />
+            <TopUsers users={users} />
           </div>
         </div>
 
@@ -138,7 +122,7 @@ export default function AnalyticsPage() {
           </h2>
 
           <div>
-            <RolesOverview users={getUsers()} />
+            <RolesOverview users={users} />
           </div>
         </div>
       </div>
@@ -150,7 +134,7 @@ export default function AnalyticsPage() {
         </h2>
 
         <div>
-          <UserStatusDistribution users={getUsers()} />
+          <UserStatusDistribution users={users} />
         </div>
       </div>
     </div>
