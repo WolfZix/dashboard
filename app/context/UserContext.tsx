@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import type { ReactNode } from "react";
+import { getUsers } from "../services/userService";
 import type { User } from "../components/UsersPage/users.types";
 
 type UserContextType = {
@@ -14,12 +15,11 @@ export function UserProvider({ children }: { children: ReactNode }) {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   function reloadCurrentUser() {
     const storedUsername = localStorage.getItem("username");
-    const savedUsers = localStorage.getItem("users");
-    if (!savedUsers) {
+    const users = getUsers();
+    if (users.length === 0) {
       setCurrentUser(null);
       return;
     }
-    const users: User[] = JSON.parse(savedUsers);
     const foundUser = users.find(
       (user) => user.name.toLowerCase() === storedUsername?.toLowerCase(),
     );

@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import type { User } from "../UsersPage/users.types";
+import { saveUsers, getUsers } from "../../services/userService";
 
 type SettingsAccountProps = {
   user: User | null;
@@ -57,11 +58,11 @@ export default function SettingsAccount({
         password: newPassword ? newPassword : user.password,
       };
       setCurrentUser(updateUser);
-      const users: User[] = JSON.parse(localStorage.getItem("users") || "[]");
+      const users: User[] = getUsers();
       const updatedUsers = users.map((u) =>
         u.id === user.id ? updateUser : u,
       );
-      localStorage.setItem("users", JSON.stringify(updatedUsers));
+      saveUsers(updatedUsers);
       window.dispatchEvent(new Event("usersUpdated"));
 
       setCurrentPassword("");

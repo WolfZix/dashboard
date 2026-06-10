@@ -5,12 +5,13 @@ import { useEffect, useState } from "react";
 import { getDashboardData } from "../../../services/dashboard.server";
 import { useNavigate } from "react-router-dom";
 import { formatTimeAgo } from "./profile.helpers";
+import { saveUsers, getUsers } from "../../../services/userService";
 
 export default function ProfilePage() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const { username } = useParams();
-  const [users, setUsers] = useState<User[]>([]);
+  const users = getUsers();
   const [toast, setToast] = useState<{
     type: "success" | "error";
     message: string;
@@ -21,16 +22,14 @@ export default function ProfilePage() {
   const [editProfileOpen, setEditProfileOpen] = useState(false);
 
   useEffect(() => {
-    const savedUsers = localStorage.getItem("users");
-    if (savedUsers) {
-      setUsers(JSON.parse(savedUsers));
+    const users = getUsers();
+    if (users.length > 0) {
       setLoading(false);
       return;
     }
     async function loadData() {
       const result = await getDashboardData();
-      setUsers(result.usersData);
-      localStorage.setItem("users", JSON.stringify(result.usersData));
+      saveUsers(result.usersData);
       setLoading(false);
     }
     loadData();
@@ -382,14 +381,13 @@ export default function ProfilePage() {
               }
               return u;
             });
-            localStorage.setItem("users", JSON.stringify(updatedUsers));
-            setUsers(updatedUsers);
+            saveUsers(updatedUsers);
             if (updatedUser.name !== user.name) {
               localStorage.setItem("username", updatedUser.name);
               navigate(`/profile/${updatedUser.name}`);
             }
             window.dispatchEvent(new Event("usersUpdated"));
-            localStorage.setItem("users", JSON.stringify(updatedUsers));
+            saveUsers(updatedUsers);
             setToast({ type: "success", message: "User updated successfully" });
             setTimeout(() => {
               setToast(null);

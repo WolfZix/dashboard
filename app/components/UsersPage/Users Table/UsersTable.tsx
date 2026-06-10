@@ -13,9 +13,10 @@ import DeleteuserModal from "../CRUD/DeleteUserModal";
 import CreateUserModal from "../CRUD/CreateUserModal";
 import Toast from "../Toast";
 import { useMode } from "../../../context/ModeContext";
+import { saveUsers, getUsers } from "../../../services/userService";
 
 export default function UsersTable() {
-  const [users, setUsers] = useState<User[]>([]);
+  const users = getUsers();
   const [search, setSearch] = useState("");
   const currentUsername = localStorage.getItem("username");
   const currentUser = users.find((user) => user.name === currentUsername);
@@ -69,15 +70,13 @@ export default function UsersTable() {
   }
 
   useEffect(() => {
-    const savedUsers = localStorage.getItem("users");
-    if (savedUsers) {
-      setUsers(JSON.parse(savedUsers));
+    const users = getUsers();
+    if (users.length > 0) {
       return;
     }
     async function loadData() {
       const result = await getDashboardData();
-      setUsers(result.usersData);
-      localStorage.setItem("users", JSON.stringify(result.usersData));
+      saveUsers(result.usersData);
     }
     loadData();
   }, []);
@@ -150,8 +149,7 @@ export default function UsersTable() {
               }
               return u;
             });
-            setUsers(updatedUsers);
-            localStorage.setItem("users", JSON.stringify(updatedUsers));
+            saveUsers(updatedUsers);
             showToast("User updated successfully");
           }}
         />
@@ -162,8 +160,7 @@ export default function UsersTable() {
           onClose={() => setDeleteUser(null)}
           onDelete={() => {
             const updatedUsers = users.filter((u) => u.id !== deleteUser.id);
-            setUsers(updatedUsers);
-            localStorage.setItem("users", JSON.stringify(updatedUsers));
+            saveUsers(updatedUsers);
             setDeleteUser(null);
             showToast("User deleted successfully");
           }}
@@ -174,8 +171,7 @@ export default function UsersTable() {
           onClose={() => setCreateUserOpen(false)}
           onCreate={(newUser) => {
             const updatedUsers = [...users, newUser];
-            setUsers(updatedUsers);
-            localStorage.setItem("users", JSON.stringify(updatedUsers));
+            saveUsers(updatedUsers);
             showToast("User created successfully");
           }}
         />

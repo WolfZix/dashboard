@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import ThemeToggle from "../components/navbar/ThemeToggle";
 import { getDashboardData } from "../services/dashboard.server";
 import type { User } from "../components/UsersPage/users.types";
+import { saveUsers, getUsers } from "../services/userService";
 
 export default function LoginPage() {
   const [username, setUsername] = useState("");
@@ -25,7 +26,7 @@ export default function LoginPage() {
 
   const date = `${padZero(years)}-${padZero(months)}-${days}`;
 
-  const guestUser = {
+  const guestUser: User = {
     id: "Guest",
     name: "Guest",
     email: "Guest@gmail.com",
@@ -53,11 +54,12 @@ export default function LoginPage() {
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
-    if (!localStorage.getItem("users")) {
+    let users = getUsers();
+    if (users.length === 0) {
       const data = await getDashboardData();
-      localStorage.setItem("users", JSON.stringify(data.usersData));
+      saveUsers(data.usersData);
+      users = getUsers();
     }
-    const users = JSON.parse(localStorage.getItem("users") || "[]");
     const foundUser = users.find(
       (u: User) => u.name.toLowerCase() === username.toLowerCase(),
     );
@@ -83,15 +85,18 @@ export default function LoginPage() {
   }
 
   async function handleGuestLogin() {
-    if (!localStorage.getItem("users")) {
-      const data = await getDashboardData();
-      localStorage.setItem("users", JSON.stringify(data.usersData));
+    const users = getUsers();
+    if (!getUsers()) {
+      const users = getUsers();
+      if (users.length === 0) {
+        const data = await getDashboardData();
+        saveUsers(data.usersData);
+      }
     }
-    const users = JSON.parse(localStorage.getItem("users") || "[]");
     const guestExists = users.some((u: User) => u.name === "Guest");
     if (!guestExists) {
       users.push(guestUser);
-      localStorage.setItem("users", JSON.stringify(users));
+      saveUsers(users);
     }
     localStorage.setItem("username", "Guest");
     localStorage.setItem("mode", "comfortable");

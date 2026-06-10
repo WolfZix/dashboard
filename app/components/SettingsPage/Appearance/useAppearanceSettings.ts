@@ -3,6 +3,7 @@ import type { User } from "../../UsersPage/users.types";
 import { useTheme } from "../../../context/ThemeContext";
 import { useMode } from "../../../context/ModeContext";
 import { useAnimations } from "../../../context/AnimationContext";
+import { saveUsers, getUsers } from "../../../services/userService";
 
 type UseAppearanceSettingsProps = {
   user: User | null;
@@ -222,7 +223,7 @@ export default function useAppearanceSettings({
     originalAvatarRef.current = previewAvatar;
     originalBannerRef.current = previewBanner;
 
-    localStorage.setItem("users", JSON.stringify(updatedUsers));
+    saveUsers(updatedUsers);
     setCurrentUser(updatedUser);
     setOriginalUser(structuredClone(updatedUser));
   }

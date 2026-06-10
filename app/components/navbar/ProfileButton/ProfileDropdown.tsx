@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { getDashboardData } from "../../../services/dashboard.server";
 import { Settings, LucideUser, LucideLogOut } from "lucide-react";
 import { NavLink } from "react-router-dom";
+import { saveUsers, getUsers } from "../../../services/userService";
 
 type DashboardData = {
   profileOptions: {
@@ -77,11 +78,11 @@ export default function ProfileDropdown({
   function clearLocalStorage(optionName: string) {
     if (optionName === "Log Out") {
       if (userName === "Guest") {
-        const users = JSON.parse(localStorage.getItem("users") || "[]");
+        const users = getUsers();
         const updatedUsers = users.filter(
           (u: { id: number | "Guest" }) => u.id !== "Guest",
         );
-        localStorage.setItem("users", JSON.stringify(updatedUsers));
+        saveUsers(updatedUsers);
         localStorage.removeItem("username");
         localStorage.removeItem("animations");
         localStorage.removeItem("mode");
