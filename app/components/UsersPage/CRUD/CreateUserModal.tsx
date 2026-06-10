@@ -42,13 +42,7 @@ export default function CreateUserModal({
     if (!name.trim()) return;
 
     const newUser: User = {
-      id:
-        Math.max(
-          ...JSON.parse(localStorage.getItem("users") || "[]").map(
-            (u: User) => u.id,
-          ),
-          0,
-        ) + 1,
+      id: getNextUserId(),
       name,
       email,
       role,
