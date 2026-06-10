@@ -8,7 +8,7 @@ A modern dashboard application built with React, TypeScript and TailwindCSS.
 ---
 
 ## Live Demo
-https://wolfzix.github.io/dashboard
+[Open Dashboard App](https://wolfzix.github.io/dashboard)
 
 ---
 
@@ -24,7 +24,7 @@ Dashboard App is a frontend-focused project designed to simulate a modern admini
 - User profiles
 - Appearance settings
 - Account settings
-- Export profile data into JSON file
+- Profile data export (JSON)
 - Dark / Light theme
 - Compact / Comfortable mode
 - Analytics dashboard
@@ -63,8 +63,16 @@ The application uses:
 - Reusable UI components
 - Custom hooks for business logic
 
-Flow:
-Components -> Contexts -> Services -> LocalStorage
+---
+
+### Data Flow:
+Components
+↓
+Contexts
+↓
+Services
+↓
+LocalStorage
 
 ---
 
@@ -78,20 +86,22 @@ Dashboard summary, statistics and daily news.
 User management with search, sorting and pagination.
 ![Users Preview](./screenshots/users-preview.png)
 
-### Analytics
-Charts and user statistics.
+### Analytics - Charts
 ![Analytics Preview pt1](./screenshots/analytics-preview-1.png)
+### Analytics - User Statistics
 ![Analytics Preview pt2](./screenshots/analytics-preview-2.png)
 
 ### Profile
 User profile customization and activity tracking.
 ![Profile Preview](./screenshots/profile-preview.png)
 
-### Settings
-Appearance and account settings.
+### Settings - Avatar and Banner customization
 ![Appearance Settings Preview pt1](./screenshots/settings-preview-1.png)
+### Settings - Accent color, Theme, UI Density and Animations
 ![Appearance Settings Preview pt2](./screenshots/settings-preview-2.png)
+### Settings - Username, Email, Bio and Password
 ![Account Settings Preview pt1](./screenshots/settings-preview-3.png)
+### Settings - User Statistics, Data Export, Account Deletion
 ![Account Settings Preview pt2](./screenshots/settings-preview-4.png)
 
 ---
@@ -107,9 +117,9 @@ npm run dev
 ---
 
 ## Future Improvements
-- Backend integration
+- Express.js backend
+- PostgreSQL database
 - REST API
-- Database support
 - JWT authentication
 - Real notifications, statistics, users and daily news
 - Notification and privacy settings
@@ -118,7 +128,7 @@ npm run dev
 ---
 
 ## What I Learned
-During this project, I Improved my skills in:
+During this project, I improved my skills in:
 - React state management
 - TypeScript
 - Context API
@@ -126,5 +136,4 @@ During this project, I Improved my skills in:
 - CRUD operations
 - UI/UX design
 - Refactoring large codebases
-
 - Working with reusable components
