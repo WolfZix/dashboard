@@ -1,9 +1,8 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import type { ReactNode } from "react";
-import { getUsers } from "../services/userService";
 import type { User } from "../components/UsersPage/users.types";
 import { getUsername } from "../services/authService";
-import { getUserByName } from "../services/userService";
+import { useUsers } from "./UsersContext";
 
 type UserContextType = {
   currentUser: User | null;
@@ -15,24 +14,24 @@ const UserContext = createContext<UserContextType | null>(null);
 
 export function UserProvider({ children }: { children: ReactNode }) {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const { users } = useUsers();
   function reloadCurrentUser() {
     const storedUsername = getUsername();
-    const users = getUsers();
     if (users.length === 0) {
       setCurrentUser(null);
       return;
     }
-    const foundUser = storedUsername ? getUserByName(storedUsername) : null;
+    const foundUser = storedUsername
+      ? users.find(
+          (user) => user.name.toLowerCase() === storedUsername.toLowerCase(),
+        )
+      : null;
     setCurrentUser(foundUser || null);
   }
 
   useEffect(() => {
     reloadCurrentUser();
-    window.addEventListener("usersUpdated", reloadCurrentUser);
-    return () => {
-      window.removeEventListener("usersUpdated", reloadCurrentUser);
-    };
-  }, []);
+  }, [users]);
 
   return (
     <UserContext.Provider

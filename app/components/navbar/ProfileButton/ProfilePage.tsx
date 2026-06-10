@@ -16,7 +16,6 @@ export default function ProfilePage() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const { username } = useParams();
-  const users = getUsers();
   const [toast, setToast] = useState<{
     type: "success" | "error";
     message: string;
