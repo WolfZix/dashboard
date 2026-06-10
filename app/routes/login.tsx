@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import ThemeToggle from "../components/navbar/ThemeToggle";
 import { getDashboardData } from "../services/dashboard.server";
 import type { User } from "../components/UsersPage/users.types";
-import { saveUsers, getUsers } from "../services/userService";
+import { saveUsers, getUsers, getUserByName } from "../services/userService";
 import { getUsername, setUsername } from "../services/authService";
 
 export default function LoginPage() {
@@ -61,9 +61,7 @@ export default function LoginPage() {
       saveUsers(data.usersData);
       users = getUsers();
     }
-    const foundUser = users.find(
-      (u: User) => u.name.toLowerCase() === currentUsername.toLowerCase(),
-    );
+    const foundUser = currentUsername ? getUserByName(currentUsername) : null;
     if (!foundUser) {
       setToast({ type: "error", message: "User does not exist" });
       setTimeout(() => {

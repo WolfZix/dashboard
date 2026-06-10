@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import type { User } from "../UsersPage/users.types";
 import { saveUsers, getUsers } from "../../services/userService";
+import { setUsername as setLoggedUsername } from "../../services/authService";
 
 type SettingsAccountProps = {
   user: User | null;
@@ -49,30 +50,29 @@ export default function SettingsAccount({
         }, 2000);
         return;
       }
-
-      const updateUser: User = {
-        ...user,
-        name: username,
-        email,
-        bio,
-        password: newPassword ? newPassword : user.password,
-      };
-      setCurrentUser(updateUser);
-      const users: User[] = getUsers();
-      const updatedUsers = users.map((u) =>
-        u.id === user.id ? updateUser : u,
-      );
-      saveUsers(updatedUsers);
-      window.dispatchEvent(new Event("usersUpdated"));
-
       setCurrentPassword("");
       setNewPassword("");
       setConfirmPassword("");
-      setToast({ type: "success", message: "Saved changes" });
-      setTimeout(() => {
-        setToast(null);
-      }, 2000);
     }
+    const updateUser: User = {
+      ...user,
+      name: username,
+      email,
+      bio,
+      password: newPassword ? newPassword : user.password,
+    };
+    if (updateUser.name !== user.name) {
+      setLoggedUsername(updateUser.name);
+    }
+    setCurrentUser(updateUser);
+    const users: User[] = getUsers();
+    const updatedUsers = users.map((u) => (u.id === user.id ? updateUser : u));
+    saveUsers(updatedUsers);
+    window.dispatchEvent(new Event("usersUpdated"));
+    setToast({ type: "success", message: "Saved changes" });
+    toastTimeoutRef.current = setTimeout(() => {
+      setToast(null);
+    }, 2000);
   }
 
   function exportData() {

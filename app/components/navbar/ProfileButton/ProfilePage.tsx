@@ -5,7 +5,11 @@ import { useEffect, useState } from "react";
 import { getDashboardData } from "../../../services/dashboard.server";
 import { useNavigate } from "react-router-dom";
 import { formatTimeAgo } from "./profile.helpers";
-import { saveUsers, getUsers } from "../../../services/userService";
+import {
+  saveUsers,
+  getUsers,
+  getUserByName,
+} from "../../../services/userService";
 import { setUsername } from "../../../services/authService";
 
 export default function ProfilePage() {
@@ -17,9 +21,7 @@ export default function ProfilePage() {
     type: "success" | "error";
     message: string;
   } | null>(null);
-  const user = users?.find(
-    (u: User) => u.name.toLowerCase() === username?.toLowerCase(),
-  );
+  const user = username ? getUserByName(username) : null;
   const [editProfileOpen, setEditProfileOpen] = useState(false);
 
   useEffect(() => {
@@ -388,7 +390,6 @@ export default function ProfilePage() {
               navigate(`/profile/${updatedUser.name}`);
             }
             window.dispatchEvent(new Event("usersUpdated"));
-            saveUsers(updatedUsers);
             setToast({ type: "success", message: "User updated successfully" });
             setTimeout(() => {
               setToast(null);

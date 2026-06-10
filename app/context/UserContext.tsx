@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { getUsers } from "../services/userService";
 import type { User } from "../components/UsersPage/users.types";
 import { getUsername } from "../services/authService";
+import { getUserByName } from "../services/userService";
 
 type UserContextType = {
   currentUser: User | null;
@@ -21,9 +22,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
       setCurrentUser(null);
       return;
     }
-    const foundUser = users.find(
-      (user) => user.name.toLowerCase() === storedUsername?.toLowerCase(),
-    );
+    const foundUser = storedUsername ? getUserByName(storedUsername) : null;
     setCurrentUser(foundUser || null);
   }
 

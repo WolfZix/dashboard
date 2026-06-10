@@ -5,21 +5,16 @@ import SettingsPrivacy from "./SettingsPrivacy";
 import SettingsNotifications from "./SettingsNotifications";
 import SettingsSidebar from "./SettingsSidebar";
 import { useEffect, useState } from "react";
-import type { User } from "../UsersPage/users.types";
 import { useUser } from "../../context/UserContext";
 import { getUsername } from "../../services/authService";
+import { getUserByName } from "../../services/userService";
 
 export default function SettingsPage() {
   const { currentUser, setCurrentUser } = useUser();
   useEffect(() => {
     const storedUsername = getUsername();
     if (!storedUsername) return;
-    const savedUsers = localStorage.getItem("users");
-    if (!savedUsers) return;
-    const users: User[] = JSON.parse(savedUsers);
-    const foundUser = users.find(
-      (u) => u.name.toLowerCase() === storedUsername.toLowerCase(),
-    );
+    const foundUser = getUserByName(storedUsername);
     if (foundUser) setCurrentUser(foundUser);
   }, []);
   const [activeTab, setActiveTab] = useState("Appearance");
