@@ -75,6 +75,10 @@ export default function useAppearanceSettings({
     previewAnimations !== originalAnimationsRef.current;
 
   useEffect(() => {
+    setPreviewTheme(theme);
+  }, [theme])
+
+  useEffect(() => {
     savedRef.current = false;
     return () => {
       if (!savedRef.current) {

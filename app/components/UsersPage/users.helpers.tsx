@@ -47,6 +47,7 @@ export function getPermissions(currentUserRole: string) {
   return {
     canView: true,
     canEdit: currentUserRole === "Admin" || currentUserRole === "Moderator",
+    canCreate: currentUserRole === "Admin" || currentUserRole === "Moderator",
     canDelete: currentUserRole === "Admin",
   };
 }

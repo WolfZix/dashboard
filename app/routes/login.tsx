@@ -33,7 +33,7 @@ export default function LoginPage() {
   const date = `${years}-${padZero(months)}-${padZero(days)}`;
 
   const guestUser: User = {
-    id: "Guest",
+    id: 0,
     name: "Guest",
     email: "Guest@gmail.com",
     password: "",

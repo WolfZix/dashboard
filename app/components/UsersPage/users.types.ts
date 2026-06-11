@@ -1,5 +1,5 @@
 export type User = {
-  id: number | "Guest";
+  id: number;
   name: string;
   email: string;
   role: "Admin" | "Moderator" | "Premium" | "User" | "Guest";

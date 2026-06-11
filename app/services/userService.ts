@@ -17,7 +17,7 @@ export function getUserByName(username: string): User | undefined {
   );
 }
 
-export function getUserById(id: number | "Guest"): User | undefined {
+export function getUserById(id: number): User | undefined {
   const users = getUsers();
   return users.find((user) => user.id === id);
 }
@@ -31,7 +31,7 @@ export function updateUser(updatedUser: User) {
   window.dispatchEvent(new Event("usersUpdated"));
 }
 
-export function deleteUser(userId: number | "Guest") {
+export function deleteUser(userId: number) {
   const users = getUsers();
   const updatedUsers = users.filter((user) => user.id !== userId);
   saveUsers(updatedUsers);
@@ -53,6 +53,6 @@ export function userExists(username: string): boolean {
   return getUserByName(username) !== undefined;
 }
 
-export function userExistsById(id: number | "Guest"): boolean {
+export function userExistsById(id: number): boolean {
   return getUserById(id) !== undefined;
 }

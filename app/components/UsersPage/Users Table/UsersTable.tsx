@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { getDashboardData } from "../../../services/dashboard.server";
 import "../UsersPage.css";
 import UsersPagination from "../UsersPagination";
 import UsersSearch from "./UsersSearch";
@@ -27,7 +26,7 @@ export default function UsersTable() {
   const currentUserRole = currentUser?.role || "User";
   console.log({ currentUsername, currentUser, currentUserRole });
 
-  const { canView, canEdit, canDelete } = getPermissions(currentUserRole);
+  const { canView, canEdit, canDelete, canCreate } = getPermissions(currentUserRole);
 
   const [page, setPage] = useState(0);
   const [sortBy, setSortBy] = useState<SortBy>("id");
@@ -93,12 +92,14 @@ export default function UsersTable() {
     <>
       <div className="flex justify-between items-end">
         <UsersSearch search={search} setSearch={setSearch} />
+        {canCreate && (
         <button
           onClick={() => setCreateUserOpen(true)}
           className="dashboard-button-success"
         >
           Add User
         </button>
+        )}
       </div>
       <div className="usersTableWrapper transition-all duration-300">
         <table className="usersTable">
