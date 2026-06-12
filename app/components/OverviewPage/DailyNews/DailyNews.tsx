@@ -16,9 +16,28 @@ export default function DailyNews({ news }: DailyNewsProps) {
   );
   const { canAnimate } = useAnimations();
   const { mode } = useMode();
+  const [isMobileLayout, setIsMobileLayout] = useState(
+    window.innerWidth < 1280,
+  );
+
   const isCompact = mode === "compact";
   const isComfort = mode === "comfortable";
-  const showArrow = isComfort && !canAnimate;
+
+  const showArrow =
+    isComfort &&
+    !canAnimate &&
+    !isMobileLayout;
+
+  useEffect(() => {
+    function handleResize() {
+      setIsMobileLayout(window.innerWidth < 1280);
+    }
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
@@ -44,7 +63,6 @@ export default function DailyNews({ news }: DailyNewsProps) {
   }, [flashDirection]);
 
   function resetInterval() {
-    if (!canAnimate) return;
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
     }
@@ -59,44 +77,42 @@ export default function DailyNews({ news }: DailyNewsProps) {
   return (
     <>
       <div
-        className={`
-              dashboard-card
-              rounded-2xl
-              col-span-full
-              min-h-35
-              mt-2
-              py-3
-              compact:mt-0
-              compact:py-1.5
-              compact:min-h-[100%]
-              compact:col-span-1
-              compact:hidden
-            `}
+        className="
+          hidden xl:block
+          dashboard-card
+          rounded-2xl
+          col-span-1
+          xl:col-span-full
+          min-h-78
+          xl:min-h-18
+          xl:mt-2
+          py-3
+        "
       >
         <h2
           className="
-            dashboard-title 
+            dashboard-title
             text-2xl
             mx-5
             mb-2
-            compact:mx-2.5
-            compact:mb-1
-            compact:text-xl
           "
         >
           <DigitalClock />
         </h2>
+
         <div
           className="
             relative
-            border-y-2
+            w-full
+            border-t-2
+            xl:border-y-2
             dashboard-border
             mb-2
             overflow-hidden
             flex
-            justify-center
-            transition-all
-            duration-300
+            flex-col
+            items-center
+            justify-end
           "
         >
           {showArrow && (
@@ -109,6 +125,7 @@ export default function DailyNews({ news }: DailyNewsProps) {
               <ArrowLeft size={24} />
             </button>
           )}
+
           <AnimatePresence mode="wait">
             <motion.div
               key={page}
@@ -124,8 +141,10 @@ export default function DailyNews({ news }: DailyNewsProps) {
                   : undefined
               }
               className="
-                min-h-18
-                px-14
+                min-h-54
+                xl:min-h-18
+                px-8
+                xl:px-14
                 py-3
                 text-base
                 text-center
@@ -136,6 +155,7 @@ export default function DailyNews({ news }: DailyNewsProps) {
               {news[page]}
             </motion.div>
           </AnimatePresence>
+
           {showArrow && (
             <button
               onClick={() =>
@@ -146,7 +166,20 @@ export default function DailyNews({ news }: DailyNewsProps) {
               <ArrowRight size={24} />
             </button>
           )}
+
+          <span
+            className="
+              text-sm
+              text-lime-400
+              light:text-[#475569]
+              select-none
+              xl:hidden
+            "
+          >
+            {page + 1} / {news.length}
+          </span>
         </div>
+
         <div className="flex justify-center gap-1.5">
           {Array.from({ length: news.length }).map((_, i) => (
             <div
@@ -155,50 +188,48 @@ export default function DailyNews({ news }: DailyNewsProps) {
                 setPage(i);
                 resetInterval();
               }}
-              className={`dashboard-pagination-dot 
-                ${
-                  i === page
-                    ? "bg-[#22c55e]"
-                    : "bg-slate-700 light:bg-[#cbd5e1] light:hover:bg-[#b2bbc6]"
-                }
-              `}
-            />
+              className={`dashboard-pagination-dot lg:h-fit lg:w-9 ${
+                i === page
+                  ? "bg-[#22c55e] text-black font-semibold scale-115"
+                  : "bg-slate-700 light:bg-[#cbd5e1] light:hover:bg-[#b2bbc6]"
+              }`}
+            >
+              {i + 1}
+              </div>
           ))}
         </div>
       </div>
 
-      {isCompact && (
+      {(isCompact || isMobileLayout) && (
         <div
-          className={`
-          dashboard-card
-          rounded-2xl
-          mt-0
-          py-1.5
-          min-h-full
-          col-span-1
-          overflow-hidden
-          flex
-          flex-col
-          `}
+          className="
+            dashboard-card
+            rounded-2xl
+            col-span-1
+            overflow-hidden
+            flex
+            flex-col
+            min-h-66
+            lg:h-fit
+          "
         >
           <h2
             className="
-            dashboard-title
-            mx-2.5
-            mb-2
-            text-xl
+              dashboard-title
+              px-4
+              py-3
+              text-xl
             "
           >
             <DigitalClock />
           </h2>
+
           <div
             className="
-            flex-1
-            overflow-hidden
-            border-y-2
-            dashboard-border
-            transition-all
-            duration-300
+              flex-1
+              overflow-hidden
+              border-y-2
+              dashboard-border
             "
           >
             <AnimatePresence mode="wait">
@@ -237,31 +268,40 @@ export default function DailyNews({ news }: DailyNewsProps) {
                     : undefined
                 }
                 className="
-                flex
-                h-full
-                px-4
-                py-4
-                compact:px-2
-                compact:py-2
-                text-base
-                dashboard-text
-                select-none
-                transition-all
-                duration-300
+                  flex
+                  items-center
+                  justify-center
+                  text-center
+
+                  min-h-42
+                  lg:min-h-fit
+
+                  px-4
+                  py-6
+
+                  compact:px-2
+                  compact:py-2
+
+                  text-base
+                  dashboard-text
+                  select-none
                 "
               >
                 {news[page]}
               </motion.div>
             </AnimatePresence>
           </div>
+
           <div
             className="
-            mt-3
-            flex
-            items-center
-            justify-around
-            px-4
-            compact:px-2
+              flex
+              items-center
+              justify-between
+
+              px-4
+              py-4 lg:py-2
+
+              compact:px-2
             "
           >
             <button
@@ -269,31 +309,32 @@ export default function DailyNews({ news }: DailyNewsProps) {
                 setPage((prev) => (prev === 0 ? news.length - 1 : prev - 1));
                 resetInterval();
               }}
-              className={`dashboard-icon-button hover:text-lime-500
-              `}
+              className="dashboard-icon-button hover:text-lime-500"
             >
-              <ArrowLeft size={16} />
+              <ArrowLeft size={18} />
             </button>
+
             <span
               className="
-              text-sm
-              text-lime-400
-              light:text-[#475569]
-              select-none
+                text-base lg:text-sm
+                text-lime-400
+                light:text-[#475569]
+                select-none
               "
             >
               {page + 1} / {news.length}
             </span>
+
             <button
               onClick={() => {
                 setPage((prev) => (prev === news.length - 1 ? 0 : prev + 1));
                 resetInterval();
               }}
-              className={`dashboard-icon-button hover:text-lime-500
-              ${flashDirection === "right" ? "text-lime-500" : ""}
-            `}
+              className={`dashboard-icon-button hover:text-lime-500 ${
+                flashDirection === "right" ? "text-lime-500" : ""
+              }`}
             >
-              <ArrowRight size={16} />
+              <ArrowRight size={18} />
             </button>
           </div>
         </div>

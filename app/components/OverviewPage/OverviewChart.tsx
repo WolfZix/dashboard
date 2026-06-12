@@ -39,18 +39,22 @@ export default function OverviewChart({ chart }: OverviewChartProps) {
   const tooltipBorder = isLightMode
     ? "1px solid rgba(0,0,0,0.1)"
     : "1px solid hsla(225, 0%, 100%, 0.15)";
+  const maxValue =
+    Math.ceil(Math.max(...chart.map((data) => data.revenue)) / 10000) * 10000;
 
   return (
     <div
       className="
-        xl:col-span-2
+        col-span-2
         bg-[#0b1220]
         border border-slate-800
         light:bg-white
         light:border-[#e2e8f0]
         rounded-2xl
         p-5
-        h-80
+        h-70
+        lg:h-55
+        xl:h-80
         compact:p-2
         compact:rounded-xl
         compact:h-[100%]
@@ -59,6 +63,7 @@ export default function OverviewChart({ chart }: OverviewChartProps) {
         light:hover:bg-[#f8fafc]
         transition-all
         duration-300
+        hidden md:block
       "
     >
       <h2
@@ -75,8 +80,8 @@ export default function OverviewChart({ chart }: OverviewChartProps) {
         Revenue
       </h2>
 
-      <ResponsiveContainer width="100%" height="90%">
-        <AreaChart data={chart}>
+      <ResponsiveContainer width="100%" height="100%" className="pb-5 lg:pb-5">
+        <AreaChart data={chart} className="px-0.5">
           <defs>
             <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" stopColor="#22c55e" stopOpacity={0.4} />
@@ -103,7 +108,13 @@ export default function OverviewChart({ chart }: OverviewChartProps) {
             style={{ fontSize: "14px" }}
           />
 
-          <YAxis stroke={chartText} style={{ fontSize: "14px" }} />
+          <YAxis
+          interval={0}
+          domain={[0, maxValue]}
+          ticks={Array.from({ length: maxValue / 20000 + 1 }, (_, i) => i * 20000)}
+          allowDecimals={false}
+          stroke={chartText}
+          style={{ fontSize: "14px" }} />
 
           <Tooltip
             contentStyle={{

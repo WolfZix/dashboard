@@ -34,8 +34,9 @@
     @apply text-slate-400 light:text-[#64748b] text-sm;
   }
   .dashboard-icon-button {
-    @apply w-8
-      h-8
+    @apply
+      w-12 lg:w-8
+      h-12 lg:h-8
       flex
       items-center
       justify-center
@@ -77,8 +78,10 @@
     @apply text-slate-400 light:text-slate-600;
   }
   .dashboard-pagination-dot {
-    @apply h-2.5
-      w-7
+    @apply 
+      h-fit
+      w-12
+      text-center
       cursor-pointer
       rounded-full
       transition-all

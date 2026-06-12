@@ -44,9 +44,9 @@ export default function RecentActivities({
   };
 
   return (
-    <div className="dashboard-card rounded-2xl px-6 py-5 compact:rounded-xl compact:px-3 compact:py-2 compact:col-span-1">
-      <h2 className="dashboard-title mb-2 text-2xl compact:mb-1 compact:text-xl">
-        Recent activities (last 5 days)
+    <div className="dashboard-card flex flex-col justify-around xl:min-h-fit rounded-2xl py-2 md:py-5 md:px-6 col-span-1 compact:rounded-xl compact:px-3 compact:py-2 compact:col-span-1">
+      <h2 className="dashboard-title text-xl text-center mb-2 md:text-left md:text-2xl compact:mb-1 compact:text-xl">
+        Recent activities
       </h2>
 
       <AnimatePresence mode="wait">
@@ -69,7 +69,7 @@ export default function RecentActivities({
                 }
               : undefined
           }
-          className="text-lg compact:text-base dashboard-muted-text space-y-2 compact:space-y-1 select-none"
+          className="text-base text-center md:text-lg md:text-left compact:text-base dashboard-muted-text space-y-0.5 lg:space-y-2 compact:space-y-1 select-none"
         >
           {visibleActivities.map((item, i) => (
             <motion.li
@@ -84,7 +84,7 @@ export default function RecentActivities({
         </motion.ul>
       </AnimatePresence>
 
-      <div className="mt-3 flex gap-1 compact:mt-1.5 compact:gap-0.5">
+      <div className="justify-center md:justify-start mt-2 flex gap-2 md:gap-1 compact:mt-1.5 compact:gap-0.5">
         {Array.from({ length: pages }).map((_, i) => (
           <div
             key={i}
@@ -92,12 +92,14 @@ export default function RecentActivities({
               setPage(i);
               resetInterval();
             }}
-            className={`dashboard-pagination-dot compact:h-1.75 ${
+            className={`dashboard-pagination-dot lg:h-fit compact:h-1.75 ${
               i === page
-                ? "bg-[#22c55e]"
+                ? "bg-[#22c55e] text-black scale-115 font-semibold"
                 : "bg-slate-700 light:bg-[#cbd5e1] light:hover:bg-[#b2bbc6]"
             }`}
-          />
+          >
+            {i + 1}
+          </div>
         ))}
       </div>
     </div>

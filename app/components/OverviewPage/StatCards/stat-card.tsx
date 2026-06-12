@@ -28,7 +28,7 @@ export default function StatCard({ title, value, change }: StatCardProps) {
       variants={cardVariants}
       transition={{ duration: 0.2 }}
       whileHover={canAnimate ? { scale: 1.02 } : undefined}
-      className="dashboard-card rounded-2xl compact:rounded-xl p-5 compact:p-3"
+      className="dashboard-card rounded-2xl compact:rounded-xl px-4 py-2 lg:p-5 compact:p-3"
     >
       <p className="dashboard-subtitle">{title}</p>
       <div className="flex items-end justify-between mt-2 compact:mt-1">

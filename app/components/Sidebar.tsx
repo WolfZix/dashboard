@@ -7,6 +7,7 @@ import UsersMessage from "./UsersPage/UsersMessage";
 import AnalyticsMessage from "./AnalyticsPage/AnalyticsMessage";
 import { useLocation } from "react-router-dom";
 import type { SetStateAction } from "react";
+import { useEffect } from "react";
 import { motion} from "framer-motion";
 
 type SidebarProps = {
@@ -32,6 +33,15 @@ export default function Sidebar({setIsOpen, isOpen, links, userRole }: SidebarPr
     }
     return true;
   });
+  useEffect(() => {
+  function handleResize() {
+    setIsOpen(window.innerWidth >= 1024);
+  }
+  window.addEventListener("resize", handleResize);
+  return () => {
+    window.removeEventListener("resize", handleResize);
+  }
+}, []);
   return (
     <motion.aside
     initial={false}
