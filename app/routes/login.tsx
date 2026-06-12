@@ -108,6 +108,7 @@ export default function LoginPage() {
     }
     setUsername("Guest");
     localStorage.setItem("mode", "comfortable");
+    window.dispatchEvent(new Event("usersUpdated"));
     navigate("/");
   }
 
