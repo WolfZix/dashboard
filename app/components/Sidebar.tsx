@@ -63,6 +63,8 @@ export default function Sidebar({setIsOpen, isOpen, links, userRole }: SidebarPr
     z-50
     lg:static
     lg:translate-x-0
+    lg:transition-all
+    lg:duration-300
   "
 >
       <div>
