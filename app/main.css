@@ -315,6 +315,42 @@
     hover:scale-[1.02]
     active:scale-[0.98];
   }
+  .dashboard-login-input {
+    @apply w-full
+    px-2 md:px-4
+    py-3
+    rounded-xl
+    border
+    text-slate-300
+    light:text-[#0f172a]
+    border-slate-600
+    light:border-[#e2e8f0]
+    light:placeholder-slate-400
+    placeholder-slate-500
+    focus:outline-none
+    focus:ring-2
+    focus:ring-slate-500
+    transition-all
+    duration-300
+  }
+  .dashboard-login-button {
+    @apply w-full
+    bg-slate-900
+    light:bg-white
+    border-2
+    border-slate-600
+    light:border-slate-400
+    text-white
+    light:text-[#0f172a]
+    py-3
+    rounded-xl
+    font-medium
+    hover:bg-slate-800
+    light:hover:bg-slate-200
+    cursor-pointer
+    transition-all
+    duration-300
+  }
 }
 
 #root {
