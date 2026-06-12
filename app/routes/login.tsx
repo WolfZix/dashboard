@@ -10,10 +10,12 @@ import {
   createUser,
 } from "../services/userService";
 import { getUsername, setUsername } from "../services/authService";
+import { Info } from "lucide-react";
 
 export default function LoginPage() {
   const [currentUsername, setCurrentUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [showAccounts, setShowAccounts] = useState(false);
   const navigate = useNavigate();
 
   const [toast, setToast] = useState<{
@@ -110,9 +112,75 @@ export default function LoginPage() {
         <h1 className="text-3xl font-bold mb-2 text-white light:text-[#0f172a] transition-all duration-300">
           Welcome!
         </h1>
-        <p className="text-slate-400 light:text-[#475569] mb-6 transition-all duration-300">
-          Sign in to see your dashboard
-        </p>
+
+        <div className="mb-6">
+          <div className="flex items-center gap-1 text-slate-400 light:text-[#475569]">
+            <p>Sign in to see your dashboard</p>
+
+            <button
+              onClick={() => setShowAccounts(!showAccounts)}
+              className="
+                cursor-pointer
+                hover:text-white
+                light:hover:text-slate-900
+                transition-colors
+              "
+            >
+              <Info size={16} />
+            </button>
+          </div>
+
+          {showAccounts && (
+            <div
+              className="
+                mt-3
+                rounded-xl
+                border
+                border-slate-700
+                light:border-slate-200
+                p-4
+                text-sm
+              "
+            >
+              <div className="flex justify-between">
+              <h3 className="font-semibold mb-3 text-white light:text-slate-900">
+                Test Account's Role
+              </h3>
+              <h3 className="font-semibold mb-3 text-white light:text-slate-900">
+                Username
+              </h3>
+              </div>
+
+              <div className="space-y-2 text-slate-400">
+                <div className="flex justify-between">
+                  <span>Admin</span>
+                  <span className="font-medium">WolfeZix</span>
+                </div>
+
+                <div className="flex justify-between">
+                  <span>Moderator</span>
+                  <span className="font-medium">NovaByte</span>
+                </div>
+
+                <div className="flex justify-between">
+                  <span>Premium</span>
+                  <span className="font-medium">PixelCrafter</span>
+                </div>
+
+                <div className="flex justify-between">
+                  <span>User</span>
+                  <span className="font-medium">ShadowSync</span>
+                </div>
+              </div>
+
+              <div className="mt-3 pt-3 border-t border-slate-700 light:border-slate-300">
+                <p className="text-xs text-slate-500">
+                  Password: leave empty
+                </p>
+              </div>
+            </div>
+          )}
+        </div>
         <div className="absolute right-0 top-0 mt-8 mr-8 w-10 h-10 text-white light:text-[#0f172a]">
           <ThemeToggle />
         </div>
@@ -221,43 +289,7 @@ export default function LoginPage() {
           </button>
         </form>
       </div>
-      <div className="absolute left-0 w-60 h-full bg-black/15 text-slate-500 py-4 flex flex-col space-y-5 border-r border-slate-900">
-        <p className="pl-2 text-lg text-slate-400">
-          <b>For testing purposes only</b>
-        </p>
-        <hr className="text-slate-900" />
-        <p className="pl-2">
-          <b>Admin login:</b>
-          <br />
-          username: WolfeZix
-          <br />
-          password: (leave empty)
-        </p>
-        <hr className="my-3 text-slate-900" />
-        <p className="pl-2">
-          <b>Moderator login:</b>
-          <br />
-          username: NovaByte
-          <br />
-          password: (leave empty)
-        </p>
-        <hr className="my-3 text-slate-900" />
-        <p className="pl-2">
-          <b>Premium login:</b>
-          <br />
-          username: PixelCrafter
-          <br />
-          password: (leave empty)
-        </p>
-        <hr className="my-3 text-slate-900" />
-        <p className="pl-2">
-          <b>User login:</b>
-          <br />
-          username: ShadowSync
-          <br />
-          password: (leave empty)
-        </p>
-      </div>
+      
       {toast && (
         <div className="fixed bottom-5 right-5 z-999 overflow-hidden rounded-2xl compact:rounded-xl border border-slate-700 bg-slate-900 shadow-2xl min-w-80 transition-all duration-300">
           {/* Progress bar */}
