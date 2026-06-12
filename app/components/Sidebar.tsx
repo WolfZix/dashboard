@@ -91,7 +91,7 @@ export default function Sidebar({setIsOpen, isOpen, links, userRole }: SidebarPr
                     </p>
 
                     <p
-                      className={isActive ? "text-slate-400" : "text-slate-600"}
+                      className={`${isActive ? "text-slate-400" : "text-slate-600"} opacity-0 lg:opacity-100`}
                     >
                       {link.shortcut}
                     </p>
@@ -120,7 +120,7 @@ export default function Sidebar({setIsOpen, isOpen, links, userRole }: SidebarPr
                 Settings
               </p>
 
-              <p className={isActive ? "text-slate-400" : "text-slate-600"}>
+              <p className={`${isActive ? "text-slate-400" : "text-slate-600"} opacity-0 lg:opacity-100`}>
                 Alt+S
               </p>
             </div>
