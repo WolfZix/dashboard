@@ -61,12 +61,15 @@ export default function Dropdown({ onClose }: DropdownProps) {
       id="notificationsDropdown"
       className="
         absolute
-        top-14
+        top-12
         right-0
-        w-96
-        max-h-125
+        w-75
+        md:w-96
+        max-h-75
+        md:max-h-125
         overflow-y-auto
         rounded-2xl
+        rounded-r-none
         border
         scrollbar-thumb-[white]
         light:scrollbar-thumb-slate-200
