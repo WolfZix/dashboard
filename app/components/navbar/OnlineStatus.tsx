@@ -2,7 +2,6 @@ export default function OnlineStatus() {
   return (
     <div
       className="
-        flex items-center gap-2
         compact:gap-1
         px-3 py-2
         compact:px-1.5
@@ -14,6 +13,7 @@ export default function OnlineStatus() {
         light:border-[#e2e8f0]
         transition-all
         duration-300
+        hidden md:flex md:items-center md:gap-2
       "
     >
       <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />

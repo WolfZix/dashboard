@@ -6,7 +6,7 @@ export default function NotificationsButton() {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="relative z-999">
+    <div className="relative">
       <button
         id="notificationsButton"
         onClick={() => setOpen((prev) => !prev)}

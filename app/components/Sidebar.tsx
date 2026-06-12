@@ -1,4 +1,4 @@
-import { Settings } from "lucide-react";
+import { MenuIcon, Settings } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import type { LucideIcon } from "lucide-react";
 
@@ -6,8 +6,12 @@ import OverviewMessage from "./OverviewPage/OverviewMessage";
 import UsersMessage from "./UsersPage/UsersMessage";
 import AnalyticsMessage from "./AnalyticsPage/AnalyticsMessage";
 import { useLocation } from "react-router-dom";
+import type { SetStateAction } from "react";
+import { motion} from "framer-motion";
 
 type SidebarProps = {
+  isOpen: boolean;
+  setIsOpen: React.Dispatch<SetStateAction<boolean>>;
   links: {
     name: string;
     path: string;
@@ -17,7 +21,7 @@ type SidebarProps = {
   userRole?: string;
 };
 
-export default function Sidebar({ links, userRole }: SidebarProps) {
+export default function Sidebar({setIsOpen, isOpen, links, userRole }: SidebarProps) {
   const location = useLocation();
   const visibleLinks = links.filter((link) => {
     if (
@@ -29,20 +33,50 @@ export default function Sidebar({ links, userRole }: SidebarProps) {
     return true;
   });
   return (
-    <aside className="w-64 compact:w-55 light:bg-[white] bg-slate-900 border-r dashboard-sidebar-border flex flex-col justify-between transition-all duration-300">
+    <motion.aside
+    initial={false}
+    animate={{
+      x: isOpen ? 0 : "-100%",
+    }}
+    transition={{
+      duration: 0.2,
+      ease: "easeInOut",
+    }}
+    className="
+    w-64 compact:w-55
+    light:bg-[white] bg-slate-900
+    border-r
+    dashboard-sidebar-border
+    flex flex-col justify-between
+    fixed
+    top-0 bottom-0 left-0
+    z-50
+    lg:static
+    lg:translate-x-0
+  "
+>
       <div>
-        <div className="h-16 flex items-center px-6 compact:px-3 border-b dashboard-sidebar-border transition-all duration-300">
+        <div className="hidden lg:flex h-16 items-center px-6 compact:px-3 border-b dashboard-sidebar-border transition-all duration-300">
           <div>
             {location.pathname === "/" && <OverviewMessage />}
             {location.pathname === "/users" && <UsersMessage />}
             {location.pathname === "/analytics" && <AnalyticsMessage />}
           </div>
         </div>
+          <div className="flex lg:hidden h-16 items-center px-6 compact:px-3 border-b dashboard-sidebar-border transition-all duration-300">
+            <button onClick={() => setIsOpen(!isOpen)}>
+            <MenuIcon size={24}/>
+        </button>
+          </div>
         <nav className="p-4 space-y-1 compact:p-2">
           {visibleLinks.map((link) => {
             const Icon = link.icon;
             return (
-              <NavLink key={link.path} to={link.path}>
+              <NavLink
+              key={link.path}
+              to={link.path}
+              onClick={() => setIsOpen(false)}
+              >
                 {({ isActive }) => (
                   <div
                     className={`dashboard-sidebar-link flex justify-between ${
@@ -69,7 +103,10 @@ export default function Sidebar({ links, userRole }: SidebarProps) {
         </nav>
       </div>
       <div className="p-4 compact:p-2 border-t dashboard-sidebar-border transition-all duration-300">
-        <NavLink to={"settings"}>
+        <NavLink
+        to={"settings"}
+        onClick={() => setIsOpen(false)}
+        >
           {({ isActive }) => (
             <div
               className={`dashboard-sidebar-link flex justify-between ${
@@ -90,6 +127,6 @@ export default function Sidebar({ links, userRole }: SidebarProps) {
           )}
         </NavLink>
       </div>
-    </aside>
+    </motion.aside>
   );
 }

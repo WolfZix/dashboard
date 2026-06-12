@@ -2,10 +2,15 @@ import NotificationsButton from "./NotificationsButton/NotificationsButton";
 import OnlineStatus from "./OnlineStatus";
 import ThemeToggle from "./ThemeToggle";
 import UserProfile from "./ProfileButton/UserProfile";
-import { useLocation } from "react-router-dom";
+import { MenuIcon } from "lucide-react";
+import type { SetStateAction } from "react";
 
-export default function Navbar() {
-  const location = useLocation();
+type NavbarProps = {
+  isSidebarOpen: boolean;
+  setIsSidebarOpen: React.Dispatch<SetStateAction<boolean>>;
+}
+
+export default function Navbar({ setIsSidebarOpen, isSidebarOpen }: NavbarProps) {
   return (
     <header
       className="
@@ -24,7 +29,12 @@ export default function Navbar() {
         duration-300
       "
     >
-      <div className="flex items-center gap-4 compact:gap-2">
+      <div className="flex items-center justify-between lg:justify-end w-full gap-4 compact:gap-2">
+        <div className={`${isSidebarOpen ? "opacity-0" : "opacity-100"} flex justify-start w-full lg:hidden`}>
+        <button onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
+            <MenuIcon size={24}/>
+        </button>
+        </div>
         <OnlineStatus />
         <ThemeToggle />
         <NotificationsButton />

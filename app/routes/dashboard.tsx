@@ -1,5 +1,6 @@
 import { BarChart3, LayoutDashboard, Users } from "lucide-react";
 import { Outlet } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/navbar/Navbar";
@@ -7,6 +8,7 @@ import { useUser } from "../context/UserContext";
 
 export default function DashboardLayout() {
   const { currentUser } = useUser();
+  const [isSidebarOpen, setIsSidebarOpen] = useState(window.innerWidth >= 1024 ? true : false);
   const links = [
     {
       name: "Overview",
@@ -37,9 +39,15 @@ export default function DashboardLayout() {
 
   return (
     <div className="min-h-screen flex bg-slate-950 text-white light:bg-slate-100 light:text-[#0f172a] transition-all duration-300">
-      <Sidebar links={visibleLinks} />
+      <Sidebar setIsOpen={setIsSidebarOpen} isOpen={isSidebarOpen} links={visibleLinks} />
+      {isSidebarOpen && (
+        <div
+        className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+        onClick={() => setIsSidebarOpen(false)} 
+        />
+      )}
       <main className="flex-1">
-        <Navbar />
+        <Navbar setIsSidebarOpen={setIsSidebarOpen} isSidebarOpen={isSidebarOpen} />
         <div className="flex-1 p-6 compact:p-3">
           <Outlet />
         </div>
